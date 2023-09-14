@@ -1,0 +1,62 @@
+[
+  {
+    "task_id": 1,
+    "task_name": "Prepare Weekly Report",
+    "task_details": "Gather data, analyze performance metrics, and create a comprehensive weekly report for management.",
+    "task_time": "09:00 AM - 11:00 AM"
+  },
+  {
+    "task_id": 2,
+    "task_name": "Client Meeting",
+    "task_details": "Schedule and conduct a client meeting to discuss project progress and address any concerns.",
+    "task_time": "11:30 AM - 12:30 PM"
+  },
+  {
+    "task_id": 3,
+    "task_name": "Lunch Break",
+    "task_details": "Take a break and have lunch.",
+    "task_time": "01:00 PM - 02:00 PM"
+  },
+  {
+    "task_id": 4,
+    "task_name": "Code Review",
+    "task_details": "Participate in a code review session to provide feedback and ensure code quality.",
+    "task_time": "02:30 PM - 03:30 PM"
+  },
+  {
+    "task_id": 5,
+    "task_name": "Bug Fixing",
+    "task_details": "Identify and fix critical bugs reported by QA testers.",
+    "task_time": "04:00 PM - 05:30 PM"
+  },
+  {
+    "task_id": 6,
+    "task_name": "Team Meeting",
+    "task_details": "Attend a team meeting to discuss project milestones and plan upcoming tasks.",
+    "task_time": "10:00 AM - 11:30 AM"
+  },
+  {
+    "task_id": 7,
+    "task_name": "Research and Development",
+    "task_details": "Allocate time for researching new technologies and prototyping new features.",
+    "task_time": "02:00 PM - 04:00 PM"
+  },
+  {
+    "task_id": 8,
+    "task_name": "Documentation",
+    "task_details": "Update project documentation, including user manuals and API documentation.",
+    "task_time": "03:30 PM - 05:00 PM"
+  },
+  {
+    "task_id": 9,
+    "task_name": "Quality Assurance",
+    "task_details": "Conduct thorough testing of new software features and report defects.",
+    "task_time": "09:30 AM - 11:00 AM"
+  },
+  {
+    "task_id": 10,
+    "task_name": "End-of-Day Review",
+    "task_details": "Review completed tasks, plan for the next day, and wrap up loose ends.",
+    "task_time": "05:30 PM - 06:00 PM"
+  }
+]
