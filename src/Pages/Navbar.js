@@ -54,13 +54,29 @@ export const Navbar = () => {
     }
 
     return (
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" 
-        data-bg-class="bg-menu-theme" style={{height:"92vh"}}>
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme"
+            data-bg-class="bg-menu-theme" style={{ height: "92vh" }}>
             <Helmet>
-                <link rel="stylesheet"
+                {/* <link rel="stylesheet"
                     href="../assets_pro/vendor/css/rtl/theme-semi-dark.css"
                     class="template-customizer-theme-css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+ */}
+                <script src="../assets/vendor/js/bootstrap.js" data-react-helmet="true"></script>
+                <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+                    rel="stylesheet"
+                />
+                <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+                <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
+                <link rel="stylesheet" href="../assets_pro/vendor/css/rtl/theme-semi-dark.css" class="template-customizer-theme-css" />
+                <link rel="stylesheet" href="../assets/css/demo.css" />
+                <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+                <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+
             </Helmet>
             {/* <div class="app-brand demo">
                 <Link to="#" class="app-brand-link">
@@ -92,7 +108,7 @@ export const Navbar = () => {
                                 </Link>
                             </>
                     } */}
-                    <Link to="" class="menu-link">
+                    <Link to="/dashboard" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
                     </Link>
@@ -100,18 +116,41 @@ export const Navbar = () => {
                 </li>
 
                 <li class="menu-item">
-                    <Link to="" class="menu-link menu-toggle" onClick={list1}>
+                    <Link to="/TaskbarPages/1" class="menu-link menu-toggle" onClick={list1}>
                         <i class="menu-icon tf-icons bx bx-layout"></i>
                         <div data-i18n="Task List">Task List</div>
                     </Link>
                 </li>
 
                 <li class="menu-item">
-                    <Link to="" class="menu-link menu-toggle" onClick={list2}>
+                    <Link to="#" class="menu-link menu-toggle" onClick={list2}>
                         <i class="menu-icon tf-icons bx bx-dock-top"></i>
                         <div data-i18n="Account Settings">Account Settings</div>
                     </Link>
 
+                </li>
+                <li class="menu-item" >
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
+                        <div class="text-truncate" data-i18n="Wizard Examples">Wizard Examples</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item active">
+                            <a href="wizard-ex-checkout.html" class="menu-link">
+                                <div class="text-truncate" data-i18n="Checkout">Checkout</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="wizard-ex-property-listing.html" class="menu-link">
+                                <div class="text-truncate" data-i18n="Property Listing">Property Listing</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="wizard-ex-create-deal.html" class="menu-link">
+                                <div class="text-truncate" data-i18n="Create Deal">Create Deal</div>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">

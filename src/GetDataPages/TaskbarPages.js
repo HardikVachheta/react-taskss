@@ -5,12 +5,23 @@ import { Helmet } from 'react-helmet';
 import { Navbar_u } from '../Pages/Navbar_u';
 import { Taskbar } from '../Pages/Taskbar';
 import { Navbar } from '../Pages/Navbar';
-// import formData from '../data/table2.json'
-import formData from '../data/teble1.json'
+import formData2 from '../data/table2.json'
+import formData1 from '../data/teble1.json'
 import AutoPages from './AutoPages';
+import { Formio } from 'formiojs';
+import Test1 from './Test1';
+// import Formio from 'formiojs';
+
+
 
 export const TaskbarPages = () => {
 
+    
+    <script type="text/javascript">
+  window.onload = function() {
+    Formio.createForm(document.getElementById('formio'), 'https://qzpamhxbjnprhqk.form.io/localuser')
+  };
+</script>
     var id = useParams().id
     console.log("Taskbar page id :----", id)
 
@@ -37,13 +48,14 @@ export const TaskbarPages = () => {
         behavior: 'smooth',
     }
 
-
     return (
         <div>
             <Navbar_u />
+
             <div class="layout-wrapper layout-content-navbar" >
                 <Helmet>
                     <title>Dashboard </title>
+
 
                     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
                     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -58,7 +70,7 @@ export const TaskbarPages = () => {
                     <link rel="stylesheet" href="../assets/css/demo.css" />
                     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
                     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
-
+                    
                 </Helmet>
                 <div class="layout-container" >
                     <Navbar />
@@ -67,8 +79,19 @@ export const TaskbarPages = () => {
 
                         <div class="content-wrapper">
                             <div class="container-xxl flex-grow-1 container-p-y" style={scroll1}>
-                                <div class="row">    
-                                <AutoPages formData={formData} />
+                                <div class="row">
+                                    {
+                                        users.task_id == 1 ? <AutoPages formData={formData1} /> :
+                                            users.task_id == 2 ? <AutoPages formData={formData2} /> : null
+                                    }
+                                    {/* {
+                                        users.task_id == 1 ? <Test1 formData={formData1} /> :
+                                            users.task_id == 2 ? <Test1 formData={formData2} /> : null
+                                    } */}
+                                    {/* <Test1 formData={formData1}/> */}
+
+                                    {/* <div id="formio"></div> */}
+                                    {/* <AutoPages formData={formData2} /> */}
                                     {/* <div class="col-xl">
                                         <div class="card mb-4">
                                             <div class="card-header d-flex justify-content-between align-items-center">
@@ -123,6 +146,7 @@ export const TaskbarPages = () => {
                     </div>
                 </div>
             </div>
+            
         </div>
     )
 }
