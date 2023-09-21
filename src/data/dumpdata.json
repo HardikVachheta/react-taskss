@@ -2,12 +2,73 @@
   {
     "task_id": 1,
     "task_name": "Prepare Weekly Report",
+    "task_form": [
+      {
+        "name": "firstName",
+        "label": "First Name",
+        "type": "text",
+        "placeholder": "Enter your first name"
+      },
+      {
+        "name": "lastName",
+        "label": "Last Name",
+        "type": "text",
+        "placeholder": "Enter your last name"
+      },
+      {
+        "name": "email",
+        "label": "Email",
+        "type": "email",
+        "placeholder": "Enter your email"
+      },
+      {
+        "name": "task_name",
+        "type": "hidden",
+        "value": 1
+      }
+    ],
     "task_details": "Gather data, analyze performance metrics, and create a comprehensive weekly report for management.",
     "task_time": "09:00 AM - 11:00 AM"
   },
   {
     "task_id": 2,
     "task_name": "Client Meeting",
+    "task_form": [
+      {
+        "name": "firstName",
+        "label": "First Name",
+        "type": "text",
+        "placeholder": "Enter your first name"
+      },
+      {
+        "name": "lastName",
+        "label": "Last Name",
+        "type": "text",
+        "placeholder": "Enter your last name"
+      },
+      {
+        "name": "email",
+        "label": "Email",
+        "type": "email",
+        "placeholder": "Enter your email"
+      },
+      {
+        "name": "password",
+        "label": "Password",
+        "type": "password",
+        "placeholder": "Enter your password"
+      },
+      {
+        "name": "gender",
+        "label": "Gender",
+        "type": "select",
+        "options": [
+          "Male",
+          "Female",
+          "Other"
+        ]
+      }
+    ],
     "task_details": "Schedule and conduct a client meeting to discuss project progress and address any concerns.",
     "task_time": "11:30 AM - 12:30 PM"
   },
@@ -58,5 +119,65 @@
     "task_name": "End-of-Day Review",
     "task_details": "Review completed tasks, plan for the next day, and wrap up loose ends.",
     "task_time": "05:30 PM - 06:00 PM"
+  },
+  {
+    "task_id": 11,
+    "task_name": "Finish project report",
+    "task_details": "Include data analysis and conclusions.",
+    "task_time": "09:00 AM"
+  },
+  {
+    "task_id": 12,
+    "task_name": "Meeting with client",
+    "task_details": "Discuss project scope and timeline.",
+    "task_time": "10:30 AM"
+  },
+  {
+    "task_id": 13,
+    "task_name": "Lunch with colleagues",
+    "task_details": "Try the new restaurant downtown.",
+    "task_time": "12:00 PM"
+  },
+  {
+    "task_id": 14,
+    "task_name": "Prepare presentation",
+    "task_details": "Gather slides and rehearse the talk.",
+    "task_time": "02:00 PM"
+  },
+  {
+    "task_id": 15,
+    "task_name": "Phone call with supplier",
+    "task_details": "Discuss the upcoming delivery schedule.",
+    "task_time": "03:30 PM"
+  },
+  {
+    "task_id": 16,
+    "task_name": "Review project budget",
+    "task_details": "Check for any discrepancies or overspending.",
+    "task_time": "05:00 PM"
+  },
+  {
+    "task_id": 17,
+    "task_name": "Dinner with family",
+    "task_details": "Celebrate mom's birthday.",
+    "task_time": "07:00 PM"
+  },
+  {
+    "task_id": 18,
+    "task_name": "Read a book",
+    "task_details": "Continue reading 'The Great Gatsby'.",
+    "task_time": "08:30 PM"
+  },
+  {
+    "task_id": 19,
+    "task_name": "Go to the gym",
+    "task_details": "Cardio and strength training.",
+    "task_time": "10:00 PM"
+  },
+  {
+    "task_id": 20,
+    "task_name": "Prepare for tomorrow",
+    "task_details": "Set goals and priorities.",
+    "task_time": "11:30 PM"
   }
 ]

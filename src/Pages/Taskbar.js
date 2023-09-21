@@ -2,115 +2,129 @@ import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import data from '../data/dumpdata.json'
+import axios from 'axios'
 
 export const Taskbar = () => {
 
+    // --------------------------------------------------------------------------------------  
+    // const [users, setUsers] = useState()
+    // const getdata = () => {
+    //     setUsers(data);
+    // }
+
+    // useEffect(() => {
+    //     getdata()
+    // }, [])
+    // --------------------------------------------------------------------------------------
+
+    const [items, setItems] = useState([]);
+    const [hasMore, setHasMore] = useState(true);
+    const [page, setPage] = useState(1);
+
+    const fetchData = () => {
+        const newData = data.slice((page - 1) * 5, page * 5);
+
+        if (newData.length === 0) {
+            setHasMore(false); // No more data to load
+        } else {
+            setItems([...items, ...newData]);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, [page]); // Load data when the page changes
+// var x=window.innerHeight;
+
+    const handleScroll = () => {
+        console.log("scrollHeight" + document.documentElement.scrollHeight);
+        console.log("innerHeight" + window.innerHeight);
+        console.log("scrollTop" + document.documentElement.scrollTop);
+        const scrolledToBottom =
+            window.innerHeight + window.scrollY >= document.body.scrollHeight;
+
+        if (scrolledToBottom && hasMore) {
+            setPage(page + 1);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [page, hasMore]);
 
     var scroll1 =
     {
-        maxHeight: "92vh",
+        maxHeight: "619px",
         overflowX: "hidden",
         overflowY: "auto",
         behavior: 'smooth',
-        // scrollbar-width: none;
-        // MsOverflowStyle: 'none'
-        // scrollbarWidth: 'none',
     }
-    // width: "0
 
-    const [users, setUsers] = useState()
-    const getdata = () => {
-        // e.stopPropagation();
-        setUsers(data);
-    }
-    useEffect(() => {
-        getdata()
-    }, [])
+
+
 
     return (
-        <>
+        <div >
             <aside id="layout-menu" class="layout-menu menu-vertical menu"
-                style={{ width: "330px", height: "92vh", backgroundColor: "rgba(255,255,255,.85)" }}>
-                {/* <Helmet>
-                    <script src="../assets/vendor/js/bootstrap.js" data-react-helmet="true"></script>
-                    <link rel="stylesheet" href="../assets/vendor/libs/dropzone/dropzone.css" />
-                    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+                style={{ width: "330px", backgroundColor: "rgba(255,255,255,.85)" }}>
+                <Helmet>
+                    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+                    <link rel="canonical" href="https://themeselection.com/item/sneat-bootstrap-html-admin-template/" />
                     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
                     <link rel="preconnect" href="https://fonts.googleapis.com" />
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-                    <link
-                        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-                        rel="stylesheet"
-                    />
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+                    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
                     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-                    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-                    <link rel="stylesheet" href="../assets_pro/vendor/css/rtl/theme-semi-dark.css" class="template-customizer-theme-css" />
+
+                    <link rel="stylesheet" href="../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
+                    <link rel="stylesheet" href="../assets/vendor/css/theme-dark-default.css" class="template-customizer-theme-css" />
                     <link rel="stylesheet" href="../assets/css/demo.css" />
+
                     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
                     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
-
-                </Helmet> */}
-
-                <Helmet>
-
-                    {/* <link rel="canonical" href="https://themeselection.com/item/sneat-bootstrap-html-admin-template/" /> */}
-
-                    {/* <script async="true" type="text/javascript" src="https://static.hotjar.com/c/hotjar-3067524.js?sv=7"></script> */}
-                    {/* <script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-5DDHKGP"></script> */}
-
-                    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
-
-                    {/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
-                    {/* <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" /> */}
-                    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
-                        rel="stylesheet" />
-
-                    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-                    <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome.css" />
-                    <link rel="stylesheet" href="../assets/vendor/fonts/flag-icons.css" />
-
-                    <link rel="stylesheet" href="../assets/css/demo.css" />
-
-                    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-                    <link rel="stylesheet" href="../assets/vendor/libs/typeahead-js/typeahead.css" />
-                    <link rel="stylesheet" href="../assets/vendor/libs/select2/select2.css" />
-                    <link rel="stylesheet" href="../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
-                    <link rel="stylesheet" href="../assets/vendor/libs/bs-stepper/bs-stepper.css" />
-
-                    <script src="../assets/vendor/js/helpers.js"></script>
-
-                    {/* <script src="../assets/vendor/js/template-customizer.js"></script> */}
-                    {/* <script src="../assets/js/config.js"></script> */}
-                    <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-                    <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/theme-semi-dark.css" class="template-customizer-theme-css" />
-                    <script type="text/javascript" src="https://a.omappapi.com/app/js/api.min.js" async="" data-user="252882" data-account="269977"></script>
-                    {/* <script async="" src="https://script.hotjar.com/modules.afe18b03a2724895a0ac.js" charset="utf-8"></script> */}
                     <link rel="stylesheet" href="https://a.omappapi.com/app/js/api.min.css" id="omapi-css" media="all" />
-                    {/* </head> */}
+
                 </Helmet>
-                <h4 class="fc-toolbar-title" id="fc-dom-1" style={{ marginTop: "15px" }}>
+                {/* <Helmet>
+                                        <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
+                                            rel="stylesheet" />
+                                        <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+                                        <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome.css" />
+                                        <link rel="stylesheet" href="../assets/vendor/fonts/flag-icons.css" />
+                                        <link rel="stylesheet" href="../assets/css/demo.css" />
+                                        <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+                                        <link rel="stylesheet" href="../assets/vendor/libs/typeahead-js/typeahead.css" />
+                                        <link rel="stylesheet" href="../assets/vendor/libs/select2/select2.css" />
+                                        <link rel="stylesheet" href="../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
+                                        <link rel="stylesheet" href="../assets/vendor/libs/bs-stepper/bs-stepper.css" />
+                                        <script src="../assets/vendor/js/helpers.js"></script>
+                                        <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
+                                        <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/theme-semi-dark.css" class="template-customizer-theme-css" />
+                                        <script type="text/javascript" src="https://a.omappapi.com/app/js/api.min.js" async="" data-user="252882" data-account="269977"></script>
+                                        <link rel="stylesheet" href="https://a.omappapi.com/app/js/api.min.css" id="omapi-css" media="all" />
+                                        <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+                                    </Helmet> */}
+                {/* <h4 class="fc-toolbar-title" id="fc-dom-1" style={{ marginTop: "15px" }}>
                     Task List &nbsp;
-                    {/* <button type="button" class="" style={{
-                        // border: "none",
-                        // background: "none"
-                    }}
-                        data-bs-toggle="modal" data-bs-target="#editUser">
-                        +
-                    </button> */}
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
                         Launch modal
                     </button>
 
-                </h4>
+                </h4> */}
 
                 <ul class="menu-inner py-1" style={scroll1}>
+                {/* <ul class="menu-inner py-1"> */}
                     {
-                        users?.map((u) => {
+                        items?.map((u) => {
                             // console.log(u)
                             return (
                                 <li class="menu-item bs-toast toast fade show" role="alert" aria-live="assertive" aria-atomic="true"
                                     style={{ margin: "5px", width: "300px" }}>
-                                    <Link to={`/TaskbarPages/${u.task_id}`} style={{ color: "#697a8d" }} onClick={getdata}>
+                                    <Link to={`/TaskbarPages/${u.task_id}`} style={{ color: "#697a8d" }}>
                                         {/* <Link to={`/AutoPages/${u.task_id}`} style={{ color: "#697a8d" }} onClick={getdata}> */}
                                         <div class="toast-header">
                                             <i class="bx bx-bell me-2"></i>
@@ -126,6 +140,7 @@ export const Taskbar = () => {
                             )
                         })
                     }
+                    {hasMore && <div>Loading...</div>}
                 </ul>
 
             </aside>
@@ -162,7 +177,7 @@ export const Taskbar = () => {
                 </div>
             </div>
 
-        </>
+        </div>
 
     )
 }

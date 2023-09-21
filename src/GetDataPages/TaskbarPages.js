@@ -6,10 +6,10 @@ import { Navbar_u } from '../Pages/Navbar_u';
 import { Taskbar } from '../Pages/Taskbar';
 import { Navbar } from '../Pages/Navbar';
 import formData2 from '../data/table2.json'
-import formData1 from '../data/teble1.json'
+import formData1 from '../data/table1.json'
 import AutoPages from './AutoPages';
 import { Formio } from 'formiojs';
-import Test1 from './Test1';
+import { Taskbar2 } from '../Pages/Taskbar2';
 // import Formio from 'formiojs';
 
 
@@ -42,7 +42,7 @@ export const TaskbarPages = () => {
 
     var scroll1 =
     {
-        maxHeight: "92vh",
+        // maxHeight: "92vh",
         overflowX: "hidden",
         overflowY: "auto",
         behavior: 'smooth',
@@ -50,7 +50,7 @@ export const TaskbarPages = () => {
 
     return (
         <div>
-            <Navbar_u />
+            {/* <Navbar_u /> */}
 
             <div class="layout-wrapper layout-content-navbar" >
                 <Helmet>
@@ -74,72 +74,25 @@ export const TaskbarPages = () => {
                 </Helmet>
                 <div class="layout-container" >
                     <Navbar />
-                    <Taskbar />
+                    {/* <Taskbar /> */}
+                    <Taskbar2 />
                     <div class="layout-page">
 
                         <div class="content-wrapper">
                             <div class="container-xxl flex-grow-1 container-p-y" style={scroll1}>
                                 <div class="row">
-                                    {
+                                    {/* {
                                         users.task_id == 1 ? <AutoPages formData={formData1} /> :
                                             users.task_id == 2 ? <AutoPages formData={formData2} /> : null
-                                    }
+                                    } */}
+
+
+                                    
                                     {/* {
                                         users.task_id == 1 ? <Test1 formData={formData1} /> :
                                             users.task_id == 2 ? <Test1 formData={formData2} /> : null
                                     } */}
-                                    {/* <Test1 formData={formData1}/> */}
-
-                                    {/* <div id="formio"></div> */}
-                                    {/* <AutoPages formData={formData2} /> */}
-                                    {/* <div class="col-xl">
-                                        <div class="card mb-4">
-                                            <div class="card-header d-flex justify-content-between align-items-center">
-                                                <h5 class="mb-0">{users?.task_name}</h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <form>
-                                                    <div class="mb-3">
-                                                        <label class="form-label d-flex justify-content-between" for="basic-icon-default-fullname">Full Name</label>
-                                                        <div class="input-group input-group-merge">
-                                                            <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
-                                                            <input type="text" class="form-control" id="basic-icon-default-fullname" placeholder="Username" aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label d-flex justify-content-between" for="basic-icon-default-company">Company</label>
-                                                        <div class="input-group input-group-merge">
-                                                            <span id="basic-icon-default-company2" class="input-group-text"><i class="bx bx-buildings"></i></span>
-                                                            <input type="text" id="basic-icon-default-company" class="form-control" placeholder="ACME Inc." aria-label="ACME Inc." aria-describedby="basic-icon-default-company2" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label d-flex justify-content-between" for="basic-icon-default-email">Email</label>
-                                                        <div class="input-group input-group-merge">
-                                                            <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                                            <input type="text" id="basic-icon-default-email" class="form-control" placeholder="abc@gmail.com" aria-describedby="basic-icon-default-email2" />
-                                                            <span id="basic-icon-default-email2" class="input-group-text">@example.com</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label d-flex justify-content-between" for="basic-icon-default-phone">Phone No</label>
-                                                        <div class="input-group input-group-merge">
-                                                            <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-phone"></i></span>
-                                                            <input type="text" id="basic-icon-default-phone" class="form-control phone-mask" placeholder="658 799 8941" aria-label="658 799 8941" aria-describedby="basic-icon-default-phone2" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label d-flex justify-content-between" for="basic-icon-default-message">Message</label>
-                                                        <div class="input-group input-group-merge">
-                                                            <span id="basic-icon-default-message2" class="input-group-text"><i class="bx bx-comment"></i></span>
-                                                            <textarea id="basic-icon-default-message" class="form-control" placeholder="Hi, Do you have a moment to talk Joe?" aria-label="Hi, Do you have a moment to talk Joe?" aria-describedby="basic-icon-default-message2"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Send</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div> */}
+                                   
                                 </div>
                             </div>
                         </div>

@@ -25,6 +25,7 @@ function App() {
         <Route path='/forgot' element={<Forgot/>}/>
         <Route path='/taskbar' element={<Taskbar/>}/>
         <Route path='/TaskbarPages/:id' element={<TaskbarPages/>}/>
+        {/* <Route path='/TaskbarPages' element={<TaskbarPages/>}/> */}
         <Route path='/AutoPages/:id' element={<AutoPages/>}/>
       </Routes>
     </div>

@@ -1,0 +1,30 @@
+{
+    "navItems": [
+      {
+        "name": "Dashboard",
+        "link": "/dashboard",
+        "icon": "bx bx-home-circle"
+      },{
+        "name": "Task List",
+        "link": "/TaskbarPages/1",
+        "icon": "bx bx-layout"
+      },{
+        "name": "Dashboard1",
+        "link": "/TaskbarPages/2",
+        "icon": "bx bx-customize"
+      },{
+        "name": "Dashboard2",
+        "link": "/",
+        "icon": "bx bx-home-circle"
+      },{
+        "name": "Dashboard3",
+        "link": "/",
+        "icon": "bx bx-home-circle"
+      },{
+        "name": "Dashboard4",
+        "link": "/",
+        "icon": "bx bx-home-circle"
+      }
+      
+    ]
+  }

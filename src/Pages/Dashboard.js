@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet'
 import { Navbar } from './Navbar'
 import { Taskbar } from './Taskbar'
 import { Navbar_u } from './Navbar_u'
+import { Taskbar2 } from './Taskbar2'
 
 export const Dashboard = () => {
 
@@ -13,19 +14,10 @@ export const Dashboard = () => {
         overflowY: "auto",
         behavior: 'smooth',
     }
-
-    var text = {
-        "position": "relative",
-        "display": "flex",
-        "flexWrap": "wrap",
-        "alignItems": "stretch",
-        "width": "100%",
-
-    }
     return (
         <div>
-            <Navbar_u />
-            <div class="layout-wrapper layout-content-navbar" >
+            {/* <Navbar_u /> */}
+            <div class="layout-wrapper layout-content-navbar">
                 <Helmet>
                     <title>Dashboard </title>
 
@@ -44,16 +36,44 @@ export const Dashboard = () => {
                     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
                 </Helmet>
-                <div class="layout-container" >
+                <div class="layout-container">
                     <Navbar />
-                    <Taskbar />
+                    {/* <Taskbar /> */}
+                    {/* <Taskbar2 /> */}
+
+                    <aside id="layout-menu" class="layout-menu menu-vertical menu"
+                        style={{ width: "330px", backgroundColor: "rgba(255,255,255,.85)" }}>
+
+                        <div style={{ outlineStyle: "solid", padding: "5px", borderRadius: "0.375rem", marginTop: "27px", marginLeft: "30px", marginRight: "30px", color: "#32333754" }} >
+                            <p class="me-3" style={{
+                                position: "relative",
+                                display: "flex",
+                                flexWrap: "wrap",
+                                color: "#697a8de0",
+                                padding: "9px"
+                            }}>
+                                <i class='bx bxs-info-circle' style={{ marginTop: "12px", marginLeft: "5px" }}></i>
+                                <div class="text-body" style={{ marginTop: "10px", marginLeft: "10px" }}>
+                                    Select a task in the list.
+                                </div>
+                            </p>
+                        </div>
+                    </aside>
                     <div class="layout-page">
 
                         <div class="content-wrapper">
-                            <div class="container-xxl flex-grow-1 container-p-y" style={scroll1}>
+                            <div class="container-xxl flex-grow-1 container-p-y">
+                                {/* <div class="container-xxl flex-grow-1 container-p-y" style={scroll1}> */}
                                 {/* <TaskbarPages /> */}
-                                <div style={{ outlineStyle: "solid", padding: "15px", borderRadius: "0.375rem" }} >
-                                    <p class="me-3" style={text}>
+                                <div style={{ outlineStyle: "solid", padding: "15px", borderRadius: "0.375rem", color: "#32333754" }} >
+                                    <p class="me-3" style={{
+                                        position: "relative",
+                                        display: "flex",
+                                        flexWrap: "wrap",
+                                        alignItems: "stretch",
+                                        width: "100%",
+                                        color: "#697a8de0"
+                                    }}>
                                         <i class='bx bxs-info-circle' style={{ marginTop: "12px" }}></i>
                                         <div class="text-body" style={{ marginTop: "10px", marginLeft: "10px" }}>
                                             Select a task in the list.
