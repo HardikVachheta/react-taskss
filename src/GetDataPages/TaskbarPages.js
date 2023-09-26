@@ -65,6 +65,8 @@ export const TaskbarPages = () => {
                         rel="stylesheet"
                     />
                     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+                    
+                    
                     <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
                     <link rel="stylesheet" href="../assets_pro/vendor/css/rtl/theme-semi-dark.css" class="template-customizer-theme-css" />
                     <link rel="stylesheet" href="../assets/css/demo.css" />
@@ -86,7 +88,7 @@ export const TaskbarPages = () => {
                                             users.task_id == 2 ? <AutoPages formData={formData2} /> : null
                                     } */}
 
-
+ 
                                     
                                     {/* {
                                         users.task_id == 1 ? <Test1 formData={formData1} /> :

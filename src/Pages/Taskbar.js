@@ -5,66 +5,39 @@ import data from '../data/dumpdata.json'
 import axios from 'axios'
 
 export const Taskbar = () => {
-
-    // --------------------------------------------------------------------------------------  
-    // const [users, setUsers] = useState()
-    // const getdata = () => {
-    //     setUsers(data);
-    // }
-
-    // useEffect(() => {
-    //     getdata()
-    // }, [])
-    // --------------------------------------------------------------------------------------
-
-    const [items, setItems] = useState([]);
-    const [hasMore, setHasMore] = useState(true);
+    const windowHeight = window.innerHeight;
     const [page, setPage] = useState(1);
-
-    const fetchData = () => {
-        const newData = data.slice((page - 1) * 5, page * 5);
-
-        if (newData.length === 0) {
-            setHasMore(false); // No more data to load
-        } else {
-            setItems([...items, ...newData]);
-        }
-    };
-
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+  
     useEffect(() => {
-        fetchData();
-    }, [page]); // Load data when the page changes
-// var x=window.innerHeight;
-
-    const handleScroll = () => {
-        console.log("scrollHeight" + document.documentElement.scrollHeight);
-        console.log("innerHeight" + window.innerHeight);
-        console.log("scrollTop" + document.documentElement.scrollTop);
-        const scrolledToBottom =
-            window.innerHeight + window.scrollY >= document.body.scrollHeight;
-
-        if (scrolledToBottom && hasMore) {
-            setPage(page + 1);
+      const fetchData = async () => {
+        setLoading(true);
+        // Replace this with your data fetching logic (e.g., an API call)
+        const response = await fetch(`https://api.example.com/data?page=${page}`);
+        const newData = await response.json();
+        setData((prevData) => [...prevData, ...newData]);
+        setLoading(false);
+        setPage(page + 1);
+      };
+  
+      const handleScroll = () => {
+        const scrollY = window.scrollY;
+        const scrollHeight = document.documentElement.scrollHeight;
+        const scrollThreshold = scrollHeight - windowHeight - 200; // Adjust the threshold as needed
+  
+        if (scrollY > scrollThreshold && !loading && hasMore) {
+          fetchData();
         }
-    };
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [page, hasMore]);
-
-    var scroll1 =
-    {
-        maxHeight: "619px",
-        overflowX: "hidden",
-        overflowY: "auto",
-        behavior: 'smooth',
-    }
-
-
-
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, [page, loading, hasMore]);
+  
 
     return (
         <div >
@@ -88,38 +61,19 @@ export const Taskbar = () => {
                     <link rel="stylesheet" href="https://a.omappapi.com/app/js/api.min.css" id="omapi-css" media="all" />
 
                 </Helmet>
-                {/* <Helmet>
-                                        <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
-                                            rel="stylesheet" />
-                                        <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-                                        <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome.css" />
-                                        <link rel="stylesheet" href="../assets/vendor/fonts/flag-icons.css" />
-                                        <link rel="stylesheet" href="../assets/css/demo.css" />
-                                        <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-                                        <link rel="stylesheet" href="../assets/vendor/libs/typeahead-js/typeahead.css" />
-                                        <link rel="stylesheet" href="../assets/vendor/libs/select2/select2.css" />
-                                        <link rel="stylesheet" href="../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
-                                        <link rel="stylesheet" href="../assets/vendor/libs/bs-stepper/bs-stepper.css" />
-                                        <script src="../assets/vendor/js/helpers.js"></script>
-                                        <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-                                        <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/theme-semi-dark.css" class="template-customizer-theme-css" />
-                                        <script type="text/javascript" src="https://a.omappapi.com/app/js/api.min.js" async="" data-user="252882" data-account="269977"></script>
-                                        <link rel="stylesheet" href="https://a.omappapi.com/app/js/api.min.css" id="omapi-css" media="all" />
-                                        <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
-
-                                    </Helmet> */}
-                {/* <h4 class="fc-toolbar-title" id="fc-dom-1" style={{ marginTop: "15px" }}>
+               
+                <h4 class="fc-toolbar-title" id="fc-dom-1" style={{ marginTop: "15px" }}>
                     Task List &nbsp;
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
                         Launch modal
                     </button>
 
-                </h4> */}
+                </h4>
 
-                <ul class="menu-inner py-1" style={scroll1}>
-                {/* <ul class="menu-inner py-1"> */}
+                {/* <ul class="menu-inner py-1" style={scroll1}> */}
+                <ul class="menu-inner py-1">
                     {
-                        items?.map((u) => {
+                        data?.map((u) => {
                             // console.log(u)
                             return (
                                 <li class="menu-item bs-toast toast fade show" role="alert" aria-live="assertive" aria-atomic="true"
@@ -144,38 +98,6 @@ export const Taskbar = () => {
                 </ul>
 
             </aside>
-            <div class="modal fade" id="basicModal" tabindex="-1" style={{ display: "none" }} aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel1">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col mb-3">
-                                    <label for="nameBasic" class="form-label">Name</label>
-                                    <input type="text" id="nameBasic" class="form-control" placeholder="Enter Name" />
-                                </div>
-                            </div>
-                            <div class="row g-2">
-                                <div class="col mb-0">
-                                    <label for="emailBasic" class="form-label">Email</label>
-                                    <input type="email" id="emailBasic" class="form-control" placeholder="xxxx@xxx.xx" />
-                                </div>
-                                <div class="col mb-0">
-                                    <label for="dobBasic" class="form-label">DOB</label>
-                                    <input type="date" id="dobBasic" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
 

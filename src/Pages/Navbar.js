@@ -30,7 +30,8 @@ export const Navbar = () => {
 
 
     return (
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme"
+        <div class="d-flex">
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" 
             data-bg-class="bg-menu-theme">
             {/* data-bg-class="bg-menu-theme" style={{ height: "92vh" }}> */}
             <Helmet>
@@ -48,6 +49,7 @@ export const Navbar = () => {
                 <link rel="stylesheet" href="../assets/css/demo.css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+                <link rel="stylesheet" href="../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
 
             </Helmet>
             <div class="app-brand demo">
@@ -77,6 +79,7 @@ export const Navbar = () => {
 
             </ul>
         </aside>
+        </div>
 
     )
 }
