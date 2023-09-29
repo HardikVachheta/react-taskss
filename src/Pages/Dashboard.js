@@ -5,6 +5,8 @@ import { Taskbar } from './Taskbar'
 import { Navbar_u } from './Navbar_u'
 import { Taskbar2 } from './Taskbar2'
 
+import Confetti from 'confetti-react';
+
 export const Dashboard = () => {
 
     var scroll1 =
@@ -16,8 +18,10 @@ export const Dashboard = () => {
     }
     return (
         <div>
+            <Helmet></Helmet>
             {/* <Navbar_u /> */}
             <div class="layout-wrapper layout-content-navbar">
+
                 <Helmet>
                     <title>Dashboard </title>
 
@@ -43,6 +47,8 @@ export const Dashboard = () => {
 
                     <aside id="layout-menu" class="layout-menu menu-vertical menu"
                         style={{ width: "330px", backgroundColor: "rgba(255,255,255,.85)" }}>
+                        
+                        
 
                         <div style={{ outlineStyle: "solid", padding: "5px", borderRadius: "0.375rem", marginTop: "27px", marginLeft: "30px", marginRight: "30px", color: "#32333754" }} >
                             <p class="me-3" style={{
@@ -58,6 +64,7 @@ export const Dashboard = () => {
                                 </div>
                             </p>
                         </div>
+   
                     </aside>
                     <div class="layout-page">
 

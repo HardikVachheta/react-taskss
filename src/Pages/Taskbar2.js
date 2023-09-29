@@ -20,7 +20,7 @@ export const Taskbar2 = () => {
 
         }
     }
-
+    
     const [containerHeight, setContainerHeight] = useState(window.innerHeight);
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export const Taskbar2 = () => {
     const handleResize = () => {
         setContainerHeight(window.innerHeight);
     };
-
+    
     return (
         <div>
             <aside id="layout-menu" class="layout-menu menu-vertical menu"
@@ -47,15 +47,16 @@ export const Taskbar2 = () => {
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
                     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
                     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-
+                    {/* <script src="script.js"></script> */}
                     <link rel="stylesheet" href="../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
                     <link rel="stylesheet" href="../assets/vendor/css/theme-dark-default.css" class="template-customizer-theme-css" />
                     <link rel="stylesheet" href="../assets/css/demo.css" />
-
+                    <script src="https://www.google.com/search?q=google+25th+birthday&sca_esv=568736477&hl=en&sxsrf=AM9HkKlPU9o2kBne2uX3Ga2OJePIn3ejQA%3A1695795130309&source=hp&ei=uscTZcXPEIzv1e8P2KS20Ak&iflsig=AO6bgOgAAAAAZRPVyuCL_BGDh-lTqSjvlV2QeG90mhPC&oq=google+25&gs_lp=Egdnd3Mtd2l6Iglnb29nbGUgMjUqAggAMgsQABiABBixAxiDATILEAAYgAQYsQMYgwEyDRAAGIoFGLEDGIMBGAoyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGANI9CpQAFj8HnABeACQAQCYAdYCoAHpD6oBBzAuNy4yLjG4AQPIAQD4AQHCAgcQIxiKBRgnwgIEECMYJ8ICDRAAGIoFGLEDGIMBGEPCAggQABiKBRiRAsICDhAAGIoFGLEDGIMBGJECwgITEC4YigUYsQMYgwEYxwEY0QMYQ8ICDRAuGIoFGMcBGNEDGEPCAgcQABiKBRhDwgIUEC4YigUYsQMYgwEYxwEY0QMYkQLCAgcQIxixAhgnwgITEC4YgAQYsQMYgwEYxwEY0QMYCsICCxAAGIoFGLEDGIMBwgINEAAYgAQYsQMYgwEYCsICChAAGIAEGLEDGAo&sclient=gws-wiz"></script>
+                    <link rel="stylesheet" href="../assets/css/demo.css" />
                     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
                     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
                     <link rel="stylesheet" href="https://a.omappapi.com/app/js/api.min.css" id="omapi-css" media="all" />
-
+                    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
                 </Helmet>
                 <h4 class="fc-toolbar-title" id="fc-dom-1" style={{ marginTop: "15px" }}>
                     Task List &nbsp;
@@ -63,7 +64,6 @@ export const Taskbar2 = () => {
                         data-bs-toggle="modal" data-bs-target="#basicModal">
                         Launch modal
                     </button>
-
                 </h4>
                 <ul class="menu-inner py-1">
                     <InfiniteScroll
@@ -131,6 +131,8 @@ export const Taskbar2 = () => {
                     </div>
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+            {/* <script src="script.js"></script> */}
         </div>
     )
 }

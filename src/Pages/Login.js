@@ -1,10 +1,11 @@
 import { useFormik } from 'formik'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2';
 import { loginSchema } from '../schemas'
 import { ToastContainer, toast } from 'react-toastify';
+import Confetti from 'confetti-react';
 
 
 const initialValues = {
@@ -91,7 +92,13 @@ export const Login = () => {
         }
         setPasswordType("password")
     }
-
+    const startit = () =>{
+        setTimeout(() => {
+            <Confetti width='950' height='820' />
+            // Confetti.start();
+        }, 2000);
+    }
+    
 
 
     // const submit = (data) => {
@@ -150,7 +157,7 @@ export const Login = () => {
     //     }
 
     // }
-
+  
 
     return (
 
@@ -264,7 +271,7 @@ export const Login = () => {
                                     </div>
 
                                     <div class="mb-3">
-                                        <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                                        <button class="btn btn-primary d-grid w-100" type="submit" onClick={startit}>Sign in</button>
                                     </div>
                                 </form>
 

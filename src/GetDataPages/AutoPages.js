@@ -6,6 +6,7 @@ import { autoPage1Schema } from '../schemas';
 import Swal from 'sweetalert2';
 import { useForm } from 'react-hook-form';
 import { Helmet } from 'react-helmet';
+import Form from '@rjsf/core';
 // import data from '../data/dumpdata.json';
 
 const initialValues = {
@@ -15,6 +16,7 @@ const initialValues = {
 };
 
 const AutoPages = ({ formData }) => {
+
     
     var id = useParams().id
     const [users, setUsers] = useState('')
@@ -40,6 +42,16 @@ const AutoPages = ({ formData }) => {
         e.target.reset()
     }
 
+    const [passwordType, setPasswordType] = useState("password");
+
+    const togglePassword = () => {
+        if (passwordType === "password") {
+            setPasswordType("text")
+            return;
+        }
+        setPasswordType("password")
+    }
+
     // const [formValues, setFormValues] = useState({});
 
     // const handleSubmit = (e) => {
@@ -55,6 +67,8 @@ const AutoPages = ({ formData }) => {
     //         [name]: value,
     //     });
     // };
+
+  
 
 
 
@@ -139,18 +153,25 @@ const AutoPages = ({ formData }) => {
                                             // onChange={handleInputChange}
                                             // value={formValues[field.name] || ''}
                                             required></textarea>
-                                    ) : field.type === 'hidden' ? (
-                                        <input
-                                            class="form-control"
-                                            type={field.type}
-                                            // id={field.name}
-                                            // name={field.name}
-                                            // placeholder={field.placeholder}
-                                            {...register(field.name)}
-                                            value={field.value}
-                                            // onChange={handleInputChange}
-                                            // value={formValues[field.name] || ''}
-                                            required />
+                                    ) : field.type === 'password' ? (
+                                        <div class="input-group input-group-merge">
+                                            <input
+                                                class="form-control"
+                                                type={field.passwordType}
+                                                // id={field.name}
+                                                // name={field.name}
+                                                // placeholder={field.placeholder}
+                                                {...register(field.name)}
+                                                // value={field.name}
+                                                onChange={e => setPasswordType(e.passwordType)}
+                                                // onChange={handleInputChange}
+                                                // value={formValues[field.name] || ''}
+                                                required />
+                                            <span class="input-group-text cursor-pointer" onClick={togglePassword}>
+                                                {passwordType === "password" ?
+                                                    <i className="bx bx-hide"></i> : <i className="bx bx-show"></i>}
+                                            </span>
+                                        </div>
                                     ) : (
                                         <input
                                             class="form-control"

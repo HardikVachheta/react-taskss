@@ -16,12 +16,17 @@ import { Taskbar2 } from '../Pages/Taskbar2';
 
 export const TaskbarPages = () => {
 
-    
+    // <script type="text/javascript">
+    //     window.onload = function() {
+    //         Formio.createForm(document.getElementById('formio'), 'https://qzpamhxbjnprhqk.form.io/userlogin')
+    //     }
+    // </script>
     <script type="text/javascript">
-  window.onload = function() {
-    Formio.createForm(document.getElementById('formio'), 'https://qzpamhxbjnprhqk.form.io/localuser')
-  };
-</script>
+        window.onload = function() {
+            Formio.createForm(document.getElementById('formio'), 'https://qzpamhxbjnprhqk.form.io/userloginform')
+        };
+    </script>
+
     var id = useParams().id
     console.log("Taskbar page id :----", id)
 
@@ -48,6 +53,7 @@ export const TaskbarPages = () => {
         behavior: 'smooth',
     }
 
+
     return (
         <div>
             {/* <Navbar_u /> */}
@@ -55,6 +61,9 @@ export const TaskbarPages = () => {
             <div class="layout-wrapper layout-content-navbar" >
                 <Helmet>
                     <title>Dashboard </title>
+                    {/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" />
+                    <link rel="stylesheet" href="https://cdn.form.io/formiojs/formio.full.min.css" />
+                    <script src="https://cdn.form.io/formiojs/formio.full.min.js"></script> */}
 
 
                     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
@@ -65,14 +74,15 @@ export const TaskbarPages = () => {
                         rel="stylesheet"
                     />
                     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-                    
-                    
+
+
+
                     <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
                     <link rel="stylesheet" href="../assets_pro/vendor/css/rtl/theme-semi-dark.css" class="template-customizer-theme-css" />
                     <link rel="stylesheet" href="../assets/css/demo.css" />
                     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
                     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
-                    
+
                 </Helmet>
                 <div class="layout-container" >
                     <Navbar />
@@ -83,25 +93,27 @@ export const TaskbarPages = () => {
                         <div class="content-wrapper">
                             <div class="container-xxl flex-grow-1 container-p-y" style={scroll1}>
                                 <div class="row">
-                                    {/* {
+                                    {/* <div id="formio"></div> */}
+
+                                    {
                                         users.task_id == 1 ? <AutoPages formData={formData1} /> :
                                             users.task_id == 2 ? <AutoPages formData={formData2} /> : null
-                                    } */}
+                                    }
 
- 
-                                    
+
+
                                     {/* {
                                         users.task_id == 1 ? <Test1 formData={formData1} /> :
                                             users.task_id == 2 ? <Test1 formData={formData2} /> : null
                                     } */}
-                                   
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     )
 }
