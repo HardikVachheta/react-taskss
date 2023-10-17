@@ -17,7 +17,7 @@ const initialValues = {
 
 const AutoPages = ({ formData }) => {
 
-    
+    console.log("----------------", formData)
     var id = useParams().id
     const [users, setUsers] = useState('')
     // console.log("Taskbar page id :----", id)
@@ -52,62 +52,14 @@ const AutoPages = ({ formData }) => {
         setPasswordType("password")
     }
 
-    // const [formValues, setFormValues] = useState({});
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     e.target.reset();
-    //     console.log('Form data submitted:', formValues);
-    // };
-
-    // const handleInputChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setFormValues({
-    //         ...formValues,
-    //         [name]: value,
-    //     });
-    // };
-
-  
-
-
-
-    // const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    //     initialValues: initialValues,
-    //     validationSchema: autoPage1Schema,
-    //     onSubmit: (field, action) => {
-    //         console.log(field)
-
-    // if (values.name && values.email && values.password) {
-
-    //     localStorage.setItem("name", values.name)
-    //     localStorage.setItem("email", values.email)
-    //     localStorage.setItem("password", values.password)
-    //     localStorage.setItem("confirm_password", values.confirm_password)
-
-    //     Swal.fire({
-    //         title: 'Registration Successful',
-    //         icon: 'success',
-    //         timer: 1500
-    //     });
-
-
-    //     navigate("/login")
-
-    // } else {
-    //     Swal.fire({
-    //         title: 'Enter Data',
-    //         icon: 'error',
-    //         timer: 1500
-    //     });
-    // }
-
-    //         action.resetForm()
-    //     }
-    // })
-
-
-
+    // const formik = useFormik({
+    //     initialValues: Object.fromEntries(
+    //         formData.map((field) => [field.name])
+    //     ),
+    //     onSubmit: (values) => {
+    //         console.log(values);
+    //     },
+    // });
 
     return (
         <div class="col-xl">
@@ -123,20 +75,34 @@ const AutoPages = ({ formData }) => {
                     <h5 class="mb-0">{users?.task_name} {users?.task_id}</h5>
                 </div>
                 <div class="card-body">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        {/* <form onSubmit={handleSubmit} onClick={getdata1}> */}
+                    <form>
+                        {
+                            formData.map((u) => {
+                                return (
+                                    <>
+                                        <label>{u.label}</label>
+                                        <input name={u.label} />
+                                    </>
+                                )
+                            })
+                        }
 
-                        {formData.fields.map((field) => (
+                    </form>
+                    {/* <form onSubmit={formik.handleSubmit}>
 
-                            <div class="mb-3">
-                                <label class="form-label d-flex justify-content-between" for="basic-icon-default-fullname" htmlFor={field.name}>{field.label}</label>
+                        {formData.map((field) => (
+
+                            <div class="mb-3" key={field.name}>
+                                <label class="form-label d-flex justify-content-between"
+                                    for="basic-icon-default-fullname" htmlFor={field.name}>{field.label}</label>
                                 {
                                     field.type === 'select' ? (
                                         <select class="select2 form-select" id={field.name}
+                                            type={field.type}
                                             name={field.name}
-                                            {...register(field.name)}
-                                            // onChange={handleInputChange}
-                                            // value={formValues[field.name] || ''}
+                                            value={formik.values[field.name]}
+                                            onChange={formik.handleChange}
+                                            placeholder={field.placeholder}
                                             required>
                                             {field.options.map((option) => (
                                                 <option key={option} value={option}>
@@ -144,60 +110,56 @@ const AutoPages = ({ formData }) => {
                                                 </option>
                                             ))}
                                         </select>
+
                                     ) : field.type === 'textarea' ? (
                                         <textarea
+                                            class="form-control"
+                                            type={field.type}
                                             id={field.name}
                                             name={field.name}
+                                            value={formik.values[field.name]}
+                                            onChange={formik.handleChange}
                                             placeholder={field.placeholder}
-                                            {...register(field.name)}
-                                            // onChange={handleInputChange}
-                                            // value={formValues[field.name] || ''}
                                             required></textarea>
+
                                     ) : field.type === 'password' ? (
                                         <div class="input-group input-group-merge">
                                             <input
                                                 class="form-control"
-                                                type={field.passwordType}
-                                                // id={field.name}
-                                                // name={field.name}
-                                                // placeholder={field.placeholder}
-                                                {...register(field.name)}
-                                                // value={field.name}
-                                                onChange={e => setPasswordType(e.passwordType)}
-                                                // onChange={handleInputChange}
-                                                // value={formValues[field.name] || ''}
+                                                type={passwordType}
+                                                id={field.name}
+                                                name={field.name}
+                                                value={formik.values[field.name]}
+                                                onChange={formik.handleChange}
+                                                placeholder={field.placeholder}
                                                 required />
                                             <span class="input-group-text cursor-pointer" onClick={togglePassword}>
                                                 {passwordType === "password" ?
                                                     <i className="bx bx-hide"></i> : <i className="bx bx-show"></i>}
                                             </span>
                                         </div>
+                                    ) : field.type === 'password' ? (
+                                        <input
+                                            type='hidden'
+                                            name={field.name}
+                                             />
                                     ) : (
                                         <input
                                             class="form-control"
                                             type={field.type}
                                             id={field.name}
                                             name={field.name}
+                                            value={formik.values[field.name]}
                                             placeholder={field.placeholder}
-                                            {...register(field.name)}
-                                            // onChange={handleInputChange}
-                                            // value={formValues[field.name] || ''}
+                                            onChange={formik.handleChange}
                                             required />
                                     )
                                 }
-                                {/* <input
-                                    type="hidden"
-                                    // onChange={handleInputChange}
-                                    // value={formValues[field.users?.task_name] || ''} />
-                                    {...register("task_name")} value={users.task_name} /> */}
                             </div>
                         ))}
 
-
-
-
                         <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                    </form> */}
                 </div>
             </div>
         </div>

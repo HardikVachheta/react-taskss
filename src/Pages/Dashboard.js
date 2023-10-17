@@ -18,7 +18,6 @@ export const Dashboard = () => {
     }
     return (
         <div>
-            <Helmet></Helmet>
             {/* <Navbar_u /> */}
             <div class="layout-wrapper layout-content-navbar">
 

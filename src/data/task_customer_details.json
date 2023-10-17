@@ -1,0 +1,100 @@
+{
+  "title": "Applicant Details",
+  "label": "Page 1",
+  "type": "panel",
+  "key": "applicantReq",
+  "input": false,
+  "tableView": false,
+  "components": [
+    {
+      "label": "creationFlag",
+      "hidden": true,
+      "tableView": true,
+      "clearOnHide": false,
+      "key": "creationFlag",
+      "type": "string",
+      "input": true
+    },
+    {
+      "label": "uniqueRefNo",
+      "hidden": true,
+      "tableView": true,
+      "clearOnHide": false,
+      "key": "uniqueRefNo",
+      "type": "string",
+      "input": true
+    },
+    {
+      "label": "channelName",
+      "hidden": true,
+      "tableView": true,
+      "clearOnHide": false,
+      "key": "channelName",
+      "type": "string",
+      "input": true
+    },
+    {
+      "label": "source",
+      "hidden": true,
+      "tableView": true,
+      "clearOnHide": false,
+      "key": "source",
+      "type": "string",
+      "input": true
+    },
+    {
+      "label": "loanId",
+      "hidden": true,
+      "tableView": true,
+      "clearOnHide": false,
+      "key": "loanId",
+      "type": "string",
+      "input": true
+    },
+    {
+      "label": "status",
+      "hidden": true,
+      "tableView": true,
+      "clearOnHide": false,
+      "key": "status",
+      "type": "string",
+      "input": true
+    },
+    {
+      "label": "userId",
+      "hidden": true,
+      "tableView": true,
+      "clearOnHide": false,
+      "key": "userId",
+      "type": "string",
+      "input": true
+    },
+    {
+      "label": "channel",
+      "hidden": true,
+      "tableView": true,
+      "clearOnHide": false,
+      "key": "channel",
+      "type": "string",
+      "input": true
+    },
+    {
+      "label": "loanVer",
+      "hidden": true,
+      "tableView": true,
+      "clearOnHide": false,
+      "key": "loanVer",
+      "type": "string",
+      "input": true
+    },
+    {
+      "label": "tmpltVer",
+      "hidden": true,
+      "tableView": true,
+      "clearOnHide": false,
+      "key": "tmpltVer",
+      "type": "string",
+      "input": true
+    }
+  ]
+}

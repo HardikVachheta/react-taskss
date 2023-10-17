@@ -10,6 +10,8 @@ import { Helmet } from 'react-helmet';
 import { Taskbar } from './Pages/Taskbar';
 import { TaskbarPages } from './GetDataPages/TaskbarPages';
 import AutoPages from './GetDataPages/AutoPages';
+import Temp from './Pages/Temp';
+import { Error } from './Pages/Error';
 
 function App() {
   <Helmet>
@@ -25,8 +27,10 @@ function App() {
         <Route path='/forgot' element={<Forgot/>}/>
         <Route path='/taskbar' element={<Taskbar/>}/>
         <Route path='/TaskbarPages/:id' element={<TaskbarPages/>}/>
-        {/* <Route path='/TaskbarPages' element={<TaskbarPages/>}/> */}
         <Route path='/AutoPages/:id' element={<AutoPages/>}/>
+        <Route path='/Temp' element={<Temp/>}/>
+        <Route path='/*' element={<Error/>}/>
+        <Route path='/TaskbarPages/*' element={<Error/>}/>
       </Routes>
     </div>
   );

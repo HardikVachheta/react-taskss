@@ -3,13 +3,17 @@ import { Helmet } from 'react-helmet'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import data from '../data/dumpdata.json'
 import { Link } from 'react-router-dom'
+import { PuffLoader } from 'react-spinners'
+
 
 export const Taskbar2 = () => {
+    
     const [dataSource, setDataSource] = useState(Array.from({ length: 10 }))
     const [hasMore, setHasMore] = useState(true)
     var x = data.length
 
     console.log("x", x)
+
     const fetchMoreData = () => {
         if (dataSource.length < x) {
             setTimeout(() => {
@@ -20,7 +24,7 @@ export const Taskbar2 = () => {
 
         }
     }
-    
+
     const [containerHeight, setContainerHeight] = useState(window.innerHeight);
 
     useEffect(() => {
@@ -34,7 +38,13 @@ export const Taskbar2 = () => {
     const handleResize = () => {
         setContainerHeight(window.innerHeight);
     };
-    
+
+    var ce = {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    }
+
     return (
         <div>
             <aside id="layout-menu" class="layout-menu menu-vertical menu"
@@ -51,29 +61,38 @@ export const Taskbar2 = () => {
                     <link rel="stylesheet" href="../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
                     <link rel="stylesheet" href="../assets/vendor/css/theme-dark-default.css" class="template-customizer-theme-css" />
                     <link rel="stylesheet" href="../assets/css/demo.css" />
+                    <script src="../assets/vendor/js/helpers.js"></script>
                     <script src="https://www.google.com/search?q=google+25th+birthday&sca_esv=568736477&hl=en&sxsrf=AM9HkKlPU9o2kBne2uX3Ga2OJePIn3ejQA%3A1695795130309&source=hp&ei=uscTZcXPEIzv1e8P2KS20Ak&iflsig=AO6bgOgAAAAAZRPVyuCL_BGDh-lTqSjvlV2QeG90mhPC&oq=google+25&gs_lp=Egdnd3Mtd2l6Iglnb29nbGUgMjUqAggAMgsQABiABBixAxiDATILEAAYgAQYsQMYgwEyDRAAGIoFGLEDGIMBGAoyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGANI9CpQAFj8HnABeACQAQCYAdYCoAHpD6oBBzAuNy4yLjG4AQPIAQD4AQHCAgcQIxiKBRgnwgIEECMYJ8ICDRAAGIoFGLEDGIMBGEPCAggQABiKBRiRAsICDhAAGIoFGLEDGIMBGJECwgITEC4YigUYsQMYgwEYxwEY0QMYQ8ICDRAuGIoFGMcBGNEDGEPCAgcQABiKBRhDwgIUEC4YigUYsQMYgwEYxwEY0QMYkQLCAgcQIxixAhgnwgITEC4YgAQYsQMYgwEYxwEY0QMYCsICCxAAGIoFGLEDGIMBwgINEAAYgAQYsQMYgwEYCsICChAAGIAEGLEDGAo&sclient=gws-wiz"></script>
                     <link rel="stylesheet" href="../assets/css/demo.css" />
                     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
                     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
                     <link rel="stylesheet" href="https://a.omappapi.com/app/js/api.min.css" id="omapi-css" media="all" />
                     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+                    
                 </Helmet>
                 <h4 class="fc-toolbar-title" id="fc-dom-1" style={{ marginTop: "15px" }}>
                     Task List &nbsp;
-                    <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="Add more data"
-                        data-bs-toggle="modal" data-bs-target="#basicModal">
-                        Launch modal
-                    </button>
+                    
+                    <Link data-bs-toggle="modal" data-bs-target="#basicModal" title="Add Task" style={{ color: 'black' }}
+                        id="myButton">
+                        <i class="bx bx-plus me-0 me-sm-1"></i>
+                    </Link>
+                
                 </h4>
                 <ul class="menu-inner py-1">
                     <InfiniteScroll
                         dataLength={dataSource.length}
                         next={fetchMoreData}
                         hasMore={hasMore}
-                        loader={<p>Loading...</p>}
+                        loader={
+                            <div style={ce}>
+                                <PuffLoader color="#696cff" size={30} />
+                            </div>
+                        }
                         endMessage={<p>You are all set!</p>}
-                        // height={541}
-                        height={containerHeight - 80}
+                        height={containerHeight - 63}
+                    // loader={<p>Loading...</p>}
+                    // height={541}
                     // height={611}
                     >
 
