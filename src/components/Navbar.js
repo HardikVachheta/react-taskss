@@ -87,7 +87,7 @@ export const Navbar = () => {
                     })
                 }
                 <li className='menu-item' style={{marginBlockStart:"auto"}}>
-                    <Link className="menu-link btn btn-danger" to="/login" onClick={() => { logout() }} >
+                    <Link className="menu-link btn btn-danger" to="/login" onClick={() => { logout() }} style={{backgroundColor:"red"}} >
                         <i className="menu-icon tf-icons bx bx-log-out"></i>
                         logout
                     </Link>

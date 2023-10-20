@@ -12,7 +12,6 @@ export const Groups = () => {
     const [dataSource, setDataSource] = useState([]);
 
     console.log("data values", data)
-    localStorage.setItem("groups", data)
     const [hasMore, setHasMore] = useState(true)
     useEffect(() => {
         getGroupsData()
@@ -25,6 +24,8 @@ export const Groups = () => {
         axios.get(`http://localhost:3000/api/identity/group/?assignee=${userId}`)
             .then(response => {
                 console.log("Group list Data :- ", response.data.groups);
+                const groupJSON = JSON.stringify(response.data.groups)
+                localStorage.setItem("GroupList", groupJSON);
                 const groupsData = response.data.groups;
                 setData(groupsData);
                 setDataSource(groupsData.slice(0, 10));
@@ -148,8 +149,8 @@ export const Groups = () => {
                                             {/* <Link to={`/groups/${id}`} style={{ color: "#697a8d" }}> */}
                                             <Link to='' style={{ color: "#697a8d" }} >
                                                 <div className="toast-header">
-                                                    <i className="bx bx-bell me-2" style={{ marginBottom:"5px"}}></i>
-                                                    <div className="me-auto fw-semibold" style={{ marginBottom:"5px"}}>
+                                                    <i className="bx bx-bell me-2" style={{ marginBottom: "5px" }}></i>
+                                                    <div className="me-auto fw-semibold" style={{ marginBottom: "5px" }}>
                                                         {name}
                                                     </div>
 

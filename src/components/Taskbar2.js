@@ -24,6 +24,14 @@ export const Taskbar2 = () => {
         axios.get(`http://localhost:3000/api/tasks?assignee=${userId}`)
         .then((response) => {
             console.log("Taskdata list Data :- ", response.data);
+            
+            const tasksJSON = JSON.stringify(response.data)
+            localStorage.setItem("TaskList", tasksJSON);
+
+            // const storedTasksJSON = localStorage.getItem('tasksData');
+            // // Parse the JSON string back into an array
+            // const storedTasks = JSON.parse(storedTasksJSON);
+            
             const groupsData = response.data;
             setData(groupsData);
             setDataSource(groupsData.slice(0, 10));
@@ -136,7 +144,7 @@ const fetchMoreData = () => {
                             {dataSource.length !== 0 ? (
                                 dataSource?.map((u, index) => {
 
-                                    const { name , id } = data[index % data.length]; // Use data from JSON
+                                    const { name , id , created } = data[index % data.length]; // Use data from JSON
 
                                     return (
                                         <li key={id} className="menu-item bs-toast toast fade show" style={{ margin: "5px", width: "300px" }}>
@@ -147,7 +155,7 @@ const fetchMoreData = () => {
                                                     <div className="me-auto fw-semibold" style={{ marginBottom:"5px"}}>
                                                         {name}
                                                     </div>
-                                                    {/* <small>{task_time}</small> */}
+                                                    <small>{created}</small>
                                                 </div>
                                                 {/* <div className="toast-body" style={{ textAlign: "-webkit-left" }}>
                                                 {task_details}
