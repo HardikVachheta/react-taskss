@@ -1,7 +1,6 @@
 import { useFormik } from 'formik';
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2';
 import { signUpSchema } from '../schemas';
@@ -63,7 +62,7 @@ export const Registration = () => {
     }
 
     return (
-        <div class="light-style customizer-hide">
+        <div className="light-style customizer-hide">
 
             <Helmet>
                 <title>Register Page</title>
@@ -75,9 +74,9 @@ export const Registration = () => {
                     rel="stylesheet"
                 />
                 <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-                <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-                <link rel="stylesheet" type="text/css" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-                {/* <link rel="stylesheet" type="text/css" href="../assets_pro/vendor/css/rtl/theme-semi-dark.css" class="template-customizer-theme-css"/> */}
+                <link rel="stylesheet" href="../assets/vendor/css/core.css" className="template-customizer-core-css" />
+                <link rel="stylesheet" type="text/css" href="../assets/vendor/css/theme-default.css" className="template-customizer-theme-css" />
+                {/* <link rel="stylesheet" type="text/css" href="../assets_pro/vendor/css/rtl/theme-semi-dark.css" className="template-customizer-theme-css"/> */}
                 <link rel="stylesheet" href="../assets/css/demo.css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
                 <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css" />
@@ -85,30 +84,30 @@ export const Registration = () => {
                 <script src="../assets/vendor/js/helpers.js"></script>
             </Helmet>
 
-            <div class="container-xxl">
-                <div class="authentication-wrapper authentication-basic container-p-y">
-                    <div class="authentication-inner">
-                        <div class="card-md">
-                            <div class="card">
-                                <div class="card-body">
+            <div className="container-xxl">
+                <div className="authentication-wrapper authentication-basic container-p-y">
+                    <div className="authentication-inner">
+                        <div className="card-md">
+                            <div className="card">
+                                <div className="card-body">
 
-                                    <div class="app-brand justify-content-center">
-                                        <a href="index.html" class="app-brand-link gap-2">
-                                            <span class="app-brand-logo demo">
+                                    <div className="app-brand justify-content-center">
+                                        <a href="index.html" className="app-brand-link gap-2">
+                                            <span className="app-brand-logo demo">
 
                                             </span>
-                                            <span class="app-brand-text demo text-body fw-bolder">Registration Page</span>
+                                            <span className="app-brand-text demo text-body fw-bolder">Registration Page</span>
                                         </a>
                                     </div>
-                                    <h4 class="mb-2 d-flex justify-content-between">Adventure starts here 🚀</h4>
-                                    <p class="mb-4 d-flex justify-content-between">Make your app management easy and fun!</p>
+                                    <h4 className="mb-2 d-flex justify-content-between">Adventure starts here 🚀</h4>
+                                    <p className="mb-4 d-flex justify-content-between">Make your app management easy and fun!</p>
 
-                                    <form class="formAuthentication" onSubmit={handleSubmit} >
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label d-flex justify-content-between">Username</label>
+                                    <form className="formAuthentication" onSubmit={handleSubmit} >
+                                        <div className="mb-3">
+                                            <label for="name" className="form-label d-flex justify-content-between">Username</label>
                                             <input
                                                 type="text"
-                                                class="form-control"
+                                                className="form-control"
                                                 id="bs-validation-name"
                                                 name='name'
                                                 value={values.name}
@@ -118,15 +117,15 @@ export const Registration = () => {
                                                 autofocus
                                             />
                                             {errors.name && touched.name ? (
-                                                <div class="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.name}</div>
+                                                <div className="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.name}</div>
                                             ) : null}
                                         </div>
 
-                                        <div class="mb-3">
-                                            <label for="email" class="form-label d-flex justify-content-between">Email</label>
+                                        <div className="mb-3">
+                                            <label for="email" className="form-label d-flex justify-content-between">Email</label>
                                             <input
                                                 type="text"
-                                                class="form-control"
+                                                className="form-control"
                                                 id="email"
                                                 name='email'
                                                 value={values.email}
@@ -136,44 +135,44 @@ export const Registration = () => {
                                                 autofocus
                                             />
                                             {errors.email && touched.email ? (
-                                                <div class="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.email}</div>
+                                                <div className="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.email}</div>
                                             ) : null}
                                         </div>
 
-                                        <div class="mb-3 form-password-toggle">
-                                            <label class="form-label d-flex justify-content-between" for="password">Password</label>
-                                            <div class="input-group input-group-merge">
+                                        <div className="mb-3 form-password-toggle">
+                                            <label className="form-label d-flex justify-content-between" for="password">Password</label>
+                                            <div className="input-group input-group-merge">
                                                 <input
                                                     type={passwordType}
                                                     name='password'
                                                     id="password"
-                                                    class="form-control"
+                                                    className="form-control"
                                                     value={values.password}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                                     aria-describedby="password"
                                                 />
-                                                <span class="input-group-text cursor-pointer" onClick={togglePassword}>
+                                                <span className="input-group-text cursor-pointer" onClick={togglePassword}>
                                                     {passwordType === "password" ?
                                                         <i className="bx bx-hide"></i> : <i className="bx bx-show"></i>}
                                                 </span>
 
                                             </div>
                                             {errors.password && touched.password ? (
-                                                <div class="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.password}</div>
+                                                <div className="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.password}</div>
                                             ) : null}
 
                                         </div>
 
-                                        <div class="mb-3 form-password-toggle">
-                                            <label class="form-label d-flex justify-content-between" for="password">Password</label>
-                                            <div class="input-group input-group-merge">
+                                        <div className="mb-3 form-password-toggle">
+                                            <label className="form-label d-flex justify-content-between" for="password">Password</label>
+                                            <div className="input-group input-group-merge">
                                                 <input
                                                     type={passwordType}
                                                     // id="confirm_password"
                                                     id="bs-validation-confirm_password"
-                                                    class="form-control"
+                                                    className="form-control"
                                                     name='confirm_password'
                                                     value={values.confirm_password}
                                                     onChange={handleChange}
@@ -181,7 +180,7 @@ export const Registration = () => {
                                                     placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                                     aria-describedby="password"
                                                 />
-                                                <span class="input-group-text cursor-pointer" onClick={togglePassword}>
+                                                <span className="input-group-text cursor-pointer" onClick={togglePassword}>
                                                     {passwordType === "password" ?
                                                         <i className="bx bx-hide"></i> : <i className="bx bx-show"></i>}
                                                 </span>
@@ -189,17 +188,17 @@ export const Registration = () => {
 
                                             </div>
                                             {errors.confirm_password && touched.confirm_password ? (
-                                                <div class="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.confirm_password}</div>
+                                                <div className="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.confirm_password}</div>
                                             ) : null}
 
                                         </div>
 
-                                        <div class="mb-3">
-                                            <button class="btn btn-primary d-grid w-100">Sign up</button>
+                                        <div className="mb-3">
+                                            <button className="btn btn-primary d-grid w-100">Sign up</button>
                                         </div>
                                     </form>
 
-                                    <p class="text-center">
+                                    <p className="text-center">
                                         <span>Already have an account?</span>
                                         <Link to="/login">
                                             <span>Sign in instead</span>

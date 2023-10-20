@@ -6,13 +6,13 @@ import Form from "react-jsonschema-form";
 // import Form from '@rjsf/core';
 // import '@rjsf/core/dist/react-jsonschema-form.css';
 
-import { Navbar } from '../Pages/Navbar';
+import { Navbar } from '../components/Navbar';
 import formData2 from '../data/table2.json'
 import formData1 from '../data/table1.json'
 import AutoPages from './AutoPages';
-import { Taskbar2 } from '../Pages/Taskbar2';
+import { Taskbar2 } from '../components/Taskbar2';
 // import formDataMain from '../data/mixtable.json'
-import Temp from '../Pages/Temp';
+import Temp from '../components/Temp';
 import axios from 'axios';
 // import formData from '../data/task_customer_details.json'
 

@@ -28,7 +28,7 @@ export const Taskbar2 = () => {
             setData(groupsData);
             setDataSource(groupsData.slice(0, 10));
             if (groupsData.length <= 10) {
-                setHasMore(false); // If data is less than or equal to 10, disable infinite scroll
+                setHasMore(false); 
             }
         })
         .catch(error => {
@@ -87,7 +87,7 @@ const fetchMoreData = () => {
 
     return (
         <div>
-            <aside id="layout-menu" class="layout-menu menu-vertical menu"
+            <aside id="layout-menu" className="layout-menu menu-vertical menu"
                 style={{ width: "330px", backgroundColor: "rgba(255,255,255,.85)" }}>
                 <Helmet>
                     <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
@@ -98,8 +98,8 @@ const fetchMoreData = () => {
                     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
                     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
                     {/* <script src="script.js"></script> */}
-                    <link rel="stylesheet" href="../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-                    <link rel="stylesheet" href="../assets/vendor/css/theme-dark-default.css" class="template-customizer-theme-css" />
+                    <link rel="stylesheet" href="../assets/vendor/css/rtl/core.css" className="template-customizer-core-css" />
+                    <link rel="stylesheet" href="../assets/vendor/css/theme-dark-default.css" className="template-customizer-theme-css" />
                     <link rel="stylesheet" href="../assets/css/demo.css" />
                     <script src="../assets/vendor/js/helpers.js"></script>
                     <script src="https://www.google.com/search?q=google+25th+birthday&sca_esv=568736477&hl=en&sxsrf=AM9HkKlPU9o2kBne2uX3Ga2OJePIn3ejQA%3A1695795130309&source=hp&ei=uscTZcXPEIzv1e8P2KS20Ak&iflsig=AO6bgOgAAAAAZRPVyuCL_BGDh-lTqSjvlV2QeG90mhPC&oq=google+25&gs_lp=Egdnd3Mtd2l6Iglnb29nbGUgMjUqAggAMgsQABiABBixAxiDATILEAAYgAQYsQMYgwEyDRAAGIoFGLEDGIMBGAoyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGANI9CpQAFj8HnABeACQAQCYAdYCoAHpD6oBBzAuNy4yLjG4AQPIAQD4AQHCAgcQIxiKBRgnwgIEECMYJ8ICDRAAGIoFGLEDGIMBGEPCAggQABiKBRiRAsICDhAAGIoFGLEDGIMBGJECwgITEC4YigUYsQMYgwEYxwEY0QMYQ8ICDRAuGIoFGMcBGNEDGEPCAgcQABiKBRhDwgIUEC4YigUYsQMYgwEYxwEY0QMYkQLCAgcQIxixAhgnwgITEC4YgAQYsQMYgwEYxwEY0QMYCsICCxAAGIoFGLEDGIMBwgINEAAYgAQYsQMYgwEYCsICChAAGIAEGLEDGAo&sclient=gws-wiz"></script>
@@ -110,12 +110,12 @@ const fetchMoreData = () => {
                     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
 
                 </Helmet>
-                <h4 class="fc-toolbar-title" id="fc-dom-1" style={{ marginTop: "15px" }}>
+                <h4 className="fc-toolbar-title" id="fc-dom-1" style={{ marginTop: "15px" }}>
                     Task List &nbsp;
 
                     <Link data-bs-toggle="modal" data-bs-target="#basicModal" title="Add Task" style={{ color: 'black' }}
                         id="myButton">
-                        <i class="bx bx-plus me-0 me-sm-1"></i>
+                        <i className="bx bx-plus me-0 me-sm-1"></i>
                     </Link>
 
                 </h4>
@@ -161,34 +161,34 @@ const fetchMoreData = () => {
                         </InfiniteScroll>
                     </ul>
             </aside>
-            <div class="modal fade" id="basicModal" tabindex="-1" style={{ display: "none" }} aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel1">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal fade" id="basicModal" tabindex="-1" style={{ display: "none" }} aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel1">Modal title</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col mb-3">
-                                    <label for="nameBasic" class="form-label">Name</label>
-                                    <input type="text" id="nameBasic" class="form-control" placeholder="Enter Name" />
+                        <div className="modal-body">
+                            <div className="row">
+                                <div className="col mb-3">
+                                    <label for="nameBasic" className="form-label">Name</label>
+                                    <input type="text" id="nameBasic" className="form-control" placeholder="Enter Name" />
                                 </div>
                             </div>
-                            <div class="row g-2">
-                                <div class="col mb-0">
-                                    <label for="emailBasic" class="form-label">Email</label>
-                                    <input type="email" id="emailBasic" class="form-control" placeholder="xxxx@xxx.xx" />
+                            <div className="row g-2">
+                                <div className="col mb-0">
+                                    <label for="emailBasic" className="form-label">Email</label>
+                                    <input type="email" id="emailBasic" className="form-control" placeholder="xxxx@xxx.xx" />
                                 </div>
-                                <div class="col mb-0">
-                                    <label for="dobBasic" class="form-label">DOB</label>
-                                    <input type="date" id="dobBasic" class="form-control" />
+                                <div className="col mb-0">
+                                    <label for="dobBasic" className="form-label">DOB</label>
+                                    <input type="date" id="dobBasic" className="form-control" />
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>

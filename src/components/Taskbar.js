@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
-import data from '../data/dumpdata.json'
-import axios from 'axios'
 
 export const Taskbar = () => {
     const windowHeight = window.innerHeight;
@@ -14,6 +12,7 @@ export const Taskbar = () => {
     useEffect(() => {
       const fetchData = async () => {
         setLoading(true);
+        setHasMore(true)
         // Replace this with your data fetching logic (e.g., an API call)
         const response = await fetch(`https://api.example.com/data?page=${page}`);
         const newData = await response.json();
@@ -41,7 +40,7 @@ export const Taskbar = () => {
 
     return (
         <div >
-            <aside id="layout-menu" class="layout-menu menu-vertical menu"
+            <aside id="layout-menu" className="layout-menu menu-vertical menu"
                 style={{ width: "330px", backgroundColor: "rgba(255,255,255,.85)" }}>
                 <Helmet>
                     <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
@@ -52,8 +51,8 @@ export const Taskbar = () => {
                     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
                     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
 
-                    <link rel="stylesheet" href="../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-                    <link rel="stylesheet" href="../assets/vendor/css/theme-dark-default.css" class="template-customizer-theme-css" />
+                    <link rel="stylesheet" href="../assets/vendor/css/rtl/core.css" className="template-customizer-core-css" />
+                    <link rel="stylesheet" href="../assets/vendor/css/theme-dark-default.css" className="template-customizer-theme-css" />
                     <link rel="stylesheet" href="../assets/css/demo.css" />
 
                     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
@@ -62,31 +61,31 @@ export const Taskbar = () => {
 
                 </Helmet>
                
-                <h4 class="fc-toolbar-title" id="fc-dom-1" style={{ marginTop: "15px" }}>
+                <h4 className="fc-toolbar-title" id="fc-dom-1" style={{ marginTop: "15px" }}>
                     Task List &nbsp;
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
+                    <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
                         Launch modal
                     </button>
 
                 </h4>
 
-                {/* <ul class="menu-inner py-1" style={scroll1}> */}
-                <ul class="menu-inner py-1">
+                {/* <ul className="menu-inner py-1" style={scroll1}> */}
+                <ul className="menu-inner py-1">
                     {
                         data?.map((u) => {
                             // console.log(u)
                             return (
-                                <li class="menu-item bs-toast toast fade show" role="alert" aria-live="assertive" aria-atomic="true"
+                                <li className="menu-item bs-toast toast fade show" role="alert" aria-live="assertive" aria-atomic="true"
                                     style={{ margin: "5px", width: "300px" }}>
                                     <Link to={`/TaskbarPages/${u.task_id}`} style={{ color: "#697a8d" }}>
                                         {/* <Link to={`/AutoPages/${u.task_id}`} style={{ color: "#697a8d" }} onClick={getdata}> */}
-                                        <div class="toast-header">
-                                            <i class="bx bx-bell me-2"></i>
-                                            <div class="me-auto fw-semibold" style={{ textAlign: "start" }}>
+                                        <div className="toast-header">
+                                            <i className="bx bx-bell me-2"></i>
+                                            <div className="me-auto fw-semibold" style={{ textAlign: "start" }}>
                                                 {u?.task_name}</div>
                                             <small>11 mins ago</small>
                                         </div>
-                                        <div class="toast-body" style={{ textAlign: "-webkit-left" }}>
+                                        <div className="toast-body" style={{ textAlign: "-webkit-left" }}>
                                             {u?.task_details}
                                         </div>
                                     </Link>

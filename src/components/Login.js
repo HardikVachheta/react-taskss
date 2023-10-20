@@ -1,5 +1,5 @@
 import { useFormik } from 'formik'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2';
@@ -9,6 +9,7 @@ import Confetti from 'confetti-react';
 import axios from 'axios';
 
 
+
 const initialValues = {
     username: "",
     password: "",
@@ -16,6 +17,7 @@ const initialValues = {
 
 export const Login = () => {
 
+    // const { dispatch } = useAuth();
     const navigate = useNavigate();
 
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
@@ -23,19 +25,35 @@ export const Login = () => {
         validationSchema: loginSchema,
         onSubmit: (values) => {
 
-            console.log(values)
+            console.log("Login Data",values)
 
             axios.post('http://localhost:3000/api/login', values).then((res) => {
                 console.log(res)
-                localStorage.setItem("userId",res.data.authenticatedUser)
-                Swal.fire({
-                    title: 'Login Successful',
-                    icon: 'success',
-                    timer: 1500
-                });
-                navigate("/dashboard")
-            }).catch((errors) => {
-                console.log("error in feching data")
+                if (res.data.authenticated === true) {
+                    localStorage.setItem("userId", res.data.authenticatedUser)
+                    localStorage.setItem("authenticated", res.data.authenticated)
+                    Swal.fire({
+                        title: 'Login Successful',
+                        icon: 'success',
+                        timer: 1500
+                    });
+                    navigate("/dashboard")
+                }
+                else {
+                    toast.error('Wrong credentials!!!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                }
+            })
+            .catch((errors) => {
+                console.log("Error in feching data")
                 toast.error('Error in feching data', {
                     position: "top-right",
                     autoClose: 5000,
@@ -46,7 +64,7 @@ export const Login = () => {
                     progress: undefined,
                     theme: "light",
                 });
-            })
+            })  
 
             // const email = localStorage.getItem("email")
             // const password = localStorage.getItem("password")
@@ -185,7 +203,7 @@ export const Login = () => {
 
     return (
 
-        <div class="light-style customizer-hide">
+        <div className="light-style customizer-hide">
             <ToastContainer
                 position="top-right"
                 autoClose={5000}
@@ -210,50 +228,50 @@ export const Login = () => {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
                 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
                 <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-                <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-                <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+                <link rel="stylesheet" href="../assets/vendor/css/core.css" className="template-customizer-core-css" />
+                <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" className="template-customizer-theme-css" />
                 <link rel="stylesheet" href="../assets/css/demo.css" />
 
-                <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
+                <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/theme-default.css" className="template-customizer-theme-css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
                 <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css" />
 
             </Helmet>
-            <div class="container-xxl">
+            <div className="container-xxl">
 
-                <div class="authentication-wrapper authentication-basic container-p-y">
+                <div className="authentication-wrapper authentication-basic container-p-y">
 
-                    <div class="authentication-inner">
+                    <div className="authentication-inner">
                         {/* <!-- Register --> */}
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="justify-content-center">
-                                    <Link to="#" class="app-brand-link">
+                        <div className="card">
+                            <div className="card-body">
+                                <div className="justify-content-center">
+                                    <Link to="#" className="app-brand-link">
 
-                                        <span class="justify-content-center">&emsp;&emsp;&emsp;&emsp;&emsp;
+                                        <span className="justify-content-center">&emsp;&emsp;&emsp;&emsp;&emsp;
                                             {/* <img src='assetsdoc/img/brand/brand-logo-02.png' /> */}
                                         </span>
 
                                     </Link>
                                 </div>
 
-                                <div class="app-brand justify-content-center">
-                                    <span class="app-brand-text demo text-body fw-bolder">Login Page</span>
+                                <div className="app-brand justify-content-center">
+                                    <span className="app-brand-text demo text-body fw-bolder">Login Page</span>
                                 </div>
 
-                                <div class="d-flex justify-content-between">
-                                    <p class="mb-4">Please sign-in to your account</p></div>
+                                <div className="d-flex justify-content-between">
+                                    <p className="mb-4">Please sign-in to your account</p></div>
 
                                 <form
                                     id="formAuthentication"
-                                    class="mb-3"
+                                    className="mb-3"
                                     onSubmit={handleSubmit}>
-                                    <div class="mb-3">
-                                        <div class="d-flex justify-content-between">
-                                            <label for="username" class="form-label">Email or Username</label></div>
+                                    <div className="mb-3">
+                                        <div className="d-flex justify-content-between">
+                                            <label for="username" className="form-label">Email or Username</label></div>
                                         <input
                                             type="text"
-                                            class="form-control"
+                                            className="form-control"
                                             id="username"
                                             name='username'
                                             value={values.username}
@@ -263,43 +281,43 @@ export const Login = () => {
                                             placeholder="Enter your email or username"
                                             autofocus="" />
                                         {errors.username && touched.username ? (
-                                            <div class="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.username}</div>
+                                            <div className="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.username}</div>
                                         ) : null}
                                     </div>
-                                    <div class="mb-3 form-password-toggle">
-                                        <div class="d-flex justify-content-between">
-                                            <label class="form-label" for="password">Password</label>
-                                            <Link to="/forgot">
+                                    <div className="mb-3 form-password-toggle">
+                                        <div className="d-flex justify-content-between">
+                                            <label className="form-label" for="password">Password</label>
+                                            {/* <Link to="/forgot">
                                                 <small>Forgot Password?</small>
-                                            </Link>
+                                            </Link> */}
                                         </div>
-                                        <div class="input-group input-group-merge">
+                                        <div className="input-group input-group-merge">
                                             <input
                                                 id="password"
                                                 type={passwordType}
                                                 name='password'
-                                                class="form-control"
+                                                className="form-control"
                                                 value={values.password}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 placeholder="············"
                                                 aria-describedby="password" />
-                                            <span class="input-group-text cursor-pointer" onClick={togglePassword}>
+                                            <span className="input-group-text cursor-pointer" onClick={togglePassword}>
                                                 {passwordType === "password" ?
                                                     <i className="bx bx-hide"></i> : <i className="bx bx-show"></i>}
                                             </span>
                                         </div>
                                         {errors.password && touched.password ? (
-                                            <div class="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.password}</div>
+                                            <div className="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.password}</div>
                                         ) : null}
                                     </div>
 
-                                    <div class="mb-3">
-                                        <button class="btn btn-primary d-grid w-100" type="submit" onClick={startit}>Sign in</button>
+                                    <div className="mb-3">
+                                        <button className="btn btn-primary d-grid w-100" type="submit" onClick={startit}>Sign in</button>
                                     </div>
                                 </form>
 
-                                <p class="text-center">
+                                <p className="text-center">
                                     <span>New on our platform?</span>
                                     <Link to="/">
                                         <span> Create an account</span>
