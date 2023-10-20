@@ -75,18 +75,27 @@ const AutoPages = ({ formData }) => {
                     <h5 class="mb-0">{users?.task_name} {users?.task_id}</h5>
                 </div>
                 <div class="card-body">
+                    {/* {formData.map((u)=>{
+    return u.name
+})} */}
                     <form>
+
+                        {/* {formData ? ( */}
                         {
-                            formData.map((u) => {
+                            formData.fields?.map((u) => {
                                 return (
                                     <>
-                                        <label>{u.label}</label>
-                                        <input name={u.label} />
+                                        <div class="mb-3">
+                                            <label class="form-label d-flex justify-content-between">{u.label}</label>
+                                            <input class="form-control" placeholder={u.placeholder} name={u.name} />
+                                        </div>
                                     </>
                                 )
-                            })
-                        }
-
+                            })}
+                        {/* ) : (
+                            <div>data not found</div>
+                        )} */}
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                     {/* <form onSubmit={formik.handleSubmit}>
 

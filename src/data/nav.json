@@ -9,12 +9,12 @@
         "link": "/TaskbarPages/1",
         "icon": "bx bx-layout"
       },{
-        "name": "Dashboard1",
-        "link": "/TaskbarPages/2",
-        "icon": "bx bx-customize"
+        "name": "Groups List",
+        "link": "/Groups",
+        "icon": "bi bi-people-fill"
       },{
         "name": "Dashboard2",
-        "link": "/",
+        "link": "/TaskbarPages/3",
         "icon": "bx bx-home-circle"
       },{
         "name": "Dashboard3",

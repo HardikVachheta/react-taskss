@@ -10,7 +10,7 @@ import { signUpSchema } from '../schemas';
 const initialValues = {
     name: "",
     email: "",
-    password: "", 
+    password: "",
     confirm_password: "",
 };
 
@@ -30,16 +30,16 @@ export const Registration = () => {
                 localStorage.setItem("email", values.email)
                 localStorage.setItem("password", values.password)
                 localStorage.setItem("confirm_password", values.confirm_password)
-    
+
                 Swal.fire({
                     title: 'Registration Successful',
                     icon: 'success',
                     timer: 1500
                 });
-    
-    
+
+
                 navigate("/login")
-    
+
             } else {
                 Swal.fire({
                     title: 'Enter Data',
@@ -53,7 +53,7 @@ export const Registration = () => {
     })
 
     const [passwordType, setPasswordType] = useState("password");
-    
+
     const togglePassword = () => {
         if (passwordType === "password") {
             setPasswordType("text")
@@ -64,7 +64,7 @@ export const Registration = () => {
 
     return (
         <div class="light-style customizer-hide">
-            
+
             <Helmet>
                 <title>Register Page</title>
                 <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
@@ -76,7 +76,7 @@ export const Registration = () => {
                 />
                 <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
                 <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-                <link rel="stylesheet" type="text/css" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css"/>
+                <link rel="stylesheet" type="text/css" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
                 {/* <link rel="stylesheet" type="text/css" href="../assets_pro/vendor/css/rtl/theme-semi-dark.css" class="template-customizer-theme-css"/> */}
                 <link rel="stylesheet" href="../assets/css/demo.css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
@@ -118,8 +118,8 @@ export const Registration = () => {
                                                 autofocus
                                             />
                                             {errors.name && touched.name ? (
-                                            <div class="form-error d-flex justify-content-between" style={{color:"red"}}>{errors.name}</div>
-                                        ) : null}
+                                                <div class="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.name}</div>
+                                            ) : null}
                                         </div>
 
                                         <div class="mb-3">
@@ -136,8 +136,8 @@ export const Registration = () => {
                                                 autofocus
                                             />
                                             {errors.email && touched.email ? (
-                                            <div class="form-error d-flex justify-content-between" style={{color:"red"}}>{errors.email}</div>
-                                        ) : null}
+                                                <div class="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.email}</div>
+                                            ) : null}
                                         </div>
 
                                         <div class="mb-3 form-password-toggle">
@@ -160,8 +160,8 @@ export const Registration = () => {
                                                 </span>
 
                                             </div>
-                                            {errors.password&& touched.password? (
-                                                <div class="form-error d-flex justify-content-between" style={{color:"red"}}>{errors.password}</div>
+                                            {errors.password && touched.password ? (
+                                                <div class="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.password}</div>
                                             ) : null}
 
                                         </div>
@@ -189,13 +189,14 @@ export const Registration = () => {
 
                                             </div>
                                             {errors.confirm_password && touched.confirm_password ? (
-                                                <div class="form-error d-flex justify-content-between" style={{color:"red"}}>{errors.confirm_password}</div>
+                                                <div class="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.confirm_password}</div>
                                             ) : null}
 
                                         </div>
 
-
-                                        <button class="btn btn-primary d-grid w-100">Sign up</button>
+                                        <div class="mb-3">
+                                            <button class="btn btn-primary d-grid w-100">Sign up</button>
+                                        </div>
                                     </form>
 
                                     <p class="text-center">

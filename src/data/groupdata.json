@@ -1,0 +1,72 @@
+{
+    "groups": [
+        {
+            "id": "accounting",
+            "name": "Accounting"
+        },
+        {
+            "id": "management",
+            "name": "Management"
+        },
+        {
+            "id": "sales",
+            "name": "Sales"
+        },
+        {
+            "id": "camunda-admin",
+            "name": "camunda BPM Administrators"
+        },
+        {
+            "id": "accounting2",
+            "name": "Accounting2"
+        },
+        {
+            "id": "management2",
+            "name": "Management2"
+        },
+        {
+            "id": "sales2",
+            "name": "Sales2"
+        },
+        {
+            "id": "camunda-admin2",
+            "name": "camunda BPM Administrators2"
+        },
+        {
+            "id": "accounting3",
+            "name": "Accounting3"
+        },
+        {
+            "id": "management3",
+            "name": "Management3"
+        },
+        {
+            "id": "sales3",
+            "name": "Sales3"
+        },
+        {
+            "id": "camunda-admin3",
+            "name": "camunda BPM Administrators3"
+        }
+    ],
+    "groupUsers": [
+        {
+            "firstName": "John",
+            "lastName": "Doe",
+            "displayName": "John Doe",
+            "id": "john"
+        },
+        {
+            "firstName": "Peter",
+            "lastName": "Meter",
+            "displayName": "Peter Meter",
+            "id": "peter"
+        },
+        {
+            "firstName": "Mary",
+            "lastName": "Anne",
+            "displayName": "Mary Anne",
+            "id": "mary"
+        }
+    ]
+}

@@ -81,7 +81,9 @@ export const Navbar = () => {
                             )
                         })
                     }
-
+<li>
+    logout
+</li>
                 </ul>
             </aside>
         // </div>

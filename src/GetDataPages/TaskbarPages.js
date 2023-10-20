@@ -11,7 +11,7 @@ import formData2 from '../data/table2.json'
 import formData1 from '../data/table1.json'
 import AutoPages from './AutoPages';
 import { Taskbar2 } from '../Pages/Taskbar2';
-import formDataMain from '../data/mixtable.json'
+// import formDataMain from '../data/mixtable.json'
 import Temp from '../Pages/Temp';
 import axios from 'axios';
 // import formData from '../data/task_customer_details.json'
@@ -24,15 +24,16 @@ export const TaskbarPages = () => {
 
   const [formValue, setFormValues] = useState([])
   const [users, setUsers] = useState('')
-  const [formData, setData] = useState(formDataMain[0])
+  // const [formData, setData] = useState(formDataMain[0])
 
   useEffect(() => {
-    getNewData()
+    // getNewData()
+    // getform()
   }, [])
 
   useEffect(() => {
     getdata()
-    getform()
+    // getform()
   })
   // ============================================================================
   var task_id = 123, task_key = 123
@@ -41,7 +42,8 @@ export const TaskbarPages = () => {
     axios.get(`http://localhost:3000/api/task-detail/${task_key}/${task_id}`)
       .then(response => {
         console.log("tilak data ++++++++++++++++++++++++", response.data.formData.form_def.components)
-        const x = response.data.formData.form_def.components
+        // const x = response.data.formData.form_def.components
+        const x = response.data.formData
         setFormValues(x)
         // console.log(response.data);
       })
@@ -59,29 +61,43 @@ export const TaskbarPages = () => {
         }
       });
 
-
-
-
-
-
-    // axios.get(`http://localhost:3000/api/task-detail/${task_key}/${task_id}`).then((res) => {
-      // console.log("tilak data++++++++++++++++++++++++", res.data.formData.form_def.components)
-      // const x = res.data.formData.form_def.components
-      // setFormValues(x)
-
-    // })
   }
 
-  // ============================================================================
   const getform = () => {
 
-    var formDataid = formDataMain.filter((u) => {
-      return u.field_id == id
+    axios.get('http://localhost:3000/api/task-detail/groups')
+    .then(response => {
+      console.log("Groups data", response)
+      // const x = response.data.formData.form_def.components
+      // const x = response.data.formData
+      // setFormValues(x)
+      // console.log(response.data);
     })
+    .catch(error => {
+      if (error.response) {
+        if (error.response.status === 404) {
+          console.log('Resource not found');
+        } else {
+          console.log('Server returned an error:', error.response.status);
+        }
+      } else if (error.request) {
+        console.log('No response received from the server');
+      } else {
+        console.log('Error:', error.message);
+      }
+    });
+    }
 
-    setData(formDataid[0])
-    console.log("form data get", formDataid)
-  }
+  // ============================================================================
+  // const getform = () => {
+
+  //   var formDataid = formDataMain.filter((u) => {
+  //     return u.field_id == id
+  //   })
+
+  //   setData(formDataid[0])
+  //   console.log("form data get", formDataid)
+  // }
   // ============================================================================
   const getdata = () => {
     console.log(data)
@@ -96,41 +112,41 @@ export const TaskbarPages = () => {
 
   // ============================================================================
 
-  const schema = {
-    title: formData.title,
-    type: formData.type,
-    required: formData.required,
-    properties: Object.fromEntries(
-      formData.properties.map((property) => [
-        property.name,
-        {
-          type: property.type,
-          title: property.label,
-          minLength: property.minLength,
-          maxLength: property.maxLength,
-          format: property.format,
-          enum: property.enum,
-          placeholder: property.placeholder,
+  // const schema = {
+  //   title: formData.title,
+  //   type: formData.type,
+  //   required: formData.required,
+  //   properties: Object.fromEntries(
+  //     formData.properties.map((property) => [
+  //       property.name,
+  //       {
+  //         type: property.type,
+  //         title: property.label,
+  //         minLength: property.minLength,
+  //         maxLength: property.maxLength,
+  //         format: property.format,
+  //         enum: property.enum,
+  //         placeholder: property.placeholder,
 
-        },
-      ])
-    ),
-  };
+  //       },
+  //     ])
+  //   ),
+  // };
 
-  const uiSchema = {
-    // classNames: "form-control",
-  };
+  // const uiSchema = {
+  //   // classNames: "form-control",
+  // };
 
-  const getPlaceholder = (propertyName) => {
-    const property = formData.properties.find((property) => property.name === propertyName);
-    return property ? property.placeholder : "";
-  };
+  // const getPlaceholder = (propertyName) => {
+  //   const property = formData.properties.find((property) => property.name === propertyName);
+  //   return property ? property.placeholder : "";
+  // };
 
-  Object.keys(schema.properties).forEach((propertyName) => {
-    uiSchema[propertyName] = {
-      "ui:placeholder": getPlaceholder(propertyName),
-    };
-  });
+  // Object.keys(schema.properties).forEach((propertyName) => {
+  //   uiSchema[propertyName] = {
+  //     "ui:placeholder": getPlaceholder(propertyName),
+  //   };
+  // });
 
 
   const onSubmit = ({ formData }) => {
@@ -168,7 +184,7 @@ export const TaskbarPages = () => {
           <div class="layout-page">
 
             <div class="content-wrapper">
-              <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="container-lg flex-grow-1 container-p-y">
                 <div class="row">
                   {/* <div class="card mb-4">
                     <div class="card-body">
@@ -190,6 +206,7 @@ export const TaskbarPages = () => {
                       users.task_id === 2 ? <AutoPages formData={formData2} key={users.task_id} /> : null
                   } */}
                   <AutoPages formData={formValue} key={users.task_id} />
+                  {/* <AutoPages formData={formValue} key={users.task_id} /> */}
                 </div>
               </div>
             </div>

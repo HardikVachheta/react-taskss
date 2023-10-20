@@ -1,29 +1,69 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import data from '../data/dumpdata.json'
 import { Link } from 'react-router-dom'
 import { PuffLoader } from 'react-spinners'
+import axios from 'axios'
 
 
 export const Taskbar2 = () => {
-    
-    const [dataSource, setDataSource] = useState(Array.from({ length: 10 }))
+
+    const [dataSource, setDataSource] = useState([])
+    const [data, setData] = useState([])
     const [hasMore, setHasMore] = useState(true)
+
     var x = data.length
+    console.log("Task Lenth ", x)
 
-    console.log("x", x)
+    useEffect(() => {
+        getTaskData()
+    }, []);
+    const getTaskData = () => {
 
-    const fetchMoreData = () => {
-        if (dataSource.length < x) {
-            setTimeout(() => {
-                setDataSource(dataSource.concat(Array.from({ length: 5 })))
-            }, 2000);
-        } else {
-            setHasMore(false);
+        var userId = localStorage.getItem("userId");
+        axios.get(`http://localhost:3000/api/tasks?assignee=${userId}`)
+        .then((response) => {
+            console.log("Taskdata list Data :- ", response.data);
+            const groupsData = response.data;
+            setData(groupsData);
+            setDataSource(groupsData.slice(0, 10));
+            if (groupsData.length <= 10) {
+                setHasMore(false); // If data is less than or equal to 10, disable infinite scroll
+            }
+        })
+        .catch(error => {
+            if (error.response) {
+                if (error.response.status === 404) {
+                    console.log('Resource not found');
+                } else {
+                    console.log('Server returned an error:', error.response.status);
+                }
+            } else if (error.request) {
+                console.log('No response received from the server');
+            } else {
+                console.log('Error:', error.message);
+            }
+        });
 
-        }
+};
+
+const fetchMoreData = () => {
+    if (dataSource.length < data.length) {
+        setTimeout(() => {
+            const start = dataSource.length;
+            const end = start + 5;
+
+            const newData = data.slice(start, end);
+            setDataSource([...dataSource, ...newData]);
+
+            if (end >= data.length) {
+                setHasMore(false);
+            }
+        }, 2000);
+    } else {
+        setHasMore(false);
     }
+};
 
     const [containerHeight, setContainerHeight] = useState(window.innerHeight);
 
@@ -68,55 +108,58 @@ export const Taskbar2 = () => {
                     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
                     <link rel="stylesheet" href="https://a.omappapi.com/app/js/api.min.css" id="omapi-css" media="all" />
                     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-                    
+
                 </Helmet>
                 <h4 class="fc-toolbar-title" id="fc-dom-1" style={{ marginTop: "15px" }}>
                     Task List &nbsp;
-                    
+
                     <Link data-bs-toggle="modal" data-bs-target="#basicModal" title="Add Task" style={{ color: 'black' }}
                         id="myButton">
                         <i class="bx bx-plus me-0 me-sm-1"></i>
                     </Link>
-                
+
                 </h4>
-                <ul class="menu-inner py-1">
-                    <InfiniteScroll
-                        dataLength={dataSource.length}
-                        next={fetchMoreData}
-                        hasMore={hasMore}
-                        loader={
-                            <div style={ce}>
-                                <PuffLoader color="#696cff" size={30} />
-                            </div>
-                        }
-                        endMessage={<p>You are all set!</p>}
-                        height={containerHeight - 63}
-                    // loader={<p>Loading...</p>}
-                    // height={541}
-                    // height={611}
-                    >
+                <ul className="menu-inner py-1" style={ce}>
+                        <InfiniteScroll
+                            dataLength={dataSource.length}
+                            next={fetchMoreData}
+                            hasMore={hasMore}
+                            loader={
+                                dataSource.length !== 0 ? (
+                                <div style={ce}>
+                                    <PuffLoader color="#696cff" size={30} />
+                                </div>):(<></>)
+                            }
+                            endMessage={<p>You are all set!</p>}
+                            height={containerHeight - 63}
+                        >
+                            {dataSource.length !== 0 ? (
+                                dataSource?.map((u, index) => {
 
-                        {dataSource?.map((u, index) => {
-                            const { task_name, task_details, task_time, task_id } = data[index % data.length]; // Use data from JSON
+                                    const { name , id } = data[index % data.length]; // Use data from JSON
 
-                            return (
-                                <li class="menu-item bs-toast toast fade show" style={{ margin: "5px", width: "300px" }}>
-                                    <Link to={`/TaskbarPages/${task_id}`} style={{ color: "#697a8d" }}>
-                                        <div class="toast-header">
-                                            <i class="bx bx-bell me-2"></i>
-                                            <div class="me-auto fw-semibold" style={{ textAlign: "start" }}>
-                                                {task_name}</div>
-                                            <small>{task_time}</small>
-                                        </div>
-                                        <div class="toast-body" style={{ textAlign: "-webkit-left" }}>
-                                            {task_details}
-                                        </div>
-                                    </Link>
-                                </li>
-                            )
-                        })}
-                    </InfiniteScroll>
-                </ul>
+                                    return (
+                                        <li key={id} className="menu-item bs-toast toast fade show" style={{ margin: "5px", width: "300px" }}>
+                                            {/* <Link to={`/groups/${id}`} style={{ color: "#697a8d" }}> */}
+                                            <Link to='' style={{ color: "#697a8d" }} >
+                                                <div className="toast-header">
+                                                    <i className="bx bx-bell me-2" style={{ marginBottom:"5px"}}></i>
+                                                    <div className="me-auto fw-semibold" style={{ marginBottom:"5px"}}>
+                                                        {name}
+                                                    </div>
+                                                    {/* <small>{task_time}</small> */}
+                                                </div>
+                                                {/* <div className="toast-body" style={{ textAlign: "-webkit-left" }}>
+                                                {task_details}
+                                            </div> */}
+                                            </Link>
+                                        </li>
+                                    )
+
+                                })
+                            ) : (<>Data not Found</>)}
+                        </InfiniteScroll>
+                    </ul>
             </aside>
             <div class="modal fade" id="basicModal" tabindex="-1" style={{ display: "none" }} aria-hidden="true">
                 <div class="modal-dialog" role="document">

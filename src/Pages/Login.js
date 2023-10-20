@@ -6,10 +6,11 @@ import Swal from 'sweetalert2';
 import { loginSchema } from '../schemas'
 import { ToastContainer, toast } from 'react-toastify';
 import Confetti from 'confetti-react';
+import axios from 'axios';
 
 
 const initialValues = {
-    email: "",
+    username: "",
     password: "",
 };
 
@@ -24,22 +25,18 @@ export const Login = () => {
 
             console.log(values)
 
-            const email = localStorage.getItem("email")
-            const password = localStorage.getItem("password")
-
-            if (values.email === email && values.password === password) {
-
-                // alert("enter you are")
+            axios.post('http://localhost:3000/api/login', values).then((res) => {
+                console.log(res)
+                localStorage.setItem("userId",res.data.authenticatedUser)
                 Swal.fire({
                     title: 'Login Successful',
                     icon: 'success',
                     timer: 1500
                 });
                 navigate("/dashboard")
-
-            } else if (values.email !== email && values.password !== password) {
-
-                toast.error('Email and Password are Wrong', {
+            }).catch((errors) => {
+                console.log("error in feching data")
+                toast.error('Error in feching data', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -49,34 +46,61 @@ export const Login = () => {
                     progress: undefined,
                     theme: "light",
                 });
+            })
 
-            } else if (values.password !== password) {
+            // const email = localStorage.getItem("email")
+            // const password = localStorage.getItem("password")
 
-                // alert("wrong password")
-                toast.error('Wrong password', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                })
+            // if (values.email === email && values.password === password) {
 
-            } else {
-                toast.error('Wrong email', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                })
-                // alert("wrong email")
-            }
+            //     // alert("enter you are")
+            //     Swal.fire({
+            //         title: 'Login Successful',
+            //         icon: 'success',
+            //         timer: 1500
+            //     });
+            //     navigate("/dashboard")
+
+            // } else if (values.email !== email && values.password !== password) {
+
+            //     toast.error('Email and Password are Wrong', {
+            //         position: "top-right",
+            //         autoClose: 5000,
+            //         hideProgressBar: false,
+            //         closeOnClick: true,
+            //         pauseOnHover: true,
+            //         draggable: true,
+            //         progress: undefined,
+            //         theme: "light",
+            //     });
+
+            // } else if (values.password !== password) {
+
+            //     // alert("wrong password")
+            //     toast.error('Wrong password', {
+            //         position: "top-right",
+            //         autoClose: 5000,
+            //         hideProgressBar: false,
+            //         closeOnClick: true,
+            //         pauseOnHover: true,
+            //         draggable: true,
+            //         progress: undefined,
+            //         theme: "light",
+            //     })
+
+            // } else {
+            //     toast.error('Wrong email', {
+            //         position: "top-right",
+            //         autoClose: 5000,
+            //         hideProgressBar: false,
+            //         closeOnClick: true,
+            //         pauseOnHover: true,
+            //         draggable: true,
+            //         progress: undefined,
+            //         theme: "light",
+            //     })
+            //     // alert("wrong email")
+            // }
 
             // action.resetForm()
         }
@@ -92,13 +116,13 @@ export const Login = () => {
         }
         setPasswordType("password")
     }
-    const startit = () =>{
+    const startit = () => {
         setTimeout(() => {
             <Confetti width='950' height='820' />
             // Confetti.start();
         }, 2000);
     }
-    
+
 
 
     // const submit = (data) => {
@@ -157,7 +181,7 @@ export const Login = () => {
     //     }
 
     // }
-  
+
 
     return (
 
@@ -226,20 +250,20 @@ export const Login = () => {
                                     onSubmit={handleSubmit}>
                                     <div class="mb-3">
                                         <div class="d-flex justify-content-between">
-                                            <label for="email" class="form-label">Email or Username</label></div>
+                                            <label for="username" class="form-label">Email or Username</label></div>
                                         <input
                                             type="text"
                                             class="form-control"
-                                            id="email"
-                                            name='email'
-                                            value={values.email}
+                                            id="username"
+                                            name='username'
+                                            value={values.username}
                                             onChange={handleChange}
                                             onBlur={handleBlur}
                                             // {...register("email")}
                                             placeholder="Enter your email or username"
                                             autofocus="" />
-                                        {errors.email && touched.email ? (
-                                            <div class="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.email}</div>
+                                        {errors.username && touched.username ? (
+                                            <div class="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.username}</div>
                                         ) : null}
                                     </div>
                                     <div class="mb-3 form-password-toggle">
