@@ -8,10 +8,12 @@ import axios from 'axios'
 import { Navbar } from './Navbar'
 
 export const Groups = () => {
+
+    console.log("------------------------Groups Pages---------------------------")
     const [data, setData] = useState([])
     const [dataSource, setDataSource] = useState([]);
 
-    console.log("data values", data)
+    // console.log("data values", data)
     const [hasMore, setHasMore] = useState(true)
     useEffect(() => {
         getGroupsData()
@@ -24,8 +26,8 @@ export const Groups = () => {
         axios.get(`http://localhost:3000/api/identity/group/?assignee=${userId}`)
             .then(response => {
                 console.log("Group list Data :- ", response.data.groups);
-                const groupJSON = JSON.stringify(response.data.groups)
-                localStorage.setItem("GroupList", groupJSON);
+                // const groupJSON = JSON.stringify(response.data.groups)
+                // localStorage.setItem("GroupList", groupJSON);
                 const groupsData = response.data.groups;
                 setData(groupsData);
                 setDataSource(groupsData.slice(0, 10));
@@ -91,7 +93,7 @@ export const Groups = () => {
 
         <div className="layout-wrapper layout-content-navbar" >
             <Helmet>
-                <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+                <title>Group List</title>
                 <link rel="canonical" href="https://themeselection.com/item/sneat-bootstrap-html-admin-template/" />
                 <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -102,7 +104,7 @@ export const Groups = () => {
                 <link rel="stylesheet" href="../assets/vendor/css/rtl/core.css" className="template-customizer-core-css" />
                 <link rel="stylesheet" href="../assets/vendor/css/theme-dark-default.css" className="template-customizer-theme-css" />
                 <link rel="stylesheet" href="../assets/css/demo.css" />
-                <script src="../assets/vendor/js/helpers.js"></script>
+                {/* <script src="../assets/vendor/js/helpers.js"></script> */}
                 <script src="https://www.google.com/search?q=google+25th+birthday&sca_esv=568736477&hl=en&sxsrf=AM9HkKlPU9o2kBne2uX3Ga2OJePIn3ejQA%3A1695795130309&source=hp&ei=uscTZcXPEIzv1e8P2KS20Ak&iflsig=AO6bgOgAAAAAZRPVyuCL_BGDh-lTqSjvlV2QeG90mhPC&oq=google+25&gs_lp=Egdnd3Mtd2l6Iglnb29nbGUgMjUqAggAMgsQABiABBixAxiDATILEAAYgAQYsQMYgwEyDRAAGIoFGLEDGIMBGAoyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGANI9CpQAFj8HnABeACQAQCYAdYCoAHpD6oBBzAuNy4yLjG4AQPIAQD4AQHCAgcQIxiKBRgnwgIEECMYJ8ICDRAAGIoFGLEDGIMBGEPCAggQABiKBRiRAsICDhAAGIoFGLEDGIMBGJECwgITEC4YigUYsQMYgwEYxwEY0QMYQ8ICDRAuGIoFGMcBGNEDGEPCAgcQABiKBRhDwgIUEC4YigUYsQMYgwEYxwEY0QMYkQLCAgcQIxixAhgnwgITEC4YgAQYsQMYgwEYxwEY0QMYCsICCxAAGIoFGLEDGIMBwgINEAAYgAQYsQMYgwEYCsICChAAGIAEGLEDGAo&sclient=gws-wiz"></script>
                 <link rel="stylesheet" href="../assets/css/demo.css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
@@ -121,7 +123,7 @@ export const Groups = () => {
 
                         <Link data-bs-toggle="modal" data-bs-target="#basicModal" title="Add Task" style={{ color: 'black' }}
                             id="myButton">
-                            <i className="bx bx-plus me-0 me-sm-1"></i>
+                            {/* <i className="bx bx-plus me-0 me-sm-1"></i> */}
                         </Link>
 
                     </h4>

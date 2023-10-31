@@ -22,7 +22,7 @@ export const Forgot = () => {
                 <link rel="stylesheet" href="../assets/css/demo.css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
                 <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css" />
-                <script src="../assets/vendor/js/helpers.js"></script>
+                {/* <script src="../assets/vendor/js/helpers.js"></script> */}
 
             </Helmet>
             <div class="container-xxl">

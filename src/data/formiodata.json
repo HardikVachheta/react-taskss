@@ -1,0 +1,45 @@
+{
+    "formTitle": "Sample Form",
+    "fields": [
+      {
+        "label": "Name",
+        "type": "text",
+        "name": "name",
+        "placeholder": "Enter your name",
+        "required": true
+      },
+      {
+        "label": "Email",
+        "type": "email",
+        "name": "email",
+        "placeholder": "Enter your email",
+        "required": true
+      },
+      {
+        "label": "Message",
+        "type": "textarea",
+        "name": "message",
+        "placeholder": "Enter your message",
+        "required": true
+      },
+      {
+        "label": "Subscribe to Newsletter",
+        "type": "checkbox",
+        "name": "subscribe",
+        "value": "yes"
+      },
+      {
+        "label": "Select Country",
+        "type": "select",
+        "name": "country",
+        "options": [
+          "USA",
+          "Canada",
+          "UK",
+          "Australia"
+        ],
+        "required": true
+      }
+    ]
+  }
+  

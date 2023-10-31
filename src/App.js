@@ -8,11 +8,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { Helmet } from 'react-helmet';
 import { Taskbar } from './components/Taskbar';
-import { TaskbarPages } from './GetDataPages/TaskbarPages';
+import { TaskbarPages } from './components/TaskbarPages';
 import AutoPages from './GetDataPages/AutoPages';
 import { Error } from './components/Error';
 import { Groups } from './components/Groups';
 import { ProtectedRoutes } from './components/ProtectedRoutes';
+import { MyForm } from './components/MyForm';
+import { Formio1 } from './components/Formio1';
+
 
 function App() {
   <Helmet>
@@ -28,12 +31,15 @@ function App() {
         <Route path='/forgot' element={<Forgot />} />
         <Route path='/*' element={<Error />} />
 
-        <Route path='/dashboard' element={<ProtectedRoutes Component={Dashboard} />} />
+        <Route path='/Dashboard' element={<ProtectedRoutes Component={Dashboard} />} />
         <Route path='/taskbar' element={<ProtectedRoutes Component={Taskbar} />} />
         <Route path='/TaskbarPages/:id' element={<ProtectedRoutes Component={TaskbarPages} />} />
+        <Route path='/TaskbarPages' element={<ProtectedRoutes Component={TaskbarPages} />} />
         <Route path='/AutoPages/:id' element={<ProtectedRoutes Component={AutoPages} />} />
         <Route path='/TaskbarPages/*' element={<Error />} />
         <Route path='/Groups' element={<ProtectedRoutes Component={Groups} />} />
+        <Route path='/MyForm' element={<ProtectedRoutes Component={MyForm} />} />
+        <Route path='/Formio1' element={<ProtectedRoutes Component={Formio1} />} />
 
 
 

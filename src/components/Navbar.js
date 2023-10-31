@@ -5,19 +5,34 @@ import newnav from '../data/nav.json'
 
 export const Navbar = () => {
 
-    const [passwordType, setPasswordType] = useState("false");
+    // const [passwordType, setPasswordType] = useState("false");
     const [selectedValue, setSelectedValue] = useState(null);
+    const [getLink, setLink] = useState(null);
     var navigate = useNavigate()
-    const togglePassword = () => {
-        if (passwordType === "false") {
-            setPasswordType("true")
-            return;
-        }
-        setPasswordType("false")
-    }
+    // const togglePassword = () => {
+    //     if (passwordType === "false") {
+    //         setPasswordType("true")
+    //         return;
+    //     }
+    //     setPasswordType("false")
+    // }
     // ================================================================================
     const location = useLocation();
     const pathname = location.pathname;
+
+    const isTaskbarPages = location.pathname.includes('TaskbarPages');
+    const isDashboard = location.pathname.includes('Dashboard');
+    const isGroups = location.pathname.includes('Groups');
+
+    var page
+    if (isTaskbarPages === true) {
+        page = '/TaskbarPages'
+    } else if (isDashboard  === true){
+        page = '/Dashboard'
+    } else if (isGroups === true){
+        page = '/Groups'
+    }
+
     const logout = () => {
 
         localStorage.removeItem("userId")
@@ -27,21 +42,20 @@ export const Navbar = () => {
     useEffect(() => {
         const parts = pathname.split('/');
         const taskbarpagesName = parts[parts.length - 1]; // Get the last part of the pathname
-        console.log("TaskbarPages Name:", taskbarpagesName);
+        // console.log("Pages Name:", taskbarpagesName);
+        // console.log("TaskbarPages pathname:", pathname);
         setSelectedValue(pathname);
+        setLink(parts[parts.length - 1])
     }, [pathname]);
     // ================================================================================
 
-
-
     return (
         // <div className="d-flex">
-        <aside id="layout-menu" className="layout-menu menu-vertical menu bg-menu-theme"
-            data-bg-className="bg-menu-theme">
+        <aside id="layout-menu" className="layout-menu menu-vertical menu bg-menu-theme">
 
             {/* data-bg-className="bg-menu-theme" style={{ height: "92vh" }}> */}
             <Helmet>
-                <script src="../assets/vendor/js/bootstrap.js" data-react-helmet="true"></script>
+                
                 <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -60,7 +74,7 @@ export const Navbar = () => {
             </Helmet>
             <div className="app-brand demo">
                 <Link href="javascript:void(0);" className="nav-item menu-link text-large">
-                    <i className="bx bx-menu bx-sm align-middle"></i>
+                    {/* <i className="bx bx-menu bx-sm align-middle"></i> */}
                 </Link>
                 <Link to="#" className="app-brand-link">
                     <span className="app-brand-text demo menu-text fw-bolder ms-2">Hardik</span>
@@ -76,18 +90,24 @@ export const Navbar = () => {
                     newnav.navItems.map((item, index) => {
                         return (
                             <>
-                                <li className={`menu-item ${item.link === selectedValue ? 'active' : ''}`}>
+                                <li
+                                    // className={`menu-item ${item.link === selectedValue || `${item.link + '/' + getLink}` === selectedValue ? 'active' : ''}`}
+                                    // className={isTaskbarPages ? 'menu-item active' : 'menu-item'}
+                                    className={`menu-item ${item.link === page ? 'active' : ''}`}
+                                    keys={index}>
                                     <Link to={item.link} className="menu-link">
                                         <i className={`menu-icon tf-icons ${item.icon}`}></i>
                                         <div data-i18n="Analytics">{item.name}</div>
                                     </Link>
+
                                 </li>
                             </>
                         )
                     })
                 }
-                <li className='menu-item' style={{marginBlockStart:"auto"}}>
-                    <Link className="menu-link btn btn-danger" to="/login" onClick={() => { logout() }} style={{backgroundColor:"red"}} >
+                {/* {console.log("values2 : ",location.pathname)} */}
+                <li className='menu-item' style={{ marginBlockStart: "auto" }}>
+                    <Link className="menu-link btn btn-danger" to="/login" onClick={() => { logout() }} style={{ backgroundColor: "red" }} >
                         <i className="menu-icon tf-icons bx bx-log-out"></i>
                         logout
                     </Link>

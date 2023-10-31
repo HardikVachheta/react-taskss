@@ -25,7 +25,7 @@ const AutoPages = ({ formData }) => {
     const { register, handleSubmit } = useForm({})
 
     useEffect(() => {
-        getdata1()
+        // getdata1()
     });
 
     const getdata1 = () => {
@@ -62,19 +62,19 @@ const AutoPages = ({ formData }) => {
     // });
 
     return (
-        <div class="col-xl">
+        <div className="col-xl">
             <Helmet>
                 <link rel="stylesheet"
                     href="../assets_pro/vendor/css/rtl/theme-semi-dark.css"
-                    class="template-customizer-theme-css" />
+                    className="template-customizer-theme-css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
             </Helmet>
-            <div class="card mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">{users?.task_name} {users?.task_id}</h5>
+            <div className="card mb-4">
+                <div className="card-header d-flex justify-content-between align-items-center">
+                    <h5 className="mb-0">{users?.task_name} {users?.task_id}</h5>
                 </div>
-                <div class="card-body">
+                <div className="card-body">
                     {/* {formData.map((u)=>{
     return u.name
 })} */}
@@ -85,9 +85,9 @@ const AutoPages = ({ formData }) => {
                             formData.fields?.map((u) => {
                                 return (
                                     <>
-                                        <div class="mb-3">
-                                            <label class="form-label d-flex justify-content-between">{u.label}</label>
-                                            <input class="form-control" placeholder={u.placeholder} name={u.name} />
+                                        <div className="mb-3">
+                                            <label className="form-label d-flex justify-content-between">{u.label}</label>
+                                            <input className="form-control" placeholder={u.placeholder} name={u.name} />
                                         </div>
                                     </>
                                 )
@@ -95,18 +95,18 @@ const AutoPages = ({ formData }) => {
                         {/* ) : (
                             <div>data not found</div>
                         )} */}
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                     {/* <form onSubmit={formik.handleSubmit}>
 
                         {formData.map((field) => (
 
-                            <div class="mb-3" key={field.name}>
-                                <label class="form-label d-flex justify-content-between"
+                            <div className="mb-3" key={field.name}>
+                                <label className="form-label d-flex justify-content-between"
                                     for="basic-icon-default-fullname" htmlFor={field.name}>{field.label}</label>
                                 {
                                     field.type === 'select' ? (
-                                        <select class="select2 form-select" id={field.name}
+                                        <select className="select2 form-select" id={field.name}
                                             type={field.type}
                                             name={field.name}
                                             value={formik.values[field.name]}
@@ -122,7 +122,7 @@ const AutoPages = ({ formData }) => {
 
                                     ) : field.type === 'textarea' ? (
                                         <textarea
-                                            class="form-control"
+                                            className="form-control"
                                             type={field.type}
                                             id={field.name}
                                             name={field.name}
@@ -132,9 +132,9 @@ const AutoPages = ({ formData }) => {
                                             required></textarea>
 
                                     ) : field.type === 'password' ? (
-                                        <div class="input-group input-group-merge">
+                                        <div className="input-group input-group-merge">
                                             <input
-                                                class="form-control"
+                                                className="form-control"
                                                 type={passwordType}
                                                 id={field.name}
                                                 name={field.name}
@@ -142,7 +142,7 @@ const AutoPages = ({ formData }) => {
                                                 onChange={formik.handleChange}
                                                 placeholder={field.placeholder}
                                                 required />
-                                            <span class="input-group-text cursor-pointer" onClick={togglePassword}>
+                                            <span className="input-group-text cursor-pointer" onClick={togglePassword}>
                                                 {passwordType === "password" ?
                                                     <i className="bx bx-hide"></i> : <i className="bx bx-show"></i>}
                                             </span>
@@ -154,7 +154,7 @@ const AutoPages = ({ formData }) => {
                                              />
                                     ) : (
                                         <input
-                                            class="form-control"
+                                            className="form-control"
                                             type={field.type}
                                             id={field.name}
                                             name={field.name}
@@ -167,7 +167,7 @@ const AutoPages = ({ formData }) => {
                             </div>
                         ))}
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" className="btn btn-primary">Submit</button>
                     </form> */}
                 </div>
             </div>

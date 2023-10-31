@@ -1,0 +1,18 @@
+/* Style the form container */
+.form-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+  }
+  
+  /* Style form labels */
+  .form-label {
+    font-weight: bold;
+  }
+  
+  /* Style form input fields */
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  

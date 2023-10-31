@@ -1,24 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Navbar } from './Navbar'
-import { Taskbar } from './Taskbar'
-import { Navbar_u } from './Navbar_u'
-import { Taskbar2 } from './Taskbar2'
-
-import Confetti from 'confetti-react';
 
 export const Dashboard = () => {
 
-    var scroll1 =
-    {
-        maxHeight: "92vh",
-        overflowX: "hidden",
-        overflowY: "auto",
-        behavior: 'smooth',
-    }
+    // var scroll1 =
+    // {
+    //     maxHeight: "92vh",
+    //     overflowX: "hidden",
+    //     overflowY: "auto",
+    //     behavior: 'smooth',
+    // }
+    useEffect(()=>{
+        console.log("---------Dashboard Page---------")
+    },[])
     return (
         <div>
-            <Navbar_u />
+            {/* <Navbar_u /> */}
             <div className="layout-wrapper layout-content-navbar">
 
                 <Helmet>
@@ -49,19 +47,19 @@ export const Dashboard = () => {
                         
                         
 
-                        <div style={{ outlineStyle: "solid", padding: "5px", borderRadius: "0.375rem", marginTop: "27px", marginLeft: "30px", marginRight: "30px", color: "#32333754" }} >
-                            <p className="me-3" style={{
+                        <div style={{ outlineStyle: "solid", padding: "15px", borderRadius: "0.375rem", marginTop: "27px", marginLeft: "30px", marginRight: "30px", color: "#32333754" }} >
+                            <div className="me-3" style={{
                                 position: "relative",
                                 display: "flex",
                                 flexWrap: "wrap",
                                 color: "#697a8de0",
                                 padding: "9px"
                             }}>
-                                <i className='bx bxs-info-circle' style={{ marginTop: "12px", marginLeft: "5px" }}></i>
-                                <div className="text-body" style={{ marginTop: "10px", marginLeft: "10px" }}>
+                                <i className='bx bxs-info-circle'></i>
+                                <div className="text-body" style={{ marginLeft: "10px" }}>
                                     Select a task in the list.
                                 </div>
-                            </p>
+                            </div>
                         </div>
    
                     </aside>
@@ -71,8 +69,8 @@ export const Dashboard = () => {
                             <div className="container-xxl flex-grow-1 container-p-y">
                                 {/* <div className="container-xxl flex-grow-1 container-p-y" style={scroll1}> */}
                                 {/* <TaskbarPages /> */}
-                                <div style={{ outlineStyle: "solid", padding: "15px", borderRadius: "0.375rem", color: "#32333754" }} >
-                                    <p className="me-3" style={{
+                                <div style={{ outlineStyle: "solid", padding: "25px", borderRadius: "0.375rem", color: "#32333754" }} >
+                                    <div className="me-3" style={{
                                         position: "relative",
                                         display: "flex",
                                         flexWrap: "wrap",
@@ -80,11 +78,11 @@ export const Dashboard = () => {
                                         width: "100%",
                                         color: "#697a8de0"
                                     }}>
-                                        <i className='bx bxs-info-circle' style={{ marginTop: "12px" }}></i>
-                                        <div className="text-body" style={{ marginTop: "10px", marginLeft: "10px" }}>
+                                        <i className='bx bxs-info-circle'></i>
+                                        <div className="text-body" style={{ marginLeft: "10px" }}>
                                             Select a task in the list.
                                         </div>
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

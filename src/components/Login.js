@@ -37,7 +37,7 @@ export const Login = () => {
                         icon: 'success',
                         timer: 1500
                     });
-                    navigate("/dashboard")
+                    navigate("/Dashboard")
                 }
                 else {
                     toast.error('Wrong credentials!!!', {
