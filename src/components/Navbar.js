@@ -49,6 +49,10 @@ export const Navbar = () => {
     }, [pathname]);
     // ================================================================================
 
+    const toggleMenu = (item) => {
+        item.isOpen = !item.isOpen;
+    };
+
     return (
         // <div className="d-flex">
         <aside id="layout-menu" className="layout-menu menu-vertical menu bg-menu-theme">
@@ -93,11 +97,11 @@ export const Navbar = () => {
                                 <li
                                     className={`menu-item ${item.link === page ? 'active' : ''} ${item.isOpen ? 'open' : ''} `}
                                     keys={index}>
-                                    <Link to={item.link} className="menu-link">
+                                    <Link to={item.link} className="menu-link" onClick={() => toggleMenu(item)}>
                                         <i className={`menu-icon tf-icons ${item.icon}`}></i>
                                         <div data-i18n="Analytics">{item.name}</div>
                                     </Link>
-                                    {item.isOpen && item.children (
+                                    {item.isOpen && item.children && (
                                         <ul className="menu-sub">
                                             {item.children.map((child, childIndex) => (
                                                 <li className="menu-item" key={childIndex}>

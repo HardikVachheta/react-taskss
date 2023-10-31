@@ -17,7 +17,7 @@
     },
     {
       "name": "Extended UI",
-      "link": "/ExtendedUI",
+      "link": "#",
       "icon": "bx bx-copy",
       "children": [
         {
@@ -28,12 +28,11 @@
           "name": "Text Divider",
           "link": "/TextDivider"
         }
-      ],
-      "isOpen": false
+      ]
     },
     {
       "name": "Extended UI2",
-      "link": "/ExtendedUI",
+      "link": "#",
       "icon": "bx bx-copy",
       "children": [
         {
@@ -46,6 +45,5 @@
         }
       ]
     }
-
   ]
 }
