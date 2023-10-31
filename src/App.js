@@ -15,6 +15,7 @@ import { Groups } from './components/Groups';
 import { ProtectedRoutes } from './components/ProtectedRoutes';
 import { MyForm } from './components/MyForm';
 import { Formio1 } from './components/Formio1';
+import { PerfectScrollbar } from './components/PerfectScrollbar';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/forgot' element={<Forgot />} />
         <Route path='/*' element={<Error />} />
+        <Route path='/PerfectScrollbar' element={<PerfectScrollbar />} />
 
         <Route path='/Dashboard' element={<ProtectedRoutes Component={Dashboard} />} />
         <Route path='/taskbar' element={<ProtectedRoutes Component={Taskbar} />} />

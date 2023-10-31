@@ -18,3 +18,7 @@ export const autoPage1Schema = Yup.object ({
     lastName : Yup.string().min(2).max(25).required("Please enter your name"),
     email : Yup.string().email().required("Please enter your email")
 })
+
+export const commentSchema = Yup.object ({
+    comment : Yup.string().min(2).max(25).required("Please enter your comment"),
+})

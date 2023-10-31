@@ -27,9 +27,9 @@ export const Navbar = () => {
     var page
     if (isTaskbarPages === true) {
         page = '/TaskbarPages'
-    } else if (isDashboard  === true){
+    } else if (isDashboard === true) {
         page = '/Dashboard'
-    } else if (isGroups === true){
+    } else if (isGroups === true) {
         page = '/Groups'
     }
 
@@ -55,7 +55,7 @@ export const Navbar = () => {
 
             {/* data-bg-className="bg-menu-theme" style={{ height: "92vh" }}> */}
             <Helmet>
-                
+
                 <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -91,14 +91,23 @@ export const Navbar = () => {
                         return (
                             <>
                                 <li
-                                    // className={`menu-item ${item.link === selectedValue || `${item.link + '/' + getLink}` === selectedValue ? 'active' : ''}`}
-                                    // className={isTaskbarPages ? 'menu-item active' : 'menu-item'}
-                                    className={`menu-item ${item.link === page ? 'active' : ''}`}
+                                    className={`menu-item ${item.link === page ? 'active' : ''} ${item.isOpen ? 'open' : ''} `}
                                     keys={index}>
                                     <Link to={item.link} className="menu-link">
                                         <i className={`menu-icon tf-icons ${item.icon}`}></i>
                                         <div data-i18n="Analytics">{item.name}</div>
                                     </Link>
+                                    {item.isOpen && item.children (
+                                        <ul className="menu-sub">
+                                            {item.children.map((child, childIndex) => (
+                                                <li className="menu-item" key={childIndex}>
+                                                    <Link to={child.link} className="menu-link">
+                                                        <div data-i18n={child.name}>{child.name}</div>
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
 
                                 </li>
                             </>

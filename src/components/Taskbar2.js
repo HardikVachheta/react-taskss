@@ -40,12 +40,6 @@ export const Taskbar2 = ({ sendDataToParent }) => {
             .then((response) => {
                 console.log("Task List Data :- ", response.data);
                 setId(response.data)
-                // const tasksJSON = JSON.stringify(response.data)
-                // localStorage.setItem("TaskList", tasksJSON);
-
-                // const storedTasksJSON = localStorage.getItem('tasksData');
-                // // Parse the JSON string back into an array
-                // const storedTasks = JSON.parse(storedTasksJSON);
 
                 const tasksData = response.data;
                 setData(tasksData);
