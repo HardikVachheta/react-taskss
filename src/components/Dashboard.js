@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Navbar } from './Navbar'
+import { Taskbar2 } from './Taskbar2'
 
 export const Dashboard = () => {
 
@@ -31,7 +32,7 @@ export const Dashboard = () => {
                     />
                     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
                     <link rel="stylesheet" href="../assets/vendor/css/core.css" className="template-customizer-core-css" />
-                    <link rel="stylesheet" href="../assets_pro/vendor/css/rtl/theme-semi-dark.css" className="template-customizer-theme-css" />
+                    <link rel="stylesheet" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/theme-semi-dark.css" className="template-customizer-theme-css" />
                     <link rel="stylesheet" href="../assets/css/demo.css" />
                     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
                     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />

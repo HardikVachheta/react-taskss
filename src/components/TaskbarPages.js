@@ -284,7 +284,7 @@ export const TaskbarPages = () => {
           <Taskbar2 sendDataToParent={handleChildData} />
           <div className="layout-page">
             <div className="content-wrapper">
-              <div className="container-lg flex-grow-1 container-p-y">
+              <div className="container-xxl flex-grow-1 container-p-y">
                 {!id ?
                   <div style={{ outlineStyle: "solid", padding: "25px", borderRadius: "0.375rem", color: "#32333754" }} >
                     <div className="me-3" style={{
@@ -316,7 +316,7 @@ export const TaskbarPages = () => {
                               className={`nav-link ${activeButton === 'Form' ? 'active' : ''}`}
                               onClick={() => handleButtonClick('Form')}
                             >
-                              <i className="bx bx-user me-1"></i> Form
+                              <i className="bx bx-detail me-1"></i> Form
                             </Link>
                           </li>
                           <li className="nav-item">
@@ -344,7 +344,7 @@ export const TaskbarPages = () => {
                               className={`nav-link ${activeButton === 'Comments' ? 'active' : ''}`}
                               onClick={() => handleButtonClick('Comments')}
                             >
-                              <i className="bx bx-link-alt me-1"></i> Comments
+                              <i className="bx bx-chat me-1"></i> Comments
                             </Link>
                           </li>
                           <li className="nav-item">
@@ -425,7 +425,7 @@ export const TaskbarPages = () => {
                                 ))}
                               </ul>
                             </div> */}
-                            <div class="d-flex justify-content-center col p-4" 
+                            <div class="d-flex justify-content-center col" 
                             style={{height:`${containerHeight-245}px`,overflow: 'auto'}}>
                               <div class="toast-container position-relative">
                                 {

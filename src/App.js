@@ -20,7 +20,7 @@ import { PerfectScrollbar } from './components/PerfectScrollbar';
 
 function App() {
   <Helmet>
-    <link rel="stylesheet" type="text/css" href="../assets_pro/vendor/css/rtl/theme-semi-dark.css" className="template-customizer-theme-css" />
+    <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/theme-semi-dark.css" className="template-customizer-theme-css" />
   </Helmet>
   
   return (
