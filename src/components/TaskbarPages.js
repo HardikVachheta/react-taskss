@@ -1,72 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet';
-// import Form from "react-jsonschema-form";
-// import Form from '@rjsf/core';
 import { Form } from '@formio/react';
 import { Navbar } from './Navbar';
 import { Taskbar2 } from './Taskbar2';
-
-
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { commentSchema } from '../schemas';
-// import { Formio1 } from './Formio1';
-
-// const jsonData = {
-//   "field_id": 101,
-//   "fields": [
-//     {
-//       "name": "firstName",
-//       "label": "First Name",
-//       "type": "string",
-//       "placeholder": "Enter your first name"
-//     },
-//     {
-//       "name": "lastName",
-//       "label": "Last Name",
-//       "type": "string",
-//       "placeholder": "Enter your last name"
-//     },
-//     {
-//       "name": "email",
-//       "label": "Email",
-//       "type": "string",
-//       "placeholder": "Enter your email"
-//     }
-//   ]
-// };
+import './xp.css';
+import { MainBpmn } from './MainBpmn';
 
 export const TaskbarPages = () => {
 
 
   var id = useParams().id
-  // var taskDefinitionKey = useParams().taskDefinitionKey
-  // console.log(taskDefinitionKey)
-  // console.log("Taskbar page id :----", id)
-
-  // const [formData, setFormData] = useState([])
-
-  // const { fields } = jsonData;
-
-  // const schema = {
-  //   type: 'object',
-  //   properties: Object.fromEntries(
-  //     fields.map(field => [field.name, { type: field.type, title: field.label }])
-  //   ),
-  //   required: fields.map(field => field.name),
-  // };
-
-  // const uiSchema = {
-  //   // Define any UI configuration.s here if needed
-  //   // classNames: "form-control",
-  // };
 
   const [checkData, setCheckData] = useState('');
   const [commentData, setCommentsData] = useState([]);
   const [historyData, setHistoryData] = useState({});
   const [formData, setFormData] = useState({});
   const [formDetails, setFormDetails] = useState({});
+  const [getDiaId, setDiaId] = useState([])
 
   const handleFormSubmit = (submission) => {
     console.log('Form Data submitted :', submission.data);
@@ -78,6 +32,7 @@ export const TaskbarPages = () => {
       getFormData()
       getHistoryData()
       getCommentsData()
+      getDiagramData()
     }
     console.log("---------TaskbarPages---------")
   }, [id, checkData])
@@ -86,22 +41,12 @@ export const TaskbarPages = () => {
   // var task_key = taskDefinitionKey
 
 
-  const [taskid, setTaskId] = useState(null);
-  const [taskKey, setTaskKey] = useState(null);
+  const [proid, setProcessDefinitionId] = useState(null);
 
   // Callback function to receive values from the child
-  const handleChildData = (receivedId, receivedTaskKey) => {
-    setTaskId(receivedId);
-    setTaskKey(receivedTaskKey);
+  const handleChildData = (receivedProcessDefinitionId) => {
+    setProcessDefinitionId(receivedProcessDefinitionId);
   };
-
-  function timedata(inputDate) {
-    const date = new Date(inputDate);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based, so we add 1
-    const year = date.getFullYear();
-    return `${day}-${month}-${year}`;
-  }
 
   // const dateTimeString = "2023-10-31T15:45:08.067+0530";
   // const dateTime = new Date(dateTimeString);
@@ -123,7 +68,34 @@ export const TaskbarPages = () => {
     });
   }
 
+  const getDiagramData = () => {
 
+    var userId = localStorage.getItem("userId");
+    axios.get(`http://localhost:3000/api/tasks?assignee=${userId}`)
+      .then((response) => {
+        // console.log("Diagram Data :- ", response.data);
+
+        var diagramvalue = response.data?.filter((u) => {
+          return u.id === id 
+        })
+
+        console.log("Diagram value :-", diagramvalue[0].processDefinitionId)
+        setDiaId(diagramvalue[0].processDefinitionId)
+
+      }).catch(error => {
+        if (error.response) {
+          if (error.response.status === 404) {
+            console.log('Resource not found');
+          } else {
+            console.log('Server returned an error:', error.response.status);
+          }
+        } else if (error.request) {
+          console.log('No response received from the server');
+        } else {
+          console.log('Error:', error.message);
+        }
+      });
+  }
 
   const getCommentsData = () => {
 
@@ -244,16 +216,17 @@ export const TaskbarPages = () => {
   const [containerHeight, setContainerHeight] = useState(window.innerHeight);
 
   useEffect(() => {
-      window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize);
 
-      return () => {
-          window.removeEventListener('resize', handleResize);
-      };
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const handleResize = () => {
-      setContainerHeight(window.innerHeight);
+    setContainerHeight(window.innerHeight);
   };
+
 
   return (
     <div>
@@ -334,7 +307,7 @@ export const TaskbarPages = () => {
                               className={`nav-link ${activeButton === 'Diagram' ? 'active' : ''}`}
                               onClick={() => handleButtonClick('Diagram')}
                             >
-                              <i class="bx bx-id-card me-1"></i> Diagram
+                              <i className="bx bx-id-card me-1"></i> Diagram
                               {/* <i className="bx bx-link-alt me-1"></i> Diagram */}
                             </Link>
                           </li>
@@ -359,48 +332,44 @@ export const TaskbarPages = () => {
                         </ul>
                         <hr />
                         {activeButton === 'Form' && (
-                          <div>
+                          <div className='card' style={{ padding: "30px" }}>
                             {/* {id ? */}
-                            <div>
-                              <Form className="form-control" key={id} placeholder="enter name" form={formData} onSubmit={handleFormSubmit} />
-                            </div>
+
+                            <Form key={id} placeholder="enter name" form={formData} onSubmit={handleFormSubmit} />
+
                             {/* : ''} */}
                           </div>
                         )}
 
                         {activeButton === 'History' && (
-                          // <div>
-                          //   Content for History Page goes here :- {historyData[0]?.taskDefinitionKey}
-                          // </div>
-
                           historyData?.map((his) => {
                             return (
                               <div>Content for History Page goes here :- {his?.taskDefinitionKey}</div>
                             )
                           })
-
                         )}
 
                         {activeButton === 'Diagram' && (
-                          <div>
-                            Content for Diagram Page goes here.
+                          <div style={{ height: "60vh" }}>
+                            <MainBpmn getDiaId={getDiaId} />
                           </div>
+
                         )}
                         {activeButton === 'Comments' && (
                           <>
-                            <div class="chat-history-footer">
-                              <form class="form-send-message d-flex justify-content-between align-items-center " onSubmit={handleSubmit}>
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Add Comments </label>
-                                <input class="form-control message-input border-0 me-3 shadow-none"
+                            <div className="chat-history-footer">
+                              <form className="form-send-message d-flex justify-content-between align-items-center " onSubmit={handleSubmit}>
+                                <label className="col-sm-2 col-form-label" htmlFor="basic-default-name">Add Comments </label>
+                                <input className="form-control message-input border-0 me-3 shadow-none"
                                   name='comment'
                                   value={values.comment}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   placeholder="Enter Your Comments here..." />
-                                <div class="message-actions d-flex align-items-center">
-                                  <button class="btn btn-primary d-flex send-msg-btn" type='submit'>
-                                    <i class="bx bx-paper-plane me-md-1 me-0"></i>
-                                    <span class="align-middle d-md-inline-block d-none">Send</span>
+                                <div className="message-actions d-flex align-items-center">
+                                  <button className="btn btn-primary d-flex send-msg-btn" type='submit'>
+                                    <i className="bx bx-paper-plane me-md-1 me-0"></i>
+                                    <span className="align-middle d-md-inline-block d-none">Send</span>
                                   </button>
                                 </div>
 
@@ -411,35 +380,21 @@ export const TaskbarPages = () => {
                             {errors.comment && touched.comment ? (
                               <div className="form-error" style={{ color: "red" }}>{errors.comment}</div>
                             ) : null}
-                            {/* <div class="chat-message-text"> */}
-{/* 
-                            <div
-                              style={{
-                                height: '60vh', // Set the container height to the viewport height
-                                overflow: 'auto', // Enable scrollbars when content overflows
-                              }}
-                            >
-                              <ul>
-                                {items.map((item, index) => (
-                                  <li key={index}>{item}</li>
-                                ))}
-                              </ul>
-                            </div> */}
-                            <div class="d-flex justify-content-center col" 
-                            style={{height:`${containerHeight-245}px`,overflow: 'auto'}}>
-                              <div class="toast-container position-relative">
+                            <div className="col"
+                              style={{ height: `${containerHeight - 245}px`, overflow: 'auto' }}>
+                              <div className="toast-container position-relative">
                                 {
                                   commentData?.map((u) => {
                                     return (
-                                      // <p class="mb-0">{u.message}</p>
-                                      <div class="bs-toast toast fade show" style={{margin: "5px"}}>
-                                        <div class="toast-header">
-                                          <i class="bx bx-bell me-2" style={{marginBottom:"5px"}}></i>
-                                          <div class="me-auto fw-medium" style={{marginBottom:"5px"}} >{u.message}</div>
-                                          <small style={{marginBottom:"5px"}}>{formattedDate(u.time)}</small>&emsp;
-                                          <small style={{marginBottom:"5px"}}>{formattedTime(u.time)}</small>
-                                          {/* <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> */}
-                                        </div>                                      
+                                      // <p className="mb-0">{u.message}</p>
+                                      <div className="bs-toast toast fade show" style={{ margin: "5px" }} >
+                                        <div className="toast-header">
+                                          <i className="bx bx-bell me-2" style={{ marginBottom: "5px" }}></i>
+                                          <div className="me-auto fw-medium" style={{ marginBottom: "5px" }} >{u.message}</div>
+                                          <small style={{ marginBottom: "5px" }}>{formattedDate(u.time)}</small>&emsp;
+                                          <small style={{ marginBottom: "5px" }}>{formattedTime(u.time)}</small>
+                                          {/* <button type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> */}
+                                        </div>
                                       </div>
                                     )
                                   })
@@ -454,10 +409,6 @@ export const TaskbarPages = () => {
                             Content for Document Page goes here.
                           </div>
                         )}
-                        {/* <h2>Parent Component</h2>
-                    <Taskbar2 onData={handleDataFromChild} /> */}
-                        {/* <p>Data from Child: {taskid}</p>
-                    <p>Data from Child id: {taskKey}</p> */}
                       </div>
                     </div></>}
               </div>

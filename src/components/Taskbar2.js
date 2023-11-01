@@ -25,13 +25,22 @@ export const Taskbar2 = ({ sendDataToParent }) => {
         getTaskData()
     }, []);
 
-    function formatDate(inputDate) {
-        const date = new Date(inputDate);
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based, so we add 1
-        const year = date.getFullYear();
-        return `${day}-${month}-${year}`;
-    }
+    // function formatDate(inputDate) {
+    //     const date = new Date(inputDate);
+    //     const day = date.getDate().toString().padStart(2, '0');
+    //     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based, so we add 1
+    //     const year = date.getFullYear();
+    //     return `${day}-${month}-${year}`;
+    // }
+
+    const formattedDate = (dateTimeString) => {
+        const dateTime = new Date(dateTimeString);
+        return dateTime.toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+        });
+      }
 
     const getTaskData = () => {
 
@@ -154,18 +163,18 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                         {dataSource.length !== 0 ? (
                             dataSource?.map((u, index) => {
 
-                                const { name, id, created, taskDefinitionKey } = data[index % data.length]; // Use data from JSON
+                                const { name, id, created, processDefinitionId } = data[index % data.length]; // Use data from JSON
 
                                 return (
                                     <li key={id} className="menu-item bs-toast toast fade show" style={{ margin: "5px", width: "300px" }}>
                                         {/* <Link to={`/groups/${id}`} style={{ color: "#697a8d" }}> */}
-                                        <Link to={`/TaskbarPages/${id}`} onClick={() => { sendDataToParent(id, taskDefinitionKey); }} style={{ color: "#697a8d" }} >
+                                        <Link to={`/TaskbarPages/${id}`} onClick={() => { sendDataToParent(processDefinitionId); }} style={{ color: "#697a8d" }} >
                                             <div className="toast-header">
                                                 <i className="bx bx-bell me-2" style={{ marginBottom: "5px" }}></i>
                                                 <div className="me-auto fw-semibold" style={{ marginBottom: "5px" }}>
                                                     {name}
                                                 </div>
-                                                <small>{formatDate(created)}</small>
+                                                <small>{formattedDate(created)}</small>
                                             </div>
                                             {/* <div className="toast-body" style={{ textAlign: "-webkit-left" }}>
                                                 {task_details}
