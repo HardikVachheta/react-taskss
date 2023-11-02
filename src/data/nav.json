@@ -6,7 +6,7 @@
       "icon": "bx bx-home-circle"
     },
     {
-      "name": "Task List",
+      "name": "My List",
       "link": "/TaskbarPages",
       "icon": "bx bx-layout"
     },
@@ -16,12 +16,12 @@
       "icon": "bi bi-people-fill"
     },
     {
-      "name": "Extended UI",
+      "name": "Tasks",
       "link": "#",
       "icon": "bx bx-copy",
       "children": [
         {
-          "name": "Perfect Scrollbar",
+          "name": "Groups Task",
           "link": "/PerfectScrollbar"
         },
         {

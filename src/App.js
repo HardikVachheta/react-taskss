@@ -18,6 +18,7 @@ import { Formio1 } from './components/Formio1';
 import { PerfectScrollbar } from './components/PerfectScrollbar';
 import { DashboardNew } from './componentsNew/DashboardNew';
 import { MainBpmn } from './components/MainBpmn';
+import Com from './componentsNew/Com';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
         <Route path='/PerfectScrollbar' element={<PerfectScrollbar />} />
         <Route path='/DashboardNew' element={<DashboardNew />} />
         <Route path='/MainBpmn' element={<MainBpmn />} />
+        <Route path='/Com' element={<Com />} />
 
         <Route path='/Dashboard' element={<ProtectedRoutes Component={Dashboard} />} />
         <Route path='/taskbar' element={<ProtectedRoutes Component={Taskbar} />} />
@@ -44,6 +46,7 @@ function App() {
         <Route path='/AutoPages/:id' element={<ProtectedRoutes Component={AutoPages} />} />
         <Route path='/TaskbarPages/*' element={<Error />} />
         <Route path='/Groups' element={<ProtectedRoutes Component={Groups} />} />
+        <Route path='/Groups/:id' element={<ProtectedRoutes Component={Groups} />} />
         <Route path='/MyForm' element={<ProtectedRoutes Component={MyForm} />} />
         <Route path='/Formio1' element={<ProtectedRoutes Component={Formio1} />} />
 

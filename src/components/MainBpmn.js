@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactBpmn from 'react-bpmn';
+import '../data/dia.css'
 
 export const MainBpmn = ({getDiaId}) => {
     function onShown() {
@@ -14,7 +15,7 @@ export const MainBpmn = ({getDiaId}) => {
         console.log('failed to show diagram');
     }
     return (
-        <div style={{ height: "60vh" }}>
+        <div style={{ height: "60vh" }} >
 
             <ReactBpmn
                 url={`http://localhost:3000/api/diagram?processDefinitionId=${getDiaId}`}

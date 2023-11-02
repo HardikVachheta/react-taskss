@@ -7,7 +7,7 @@ import { Taskbar2 } from './Taskbar2';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { commentSchema } from '../schemas';
-import './xp.css';
+import '../data/xp.css';
 import { MainBpmn } from './MainBpmn';
 
 export const TaskbarPages = () => {
@@ -351,7 +351,7 @@ export const TaskbarPages = () => {
 
                         {activeButton === 'Diagram' && (
                           <div style={{ height: "60vh" }}>
-                            <MainBpmn getDiaId={getDiaId} />
+                            <MainBpmn style={{ height: "60vh" }} getDiaId={getDiaId} />
                           </div>
 
                         )}
@@ -380,14 +380,15 @@ export const TaskbarPages = () => {
                             {errors.comment && touched.comment ? (
                               <div className="form-error" style={{ color: "red" }}>{errors.comment}</div>
                             ) : null}
-                            <div className="col"
+                            
+                            <div className="d-flex justify-content-center col w-100"
                               style={{ height: `${containerHeight - 245}px`, overflow: 'auto' }}>
-                              <div className="toast-container position-relative">
+                              <div className="toast-container position-relative w-90">
                                 {
                                   commentData?.map((u) => {
                                     return (
                                       // <p className="mb-0">{u.message}</p>
-                                      <div className="bs-toast toast fade show" style={{ margin: "5px" }} >
+                                      <div className="bs-toast toast fade show" style={{ margin: "5px" , width:"650px" }} >
                                         <div className="toast-header">
                                           <i className="bx bx-bell me-2" style={{ marginBottom: "5px" }}></i>
                                           <div className="me-auto fw-medium" style={{ marginBottom: "5px" }} >{u.message}</div>
@@ -410,7 +411,8 @@ export const TaskbarPages = () => {
                           </div>
                         )}
                       </div>
-                    </div></>}
+                    </div>
+                    </>}
               </div>
             </div>
           </div>
