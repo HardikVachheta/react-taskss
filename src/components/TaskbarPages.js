@@ -76,7 +76,7 @@ export const TaskbarPages = () => {
         // console.log("Diagram Data :- ", response.data);
 
         var diagramvalue = response.data?.filter((u) => {
-          return u.id === id 
+          return u.id === id
         })
 
         console.log("Diagram value :-", diagramvalue[0].processDefinitionId)
@@ -186,9 +186,18 @@ export const TaskbarPages = () => {
     axios.get(`http://localhost:3000/api/task?taskInstanceId=${id}`)
       .then(response => {
         console.log("Task Form", response.data)
-        var x = response.data.updatedData.form_def;
-        setFormData(x)
         setFormDetails(response.data)
+
+        // var x = response.data.updatedData.form_def;
+        var x = response.data.updatedData;
+        setFormData(x)
+        // console.log("x",x)
+        // {
+        // x ?
+        // console.log("yes") : console.log("NO")
+        //  : <>setFormData(response.data)</>
+        // }
+
       })
       .catch(error => {
         if (error.response) {
@@ -277,6 +286,7 @@ export const TaskbarPages = () => {
                   : <>
                     <h4 className="py-3 mb-4" style={{ textAlign: "start" }}>
                       {formDetails.taskDetail?.name}
+                      {/* {console.log("new=======================", formDetails)} */}
                     </h4>
 
                     <div className="row">
@@ -334,9 +344,9 @@ export const TaskbarPages = () => {
                         {activeButton === 'Form' && (
                           <div className='card' style={{ padding: "30px" }}>
                             {/* {id ? */}
-
-                            <Form key={id} placeholder="enter name" form={formData} onSubmit={handleFormSubmit} />
-
+                            {formData ?
+                              <Form key={id} placeholder="enter name" form={formData.form_def} onSubmit={handleFormSubmit} />
+                              : <>No data</>}
                             {/* : ''} */}
                           </div>
                         )}
@@ -380,7 +390,7 @@ export const TaskbarPages = () => {
                             {errors.comment && touched.comment ? (
                               <div className="form-error" style={{ color: "red" }}>{errors.comment}</div>
                             ) : null}
-                            
+
                             <div className="d-flex justify-content-center col w-100"
                               style={{ height: `${containerHeight - 245}px`, overflow: 'auto' }}>
                               <div className="toast-container position-relative w-90">
@@ -388,7 +398,7 @@ export const TaskbarPages = () => {
                                   commentData?.map((u) => {
                                     return (
                                       // <p className="mb-0">{u.message}</p>
-                                      <div className="bs-toast toast fade show" style={{ margin: "5px" , width:"650px" }} >
+                                      <div className="bs-toast toast fade show" style={{ margin: "5px", width: "650px" }} >
                                         <div className="toast-header">
                                           <i className="bx bx-bell me-2" style={{ marginBottom: "5px" }}></i>
                                           <div className="me-auto fw-medium" style={{ marginBottom: "5px" }} >{u.message}</div>
@@ -412,7 +422,7 @@ export const TaskbarPages = () => {
                         )}
                       </div>
                     </div>
-                    </>}
+                  </>}
               </div>
             </div>
           </div>
