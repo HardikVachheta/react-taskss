@@ -17,7 +17,9 @@ export const Dashboard = () => {
     }, [])
     return (
         <div>
+        {/* // <div lang="en" class="light-style layout-navbar-fixed layout-compact layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../../assets/" data-template="vertical-menu-template"> */}
             {/* <Navbar_u /> */}
+            
             <div className="layout-wrapper layout-content-navbar">
 
                 <Helmet>

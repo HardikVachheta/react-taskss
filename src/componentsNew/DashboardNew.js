@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { NavbarNew } from './NavbarNew'
+import { Taskbar2 } from '../components/Taskbar2'
 export const DashboardNew = () => {
 
 
@@ -146,11 +147,274 @@ export const DashboardNew = () => {
                         </nav>
                         <div className="content-wrapper">
                             <div className="container-xxl flex-grow-1 container-p-y">
-
                                 <div className="row">
                                     <div className="col-lg-4 col-md-4 order-1">
-                                        <div className="row">
+                                        <Taskbar2/>
+                                        {/* <div className="row">
 
+                                            <div className="col-lg-6 col-md-12 col-6 mb-4">
+                                                <div className="card">
+                                                    <div className="card-body">
+                                                        <div className="card-title d-flex align-items-start justify-content-between">
+                                                            <div className="avatar flex-shrink-0">
+                                                                <img
+                                                                    src="../assets/img/icons/unicons/chart-success.png"
+                                                                    alt="chart success"
+                                                                    className="rounded"
+                                                                />
+                                                            </div>
+                                                            <div className="dropdown">
+                                                                <button
+                                                                    className="btn p-0"
+                                                                    type="button"
+                                                                    id="cardOpt3"
+                                                                    data-bs-toggle="dropdown"
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded="false"
+                                                                >
+                                                                    <i className="bx bx-dots-vertical-rounded" />
+                                                                </button>
+                                                                <div
+                                                                    className="dropdown-menu dropdown-menu-end"
+                                                                    aria-labelledby="cardOpt3"
+                                                                >
+                                                                    <a className="dropdown-item" href="javascript:void(0);">
+                                                                        View More
+                                                                    </a>
+                                                                    <a className="dropdown-item" href="javascript:void(0);">
+                                                                        Delete
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <span className="fw-medium d-block mb-1">Profit</span>
+                                                        <h3 className="card-title mb-2">$12,628</h3>
+                                                        <small className="text-success fw-medium">
+                                                            <i className="bx bx-up-arrow-alt" /> +72.80%
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-6 col-md-12 col-6 mb-4">
+                                                <div className="card">
+                                                    <div className="card-body">
+                                                        <div className="card-title d-flex align-items-start justify-content-between">
+                                                            <div className="avatar flex-shrink-0">
+                                                                <img
+                                                                    src="../assets/img/icons/unicons/wallet-info.png"
+                                                                    alt="Credit Card"
+                                                                    className="rounded"
+                                                                />
+                                                            </div>
+                                                            <div className="dropdown">
+                                                                <button
+                                                                    className="btn p-0"
+                                                                    type="button"
+                                                                    id="cardOpt6"
+                                                                    data-bs-toggle="dropdown"
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded="false"
+                                                                >
+                                                                    <i className="bx bx-dots-vertical-rounded" />
+                                                                </button>
+                                                                <div
+                                                                    className="dropdown-menu dropdown-menu-end"
+                                                                    aria-labelledby="cardOpt6"
+                                                                >
+                                                                    <a className="dropdown-item" href="javascript:void(0);">
+                                                                        View More
+                                                                    </a>
+                                                                    <a className="dropdown-item" href="javascript:void(0);">
+                                                                        Delete
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <span>Sales</span>
+                                                        <h3 className="card-title text-nowrap mb-1">$4,679</h3>
+                                                        <small className="text-success fw-medium">
+                                                            <i className="bx bx-up-arrow-alt" /> +28.42%
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> */}
+                                    </div>
+                                    {/* <div className="col-12 col-md-8 col-lg-4 order-3 order-md-2">
+                                        <div className="row">
+                                            <div className="col-6 mb-4">
+                                                <div className="card">
+                                                    <div className="card-body">
+                                                        <div className="card-title d-flex align-items-start justify-content-between">
+                                                            <div className="avatar flex-shrink-0">
+                                                                <img
+                                                                    src="../assets/img/icons/unicons/paypal.png"
+                                                                    alt="Credit Card"
+                                                                    className="rounded"
+                                                                />
+                                                            </div>
+                                                            <div className="dropdown">
+                                                                <button
+                                                                    className="btn p-0"
+                                                                    type="button"
+                                                                    id="cardOpt4"
+                                                                    data-bs-toggle="dropdown"
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded="false"
+                                                                >
+                                                                    <i className="bx bx-dots-vertical-rounded" />
+                                                                </button>
+                                                                <div
+                                                                    className="dropdown-menu dropdown-menu-end"
+                                                                    aria-labelledby="cardOpt4"
+                                                                >
+                                                                    <a className="dropdown-item" href="javascript:void(0);">
+                                                                        View More
+                                                                    </a>
+                                                                    <a className="dropdown-item" href="javascript:void(0);">
+                                                                        Delete
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <span className="d-block mb-1">Payments</span>
+                                                        <h3 className="card-title text-nowrap mb-2">$2,456</h3>
+                                                        <small className="text-danger fw-medium">
+                                                            <i className="bx bx-down-arrow-alt" /> -14.82%
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-6 mb-4">
+                                                <div className="card">
+                                                    <div className="card-body">
+                                                        <div className="card-title d-flex align-items-start justify-content-between">
+                                                            <div className="avatar flex-shrink-0">
+                                                                <img
+                                                                    src="../assets/img/icons/unicons/cc-primary.png"
+                                                                    alt="Credit Card"
+                                                                    className="rounded"
+                                                                />
+                                                            </div>
+                                                            <div className="dropdown">
+                                                                <button
+                                                                    className="btn p-0"
+                                                                    type="button"
+                                                                    id="cardOpt1"
+                                                                    data-bs-toggle="dropdown"
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded="false"
+                                                                >
+                                                                    <i className="bx bx-dots-vertical-rounded" />
+                                                                </button>
+                                                                <div className="dropdown-menu" aria-labelledby="cardOpt1">
+                                                                    <a className="dropdown-item" href="javascript:void(0);">
+                                                                        View More
+                                                                    </a>
+                                                                    <a className="dropdown-item" href="javascript:void(0);">
+                                                                        Delete
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <span className="fw-medium d-block mb-1">Transactions</span>
+                                                        <h3 className="card-title mb-2">$14,857</h3>
+                                                        <small className="text-success fw-medium">
+                                                            <i className="bx bx-up-arrow-alt" /> +28.14%
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-12 mb-4">
+                                                <div className="card">
+                                                    <div className="card-body">
+                                                        <div
+                                                            className="d-flex justify-content-between flex-sm-row flex-column gap-3"
+                                                            style={{ position: "relative" }}
+                                                        >
+                                                            <div className="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                                                                <div className="card-title">
+                                                                    <h5 className="text-nowrap mb-2">Profile Report</h5>
+                                                                    <span className="badge bg-label-warning rounded-pill">
+                                                                        Year 2021
+                                                                    </span>
+                                                                </div>
+                                                                <div className="mt-sm-auto">
+                                                                    <small className="text-success text-nowrap fw-medium">
+                                                                        <i className="bx bx-chevron-up" /> 68.2%
+                                                                    </small>
+                                                                    <h3 className="mb-0">$84,686k</h3>
+                                                                </div>
+                                                            </div>
+                                                            <div id="profileReportChart" style={{ minHeight: 80 }}>
+                                                                <div
+                                                                    id="apexchartsgubxyehhj"
+                                                                    className="apexcharts-canvas apexchartsgubxyehhj apexcharts-theme-light"
+                                                                    style={{ width: 300, height: 80 }}
+                                                                >
+                                                                    <div
+                                                                        className="apexcharts-legend"
+                                                                        style={{ maxHeight: 40 }}
+                                                                    />
+                                                                    <div className="apexcharts-tooltip apexcharts-theme-light">
+                                                                        <div
+                                                                            className="apexcharts-tooltip-title"
+                                                                            style={{
+                                                                                fontFamily: "Helvetica, Arial, sans-serif",
+                                                                                fontSize: 12
+                                                                            }}
+                                                                        />
+                                                                        <div
+                                                                            className="apexcharts-tooltip-series-group"
+                                                                            style={{ order: 1 }}
+                                                                        >
+                                                                            <span
+                                                                                className="apexcharts-tooltip-marker"
+                                                                                style={{ backgroundColor: "rgb(255, 171, 0)" }}
+                                                                            />
+                                                                            <div
+                                                                                className="apexcharts-tooltip-text"
+                                                                                style={{
+                                                                                    fontFamily: "Helvetica, Arial, sans-serif",
+                                                                                    fontSize: 12
+                                                                                }}
+                                                                            >
+                                                                                <div className="apexcharts-tooltip-y-group">
+                                                                                    <span className="apexcharts-tooltip-text-y-label" />
+                                                                                    <span className="apexcharts-tooltip-text-y-value" />
+                                                                                </div>
+                                                                                <div className="apexcharts-tooltip-goals-group">
+                                                                                    <span className="apexcharts-tooltip-text-goals-label" />
+                                                                                    <span className="apexcharts-tooltip-text-goals-value" />
+                                                                                </div>
+                                                                                <div className="apexcharts-tooltip-z-group">
+                                                                                    <span className="apexcharts-tooltip-text-z-label" />
+                                                                                    <span className="apexcharts-tooltip-text-z-value" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light">
+                                                                        <div className="apexcharts-yaxistooltip-text" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="resize-triggers">
+                                                                <div className="expand-trigger">
+                                                                    <div style={{ width: 508, height: 116 }} />
+                                                                </div>
+                                                                <div className="contract-trigger" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> */}
+                                </div>
+                                {/* <div className="row">
+                                    <div className="col-lg-4 col-md-4 order-1">
+                                        <div className="row">
                                             <div className="col-lg-6 col-md-12 col-6 mb-4">
                                                 <div className="card">
                                                     <div className="card-body">
@@ -410,270 +674,7 @@ export const DashboardNew = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-lg-4 col-md-4 order-1">
-                                        <div className="row">
-                                            <div className="col-lg-6 col-md-12 col-6 mb-4">
-                                                <div className="card">
-                                                    <div className="card-body">
-                                                        <div className="card-title d-flex align-items-start justify-content-between">
-                                                            <div className="avatar flex-shrink-0">
-                                                                <img
-                                                                    src="../assets/img/icons/unicons/chart-success.png"
-                                                                    alt="chart success"
-                                                                    className="rounded"
-                                                                />
-                                                            </div>
-                                                            <div className="dropdown">
-                                                                <button
-                                                                    className="btn p-0"
-                                                                    type="button"
-                                                                    id="cardOpt3"
-                                                                    data-bs-toggle="dropdown"
-                                                                    aria-haspopup="true"
-                                                                    aria-expanded="false"
-                                                                >
-                                                                    <i className="bx bx-dots-vertical-rounded" />
-                                                                </button>
-                                                                <div
-                                                                    className="dropdown-menu dropdown-menu-end"
-                                                                    aria-labelledby="cardOpt3"
-                                                                >
-                                                                    <a className="dropdown-item" href="javascript:void(0);">
-                                                                        View More
-                                                                    </a>
-                                                                    <a className="dropdown-item" href="javascript:void(0);">
-                                                                        Delete
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <span className="fw-medium d-block mb-1">Profit</span>
-                                                        <h3 className="card-title mb-2">$12,628</h3>
-                                                        <small className="text-success fw-medium">
-                                                            <i className="bx bx-up-arrow-alt" /> +72.80%
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-6 col-md-12 col-6 mb-4">
-                                                <div className="card">
-                                                    <div className="card-body">
-                                                        <div className="card-title d-flex align-items-start justify-content-between">
-                                                            <div className="avatar flex-shrink-0">
-                                                                <img
-                                                                    src="../assets/img/icons/unicons/wallet-info.png"
-                                                                    alt="Credit Card"
-                                                                    className="rounded"
-                                                                />
-                                                            </div>
-                                                            <div className="dropdown">
-                                                                <button
-                                                                    className="btn p-0"
-                                                                    type="button"
-                                                                    id="cardOpt6"
-                                                                    data-bs-toggle="dropdown"
-                                                                    aria-haspopup="true"
-                                                                    aria-expanded="false"
-                                                                >
-                                                                    <i className="bx bx-dots-vertical-rounded" />
-                                                                </button>
-                                                                <div
-                                                                    className="dropdown-menu dropdown-menu-end"
-                                                                    aria-labelledby="cardOpt6"
-                                                                >
-                                                                    <a className="dropdown-item" href="javascript:void(0);">
-                                                                        View More
-                                                                    </a>
-                                                                    <a className="dropdown-item" href="javascript:void(0);">
-                                                                        Delete
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <span>Sales</span>
-                                                        <h3 className="card-title text-nowrap mb-1">$4,679</h3>
-                                                        <small className="text-success fw-medium">
-                                                            <i className="bx bx-up-arrow-alt" /> +28.42%
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-12 col-md-8 col-lg-4 order-3 order-md-2">
-                                        <div className="row">
-                                            <div className="col-6 mb-4">
-                                                <div className="card">
-                                                    <div className="card-body">
-                                                        <div className="card-title d-flex align-items-start justify-content-between">
-                                                            <div className="avatar flex-shrink-0">
-                                                                <img
-                                                                    src="../assets/img/icons/unicons/paypal.png"
-                                                                    alt="Credit Card"
-                                                                    className="rounded"
-                                                                />
-                                                            </div>
-                                                            <div className="dropdown">
-                                                                <button
-                                                                    className="btn p-0"
-                                                                    type="button"
-                                                                    id="cardOpt4"
-                                                                    data-bs-toggle="dropdown"
-                                                                    aria-haspopup="true"
-                                                                    aria-expanded="false"
-                                                                >
-                                                                    <i className="bx bx-dots-vertical-rounded" />
-                                                                </button>
-                                                                <div
-                                                                    className="dropdown-menu dropdown-menu-end"
-                                                                    aria-labelledby="cardOpt4"
-                                                                >
-                                                                    <a className="dropdown-item" href="javascript:void(0);">
-                                                                        View More
-                                                                    </a>
-                                                                    <a className="dropdown-item" href="javascript:void(0);">
-                                                                        Delete
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <span className="d-block mb-1">Payments</span>
-                                                        <h3 className="card-title text-nowrap mb-2">$2,456</h3>
-                                                        <small className="text-danger fw-medium">
-                                                            <i className="bx bx-down-arrow-alt" /> -14.82%
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-6 mb-4">
-                                                <div className="card">
-                                                    <div className="card-body">
-                                                        <div className="card-title d-flex align-items-start justify-content-between">
-                                                            <div className="avatar flex-shrink-0">
-                                                                <img
-                                                                    src="../assets/img/icons/unicons/cc-primary.png"
-                                                                    alt="Credit Card"
-                                                                    className="rounded"
-                                                                />
-                                                            </div>
-                                                            <div className="dropdown">
-                                                                <button
-                                                                    className="btn p-0"
-                                                                    type="button"
-                                                                    id="cardOpt1"
-                                                                    data-bs-toggle="dropdown"
-                                                                    aria-haspopup="true"
-                                                                    aria-expanded="false"
-                                                                >
-                                                                    <i className="bx bx-dots-vertical-rounded" />
-                                                                </button>
-                                                                <div className="dropdown-menu" aria-labelledby="cardOpt1">
-                                                                    <a className="dropdown-item" href="javascript:void(0);">
-                                                                        View More
-                                                                    </a>
-                                                                    <a className="dropdown-item" href="javascript:void(0);">
-                                                                        Delete
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <span className="fw-medium d-block mb-1">Transactions</span>
-                                                        <h3 className="card-title mb-2">$14,857</h3>
-                                                        <small className="text-success fw-medium">
-                                                            <i className="bx bx-up-arrow-alt" /> +28.14%
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-12 mb-4">
-                                                <div className="card">
-                                                    <div className="card-body">
-                                                        <div
-                                                            className="d-flex justify-content-between flex-sm-row flex-column gap-3"
-                                                            style={{ position: "relative" }}
-                                                        >
-                                                            <div className="d-flex flex-sm-column flex-row align-items-start justify-content-between">
-                                                                <div className="card-title">
-                                                                    <h5 className="text-nowrap mb-2">Profile Report</h5>
-                                                                    <span className="badge bg-label-warning rounded-pill">
-                                                                        Year 2021
-                                                                    </span>
-                                                                </div>
-                                                                <div className="mt-sm-auto">
-                                                                    <small className="text-success text-nowrap fw-medium">
-                                                                        <i className="bx bx-chevron-up" /> 68.2%
-                                                                    </small>
-                                                                    <h3 className="mb-0">$84,686k</h3>
-                                                                </div>
-                                                            </div>
-                                                            <div id="profileReportChart" style={{ minHeight: 80 }}>
-                                                                <div
-                                                                    id="apexchartsgubxyehhj"
-                                                                    className="apexcharts-canvas apexchartsgubxyehhj apexcharts-theme-light"
-                                                                    style={{ width: 300, height: 80 }}
-                                                                >
-                                                                    <div
-                                                                        className="apexcharts-legend"
-                                                                        style={{ maxHeight: 40 }}
-                                                                    />
-                                                                    <div className="apexcharts-tooltip apexcharts-theme-light">
-                                                                        <div
-                                                                            className="apexcharts-tooltip-title"
-                                                                            style={{
-                                                                                fontFamily: "Helvetica, Arial, sans-serif",
-                                                                                fontSize: 12
-                                                                            }}
-                                                                        />
-                                                                        <div
-                                                                            className="apexcharts-tooltip-series-group"
-                                                                            style={{ order: 1 }}
-                                                                        >
-                                                                            <span
-                                                                                className="apexcharts-tooltip-marker"
-                                                                                style={{ backgroundColor: "rgb(255, 171, 0)" }}
-                                                                            />
-                                                                            <div
-                                                                                className="apexcharts-tooltip-text"
-                                                                                style={{
-                                                                                    fontFamily: "Helvetica, Arial, sans-serif",
-                                                                                    fontSize: 12
-                                                                                }}
-                                                                            >
-                                                                                <div className="apexcharts-tooltip-y-group">
-                                                                                    <span className="apexcharts-tooltip-text-y-label" />
-                                                                                    <span className="apexcharts-tooltip-text-y-value" />
-                                                                                </div>
-                                                                                <div className="apexcharts-tooltip-goals-group">
-                                                                                    <span className="apexcharts-tooltip-text-goals-label" />
-                                                                                    <span className="apexcharts-tooltip-text-goals-value" />
-                                                                                </div>
-                                                                                <div className="apexcharts-tooltip-z-group">
-                                                                                    <span className="apexcharts-tooltip-text-z-label" />
-                                                                                    <span className="apexcharts-tooltip-text-z-value" />
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light">
-                                                                        <div className="apexcharts-yaxistooltip-text" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="resize-triggers">
-                                                                <div className="expand-trigger">
-                                                                    <div style={{ width: 508, height: 116 }} />
-                                                                </div>
-                                                                <div className="contract-trigger" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

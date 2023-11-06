@@ -6,12 +6,12 @@
       "icon": "bx bx-home-circle"
     },
     {
-      "name": "My List",
+      "name": "My Tasks",
       "link": "/TaskbarPages",
       "icon": "bx bx-layout"
     },
     {
-      "name": "Groups List",
+      "name": "My Group Tasks",
       "link": "/Groups",
       "icon": "bi bi-people-fill"
     },

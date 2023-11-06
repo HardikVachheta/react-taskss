@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom'
 import { PuffLoader } from 'react-spinners'
 import axios from 'axios'
 import { Navbar } from './Navbar'
+// import { retrieveSchema } from 'react-jsonschema-form/lib/utils'
 
 
 export const Groups = () => {
@@ -16,10 +17,13 @@ export const Groups = () => {
     const [data, setData] = useState([])
     const [dataSource, setDataSource] = useState([]);
     const [groupTaskData, setGroupTaskData] = useState([]);
+    const [groupHistoryData, setGroupHistoryData] = useState([]);
     const [groupTaskid, setGroupTaskid] = useState([]);
     const [activeSection, setActiveSection] = useState(null);
+    const [name1, setName1] = useState('');
+    const [name2, setName2] = useState('');
 
-    const [tname, setTemp] = useState(null);
+    // const [tname, setTemp] = useState(null);
 
 
 
@@ -27,7 +31,8 @@ export const Groups = () => {
     const [hasMore, setHasMore] = useState(true)
     useEffect(() => {
         getGroupsData()
-        getGroupTaskData()
+        // getGroupTaskData()
+        getHistoryData()
     }, [groupTaskid]);
 
     const [activeButton, setActiveButton] = useState("Form");
@@ -45,18 +50,26 @@ export const Groups = () => {
         });
     }
 
-    const getGroupTaskData = () => {
+    const formattedTime = (dateTimeString) => {
+        const dateTime = new Date(dateTimeString);
+        return dateTime.toLocaleTimeString('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+    }
 
-        axios.get(`http://localhost:3000/api/tasks/candidate-group?candidateGroup=${groupTaskid}`)
+    const getHistoryData = () => {
+
+        axios.get(`http://localhost:3000/api/history/operation?taskId=a7b1962d-512f-11ee-8a3a-606c666732bc`)
             .then(response => {
-                console.log("Group Task Data :- ", response.data.responseData);
-                const task = response.data.responseData;
-                setGroupTaskData(task)
+                console.log("Group History Data :- ", response.data);
+
+                setGroupHistoryData(response.data)
             })
             .catch(error => {
                 if (error.response) {
                     if (error.response.status === 404) {
-                        console.log('Resource not found');
+                        console.log('Group History :- Resource not found');
                     } else {
                         console.log('Server returned an error:', error.response.status);
                     }
@@ -66,6 +79,31 @@ export const Groups = () => {
                     console.log('Error:', error.message);
                 }
             });
+
+
+    }
+
+    const getGroupTaskData = (sectionId) => {
+
+        axios.get(`http://localhost:3000/api/tasks/candidate-group?candidateGroup=${sectionId}`)
+            .then(response => {
+                console.log("Group Task Data :- ", response.data.responseData);
+                const task = response.data.responseData;
+                setGroupTaskData(task)
+            })
+            .catch(error => {
+                if (error.response) {
+                    if (error.response.status === 404) {
+                        console.log('Group Task :- Resource not found');
+                    } else {
+                        console.log('Group Task :- Server returned an error:', error.response.status);
+                    }
+                } else if (error.request) {
+                    console.log('No response received from the server');
+                } else {
+                    console.log('Error:', error.message);
+                }
+            })
 
     };
 
@@ -88,10 +126,18 @@ export const Groups = () => {
                     axios.get(`http://localhost:3000/api/tasks/candidate-group?candidateGroup=${u.id}`)
                         .then(response => {
                             console.log("Group Task Data :- ", response.data.responseData);
-                            setTemp(response.data.responseData);
-                            // response.data.responseData.map((x)=>{
-                            //     return setTemp(x.name)
-                            // })
+                            // setTemp(response.data.responseData);
+                            var xy = response.data.responseData
+                            if (xy.length !== 0) {
+                                xy.map((x) => {
+                                    return (
+                                        <>
+                                            console.log(x.name)
+                                            {/* setTemp(x) */}
+                                        </>
+                                    )
+                                });
+                            }
                             // const task = response.data.responseData;
                             // setGroupTaskData(task)
                         })
@@ -113,9 +159,9 @@ export const Groups = () => {
             .catch(error => {
                 if (error.response) {
                     if (error.response.status === 404) {
-                        console.log('Resource not found');
+                        console.log('Group list :- Resource not found');
                     } else {
-                        console.log('Server returned an error:', error.response.status);
+                        console.log('Group list :- Server returned an error:', error.response.status);
                     }
                 } else if (error.request) {
                     console.log('No response received from the server');
@@ -166,11 +212,10 @@ export const Groups = () => {
         margin: "10px"
     }
 
-
-
-    // Function to toggle the collapse state for a section
-    const toggleCollapse = (sectionId) => {
+    const toggleCollapse = (sectionId,sectionName) => {
         setGroupTaskid(sectionId)
+        getGroupTaskData(sectionId)
+        setName1(sectionName)
         console.log(sectionId)
         if (activeSection === sectionId) {
             setActiveSection(null); // Collapse the section if it's already active
@@ -178,6 +223,7 @@ export const Groups = () => {
             setActiveSection(sectionId); // Expand the section if it's not active
         }
     };
+
     return (
 
         <div className="layout-wrapper layout-content-navbar" >
@@ -352,7 +398,7 @@ export const Groups = () => {
                                                         data-bs-target="#accordionOne"
                                                         aria-expanded="false"
                                                         aria-controls="accordionOne"
-                                                        onClick={() => toggleCollapse(id)}
+                                                        onClick={() => toggleCollapse(id,name)}
                                                     >
                                                         {name}
                                                     </button>
@@ -368,8 +414,8 @@ export const Groups = () => {
                                                         {groupTaskData.length ?
                                                             groupTaskData.map((u) => {
                                                                 return (
-                                                                    <Link to={`/Groups/${u.id}`} style={{ color: "#697a8d" }} className='d-flex justify-content-between py-2'>
-                                                                        <div>{u.name} </div><div> {formattedDate(u.created)}</div>
+                                                                    <Link to={`/Groups/${u.id}`} onClick={() => setName2(u.name)} key={u.id} style={{ color: "#697a8d" }} className='d-flex justify-content-between py-2'>
+                                                                        <div>{u.name}</div><div> {formattedDate(u.created)}</div>
                                                                     </Link>
                                                                 )
                                                             })
@@ -411,7 +457,7 @@ export const Groups = () => {
                                 </div>
                                 : <>
                                     <h4 class="py-3 mb-4" style={{ textAlign: "start" }}>
-                                        <span class="text-muted fw-light">Account Settings / </span> Connections
+                                        <span class="text-muted fw-light">{name1} / </span> {name2}
                                     </h4>
 
                                     <div className="row">
@@ -465,7 +511,12 @@ export const Groups = () => {
                                                     </Link>
                                                 </li>
                                             </ul>
-                                            <hr />
+                                            {/* <hr /> */}
+
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-12">
                                             {activeButton === 'Form' && (
                                                 <div className='card' style={{ padding: "30px" }}>
                                                     {/* {id ? */}
@@ -477,12 +528,47 @@ export const Groups = () => {
                                             )}
 
                                             {activeButton === 'History' && (
-                                                // historyData?.map((his) => {
-                                                // return (
-                                                <></>
-                                                // <div>Content for History Page goes here :- {his?.taskDefinitionKey}</div>
-                                                // )
-                                                // })
+                                                <>
+                                                    <div class="col-12 col-lg-12">
+                                                        <div class="card mb-4">
+
+                                                            <div class="card-datatable table-responsive">
+                                                                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                                                                    <table class="datatables-order-details table dataTable no-footer dtr-column" id="DataTables_Table_0" style={{ width: "709px;" }}>
+                                                                        <tbody>
+                                                                            {
+                                                                                groupHistoryData.map((u) => {
+                                                                                    return (
+                                                                                        <tr class="odd">
+                                                                                            <td class="control dtr-hidden" tabIndex="0" style={{ display: "none;" }}></td>
+                                                                                            {/* <td class="  dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes form-check-input"/></td> */}
+                                                                                            <td class="sorting_1">
+                                                                                                <div class="d-flex justify-content-start align-items-center text-nowrap">
+                                                                                                    {/* <div class="avatar-wrapper">
+                                                                                            <div class="avatar me-2"><img src="../../assets/img/products/woodenchair.png" alt="product-Wooden Chair" class="rounded-2"/></div>
+                                                                                        </div> */}
+                                                                                                    <div class="d-flex flex-column">
+                                                                                                        <h6 class="text-body mb-0">{u.userId}</h6>
+                                                                                                        <small class="text-muted">{formattedDate(u.timestamp)}</small>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td><span>{formattedTime(u.timestamp)}</span></td>
+                                                                                            {/* <td class="" ><span class="text-body">2</span></td> */}
+                                                                                            <td class="" >
+                                                                                                <h6 class="mb-0">{u.operationType}</h6>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    )
+                                                                                })
+                                                                            }
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </>
                                             )}
 
                                             {activeButton === 'Diagram' && (
@@ -548,7 +634,11 @@ export const Groups = () => {
                                             )}
                                             {activeButton === 'Document' && (
                                                 <div>
-                                                    Content for Document Page goes here.
+                                                    {/* {tname} */}
+                                                    {/* Content for Document Page goes here. */}
+                                                    {/* {tname.map((u)=>{
+                                                        return u.name
+                                                    })} */}
                                                 </div>
                                             )}
                                         </div>
@@ -558,6 +648,6 @@ export const Groups = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

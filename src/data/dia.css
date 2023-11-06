@@ -1,3 +1,17 @@
 svg{
     height: 65vh;
 }
+html, body, #diagram {
+    height: 100%
+  }
+
+  .highlight:not(.djs-connection) .djs-visual > :nth-child(1) {
+    fill: green !important; 
+  }
+
+  .highlight-overlay {
+    background-color: green;
+    opacity: 0.4;
+    pointer-events: none;
+    border-radius: 10px;
+  }

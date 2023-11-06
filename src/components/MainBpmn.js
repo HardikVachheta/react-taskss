@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import ReactBpmn from 'react-bpmn';
+import '../data/dia.css'
 
-export const MainBpmn = ({ getDiaId }) => {
+export const MainBpmn = ({ getDiaId , getDiakey }) => {
     const bpmnRef = useRef();
 
     function onShown() {
         console.log('Diagram shown');
-        highlightElement('yourElementId'); // Replace 'yourElementId' with the actual element ID you want to highlight
+        highlightElement(getDiakey); // Replace 'yourElementId' with the actual element ID you want to highlight
     }
 
     function highlightElement(elementId) {

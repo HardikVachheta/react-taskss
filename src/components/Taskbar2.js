@@ -112,7 +112,7 @@ export const Taskbar2 = ({ sendDataToParent }) => {
     }
 
     return (
-        <div>
+        <>
             <aside id="layout-menu" className="layout-menu menu-vertical menu"
                 style={{ width: "330px", backgroundColor: "rgba(255,255,255,.85)" }}>
                 <Helmet>
@@ -222,6 +222,6 @@ export const Taskbar2 = ({ sendDataToParent }) => {
             </div>
             {/* <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script> */}
             {/* <script src="script.js"></script> */}
-        </div>
+        </>
     )
 }

@@ -9,6 +9,7 @@ import { useFormik } from 'formik';
 import { commentSchema } from '../schemas';
 import '../data/xp.css';
 import { MainBpmn } from './MainBpmn';
+import MainBpmn2 from './MainBpmn2';
 
 export const TaskbarPages = () => {
 
@@ -21,6 +22,7 @@ export const TaskbarPages = () => {
   const [formData, setFormData] = useState({});
   const [formDetails, setFormDetails] = useState({});
   const [getDiaId, setDiaId] = useState([])
+  const [getDiakey, setDiakey] = useState([])
 
   const handleFormSubmit = (submission) => {
     console.log('Form Data submitted :', submission.data);
@@ -73,7 +75,7 @@ export const TaskbarPages = () => {
     var userId = localStorage.getItem("userId");
     axios.get(`http://localhost:3000/api/tasks?assignee=${userId}`)
       .then((response) => {
-        // console.log("Diagram Data :- ", response.data);
+        console.log("Diagram Data :- ", response.data);
 
         var diagramvalue = response.data?.filter((u) => {
           return u.id === id
@@ -81,6 +83,7 @@ export const TaskbarPages = () => {
 
         console.log("Diagram value :-", diagramvalue[0].processDefinitionId)
         setDiaId(diagramvalue[0].processDefinitionId)
+        setDiakey(diagramvalue[0].taskDefinitionKey)
 
       }).catch(error => {
         if (error.response) {
@@ -236,9 +239,18 @@ export const TaskbarPages = () => {
     setContainerHeight(window.innerHeight);
   };
 
-
+  const [valuex, valueclass] = useState('')
+  // var x
+  const handle = () => {
+      valueclass("layout-menu-expanded")
+      // console.log(x)
+  }
   return (
     <div>
+     {/* <div lang="en"
+            class={`light-style layout-menu-fixed layout-compact ${valuex}`}
+            dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
+            data-template="vertical-menu-template-free"> */}
       {/* <Navbar_u /> */}
 
       <div className="layout-wrapper layout-content-navbar" >
@@ -265,6 +277,11 @@ export const TaskbarPages = () => {
           <Navbar />
           <Taskbar2 sendDataToParent={handleChildData} />
           <div className="layout-page">
+            <div className="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none ">
+              <a className="d-flex nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i className="bx bx-menu bx-sm" onClick={handle}/>
+              </a>
+            </div>
             <div className="content-wrapper">
               <div className="container-xxl flex-grow-1 container-p-y">
                 {!id ?
@@ -361,7 +378,7 @@ export const TaskbarPages = () => {
 
                         {activeButton === 'Diagram' && (
                           <div style={{ height: "60vh" }}>
-                            <MainBpmn style={{ height: "60vh" }} getDiaId={getDiaId} />
+                            <MainBpmn style={{ height: "60vh" }} getDiaId={getDiaId} getDiakey={getDiakey}/>
                           </div>
 
                         )}
