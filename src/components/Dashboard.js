@@ -19,18 +19,14 @@ export const Dashboard = () => {
         <div>
             <Helmet>
                 <title>Dashboard </title>
-                {/* <link rel="canonical" href="https://themeselection.com/item/sneat-bootstrap-html-admin-template/" /> */}
-
                 <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
-                {/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
-                {/* <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" /> */}
                 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
 
                 <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
                 <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome.css" />
                 <link rel="stylesheet" href="../assets/vendor/fonts/flag-icons.css" />
                 <link rel="stylesheet" href="../assets/css/demo.css" />
-
+                <link rel="stylesheet" href="../assets/vendor/css/core.css" className="template-customizer-core-css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/typeahead-js/typeahead.css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
@@ -39,15 +35,11 @@ export const Dashboard = () => {
                 <link rel="stylesheet" href="../assets/vendor/css/pages/app-logistics-dashboard.css" />
 
                 <script src="../assets/vendor/js/helpers.js"></script>
-                {/* <script src="../assets/vendor/js/template-customizer.js"></script> */}
-                {/* <script src="../assets/js/config.js"></script> */}
-                <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-                <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/theme-semi-dark.css" class="template-customizer-theme-css" />
+                {/* <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" /> */}
+                {/* <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/theme-semi-dark.css" class="template-customizer-theme-css" /> */}
 
-                <script type="text/javascript" src="https://a.omappapi.com/app/js/api.min.js" async="" data-user="252882" data-account="269977"></script>
-                {/* <script async="" src="https://script.hotjar.com/modules.daa7524f0a3a92a9c578.js" charset="utf-8"></script> */}
+                <script type="text/javascript" src="https://a.omappapi.com/app/js/api.min.js" async="" data-user="252882" data-account="269977"></script>                
                 <link rel="stylesheet" href="https://a.omappapi.com/app/js/api.min.css" id="omapi-css" media="all" />
-
                 <link rel="stylesheet" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/pages/app-logistics-dashboard.css" />
             </Helmet>
             {/* // <div lang="en" class="light-style layout-navbar-fixed layout-compact layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template"> */}
@@ -57,11 +49,11 @@ export const Dashboard = () => {
 
                 <Helmet>
                     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-                    <link rel="stylesheet" href="../assets/vendor/css/core.css" className="template-customizer-core-css" />
+                    
                     <link rel="stylesheet" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/theme-semi-dark.css" className="template-customizer-theme-css" />
                     
-                    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-                    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+                    
+                    
 
                 </Helmet>
                 <div className="layout-container">
