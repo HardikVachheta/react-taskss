@@ -17,6 +17,7 @@ export const Taskbar2 = ({ sendDataToParent }) => {
     const [data, setData] = useState([])
     const [getId, setId] = useState([])
     const [hasMore, setHasMore] = useState(true)
+    const [taskVariable, setTaskVariable] = useState([])
 
     var x = data.length
     // console.log("Task Lenth ", x)
@@ -36,11 +37,11 @@ export const Taskbar2 = ({ sendDataToParent }) => {
     const formattedDate = (dateTimeString) => {
         const dateTime = new Date(dateTimeString);
         return dateTime.toLocaleDateString('en-GB', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
         });
-      }
+    }
 
     const getTaskData = () => {
 
@@ -56,6 +57,33 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                 if (tasksData.length <= 10) {
                     setHasMore(false);
                 }
+
+                const taskVariablePromises = tasksData.map((u) => {
+                    return axios.get(`http://localhost:3000/api/task?taskInstanceId=${u.id}`);
+                });
+
+                Promise.all(taskVariablePromises)
+                    .then((responses) => {
+
+                        const taskVariables = responses.map((response) => response.data);
+                        console.log("Task Variables :- ", taskVariables);
+                        setTaskVariable(taskVariables)
+
+                    })
+                    .catch(error => {
+                        if (error.response) {
+                            if (error.response.status === 404) {
+                                console.log('Task Variables :- Resource not found');
+                            } else {
+                                console.log('Server returned an error:', error.response.status);
+                            }
+                        } else if (error.request) {
+                            console.log('No response received from the server');
+                        } else {
+                            console.log('Error:', error.message);
+                        }
+                    })
+
             })
             .catch(error => {
                 if (error.response) {
@@ -164,6 +192,7 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                             dataSource?.map((u, index) => {
 
                                 const { name, id, created, processDefinitionId } = data[index % data.length]; // Use data from JSON
+                                const filteredTaskVariables = taskVariable.filter((x) => x.taskDetail.id === id);
 
                                 return (
                                     <li key={id} className="menu-item bs-toast toast fade show" style={{ margin: "5px", width: "300px" }}>
@@ -176,9 +205,45 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                                                 </div>
                                                 <small>{formattedDate(created)}</small>
                                             </div>
-                                            {/* <div className="toast-body" style={{ textAlign: "-webkit-left" }}>
-                                                {task_details}
-                                            </div> */}
+
+                                            <div className="toast-body" style={{ textAlign: "start" }}>
+                                                <tr className="me-auto fw-semibold">
+                                                    <th>Invoice Amount</th>
+                                                    &nbsp;
+                                                    <th>Invoice Number</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>{filteredTaskVariables.length > 0 ? (
+                                                        filteredTaskVariables[0].taskVariables.amount.value
+                                                    ) : (
+                                                        "Nodata"
+                                                    )}</td>
+                                                    &nbsp;
+                                                    <td>{filteredTaskVariables.length > 0 ? (
+                                                        filteredTaskVariables[0].taskVariables.invoiceNumber.value
+                                                    ) : (
+                                                        "Nodata"
+                                                    )}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Creditor</th>
+                                                    &nbsp;
+                                                    <th>Approver</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>{filteredTaskVariables.length > 0 ? (
+                                                        filteredTaskVariables[0].taskVariables.creditor.value
+                                                    ) : (
+                                                        "Nodata"
+                                                    )}</td>
+                                                    &nbsp;
+                                                    <td>{filteredTaskVariables.length > 0 ? (
+                                                        filteredTaskVariables[0].taskVariables.approver.value
+                                                    ) : (
+                                                        "Nodata"
+                                                    )}</td>
+                                                </tr>                                               
+                                            </div>                
                                         </Link>
                                     </li>
                                 )
@@ -220,8 +285,6 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                     </div>
                 </div>
             </div>
-            {/* <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script> */}
-            {/* <script src="script.js"></script> */}
         </>
     )
 }

@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet';
 import { Form } from '@formio/react';
 import { Navbar } from './Navbar';
+import { PuffLoader } from 'react-spinners'
 import { Taskbar2 } from './Taskbar2';
 import axios from 'axios';
 import { useFormik } from 'formik';
@@ -10,6 +11,7 @@ import { commentSchema } from '../schemas';
 import '../data/xp.css';
 import { MainBpmn } from './MainBpmn';
 import MainBpmn2 from './MainBpmn2';
+import '../data/text.css'
 
 export const TaskbarPages = () => {
 
@@ -17,6 +19,7 @@ export const TaskbarPages = () => {
   var id = useParams().id
 
   const [checkData, setCheckData] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const [commentData, setCommentsData] = useState([]);
   const [historyData, setHistoryData] = useState({});
   const [formData, setFormData] = useState({});
@@ -26,7 +29,6 @@ export const TaskbarPages = () => {
 
   const handleFormSubmit = (submission) => {
     console.log('Form Data submitted :', submission.data);
-
   };
 
   useEffect(() => {
@@ -70,8 +72,32 @@ export const TaskbarPages = () => {
     });
   }
 
-  const getDiagramData = () => {
+  const unClaimTask = () => {
+    var userId = localStorage.getItem("userId");
 
+    axios.post(`http://localhost:3000/api/task/unclaim?taskId=${id}`)
+      .then(response => {
+        console.log("TaskBar unclaimTask Data :- ", response);
+
+      })
+      .catch(error => {
+        if (error.response) {
+          if (error.response.status === 404) {
+            console.log('Group claimTask :- Resource not found');
+          } else {
+            console.log('Server returned an error:', error.response.status);
+          }
+        } else if (error.request) {
+          console.log('No response received from the server');
+        } else {
+          console.log('Error:', error.message);
+        }
+      });
+
+  }
+
+  const getDiagramData = () => {
+    setIsLoading(true);
     var userId = localStorage.getItem("userId");
     axios.get(`http://localhost:3000/api/tasks?assignee=${userId}`)
       .then((response) => {
@@ -84,6 +110,7 @@ export const TaskbarPages = () => {
         console.log("Diagram value :-", diagramvalue[0].processDefinitionId)
         setDiaId(diagramvalue[0].processDefinitionId)
         setDiakey(diagramvalue[0].taskDefinitionKey)
+        setIsLoading(false);
 
       }).catch(error => {
         if (error.response) {
@@ -97,6 +124,7 @@ export const TaskbarPages = () => {
         } else {
           console.log('Error:', error.message);
         }
+        setIsLoading(false);
       });
   }
 
@@ -105,8 +133,6 @@ export const TaskbarPages = () => {
     axios.get(`http://localhost:3000/api/task/comment?taskId=${id}`)
       .then(response => {
         console.log("Comments Data get", response.data)
-        // var x = response.data.updatedData.form_def;
-        // setFormData(x)
         setCommentsData(response.data)
       })
       .catch(error => {
@@ -164,8 +190,6 @@ export const TaskbarPages = () => {
     axios.get(`http://localhost:3000/api/history/tasks?taskId=${id}`)
       .then(response => {
         console.log("History Data", response.data)
-        // var x = response.data.updatedData.form_def;
-        // setFormData(x)
         setHistoryData(response.data)
       })
       .catch(error => {
@@ -194,12 +218,7 @@ export const TaskbarPages = () => {
         // var x = response.data.updatedData.form_def;
         var x = response.data.updatedData;
         setFormData(x)
-        // console.log("x",x)
-        // {
-        // x ?
-        // console.log("yes") : console.log("NO")
-        //  : <>setFormData(response.data)</>
-        // }
+
 
       })
       .catch(error => {
@@ -239,16 +258,21 @@ export const TaskbarPages = () => {
     setContainerHeight(window.innerHeight);
   };
 
+  var ce = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+}
   const [valuex, valueclass] = useState('')
   // var x
   const handle = () => {
-      valueclass("layout-menu-expanded")
-      // console.log(x)
+    valueclass("layout-menu-expanded")
+    // console.log(x)
   }
   return (
     <div>
-     {/* <div lang="en"
-            class={`light-style layout-menu-fixed layout-compact ${valuex}`}
+      {/* <div lang="en"
+            className={`light-style layout-menu-fixed layout-compact ${valuex}`}
             dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
             data-template="vertical-menu-template-free"> */}
       {/* <Navbar_u /> */}
@@ -279,7 +303,7 @@ export const TaskbarPages = () => {
           <div className="layout-page">
             <div className="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none ">
               <a className="d-flex nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i className="bx bx-menu bx-sm" onClick={handle}/>
+                <i className="bx bx-menu bx-sm" onClick={handle} />
               </a>
             </div>
             <div className="content-wrapper">
@@ -301,10 +325,17 @@ export const TaskbarPages = () => {
                     </div>
                   </div>
                   : <>
-                    <h4 className="py-3 mb-4" style={{ textAlign: "start" }}>
-                      {formDetails.taskDetail?.name}
-                      {/* {console.log("new=======================", formDetails)} */}
-                    </h4>
+                    <div className='py-3 mb-4 d-flex justify-content-between py-2'>
+
+                      <h4 style={{ textAlign: "start" }}>
+                        {formDetails.taskDetail?.name}
+                        {/* {console.log("new=======================", formDetails)} */}
+                      </h4>
+                      <Link className="nav-link" style={{ border: "solid", borderRadius: "5px" }} onClick={unClaimTask}>
+                        <i className="bx bx-minus me-sm-1"></i>unclaim</Link>
+
+                    </div>
+
 
                     <div className="row">
                       <div className="col-md-12">
@@ -325,7 +356,7 @@ export const TaskbarPages = () => {
                               className={`nav-link ${activeButton === 'History' ? 'active' : ''}`}
                               onClick={() => handleButtonClick('History')}
                             >
-                              <i className="bx bx-history me-1"></i> History
+                              <i className="bx bx-history me-0"></i> History
                             </Link>
                           </li>
                           <li className="nav-item">
@@ -334,7 +365,7 @@ export const TaskbarPages = () => {
                               className={`nav-link ${activeButton === 'Diagram' ? 'active' : ''}`}
                               onClick={() => handleButtonClick('Diagram')}
                             >
-                              <i className="bx bx-id-card me-1"></i> Diagram
+                              <i className="bx bx-id-card me-0"></i> Diagram
                               {/* <i className="bx bx-link-alt me-1"></i> Diagram */}
                             </Link>
                           </li>
@@ -344,7 +375,7 @@ export const TaskbarPages = () => {
                               className={`nav-link ${activeButton === 'Comments' ? 'active' : ''}`}
                               onClick={() => handleButtonClick('Comments')}
                             >
-                              <i className="bx bx-chat me-1"></i> Comments
+                              <i className="bx bx-chat me-0"></i> Comments
                             </Link>
                           </li>
                           <li className="nav-item">
@@ -352,10 +383,18 @@ export const TaskbarPages = () => {
                               to="#"
                               className={`nav-link ${activeButton === 'Document' ? 'active' : ''}`}
                               onClick={() => handleButtonClick('Document')}
+                              title='Document'
                             >
-                              <i className="bx bx-link-alt me-1"></i> Document
+                              <i className="bx bx-link-alt me-0"></i> Document
                             </Link>
                           </li>
+                          {/* <li className="nav-item">
+                            <Link className="nav-link" onClick={unClaimTask}><i className="bx bx-minus me-sm-1"></i>unclaim</Link>
+                          </li> */}
+                          {/* <div className="custom-tooltip">
+                            <a href="https://www.example.com">Hover over me</a>
+                            <div className="tooltip-text">Visit Example Website</div>
+                          </div> */}
                         </ul>
                         <hr />
                         {activeButton === 'Form' && (
@@ -378,7 +417,13 @@ export const TaskbarPages = () => {
 
                         {activeButton === 'Diagram' && (
                           <div style={{ height: "60vh" }}>
-                            <MainBpmn style={{ height: "60vh" }} getDiaId={getDiaId} getDiakey={getDiakey}/>
+                            {isLoading ? (
+                              <div style={ce}>
+                                <PuffLoader color="#696cff" size={30} />
+                              </div>
+                            ) : (
+                              <MainBpmn style={{ height: "60vh" }} getDiaId={getDiaId} getDiakey={getDiakey} />
+                            )}
                           </div>
 
                         )}
@@ -409,7 +454,7 @@ export const TaskbarPages = () => {
                             ) : null}
 
                             <div className="d-flex justify-content-center col w-100"
-                              style={{ height: `${containerHeight - 245}px`, overflow: 'auto' }}>
+                              style={{ height: `${containerHeight - 264}px`, overflow: 'auto' }}>
                               <div className="toast-container position-relative w-90">
                                 {
                                   commentData?.map((u) => {

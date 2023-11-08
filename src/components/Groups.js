@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import InfiniteScroll from 'react-infinite-scroll-component'
-// import data from '../data/dumpdata.json'
+import { Form } from '@formio/react';
 import { Link, useParams } from 'react-router-dom'
 import { PuffLoader } from 'react-spinners'
 import axios from 'axios'
 import { Navbar } from './Navbar'
-// import { retrieveSchema } from 'react-jsonschema-form/lib/utils'
-
+import { MainBpmn } from './MainBpmn';
 
 export const Groups = () => {
 
@@ -16,24 +15,32 @@ export const Groups = () => {
     console.log("---------Groups Pages---------")
     const [data, setData] = useState([])
     const [dataSource, setDataSource] = useState([]);
-    const [groupTaskData, setGroupTaskData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    // const [groupTaskData, setGroupTaskData] = useState([]);
     const [groupHistoryData, setGroupHistoryData] = useState([]);
     const [groupTaskid, setGroupTaskid] = useState([]);
+    const [formData, setFormData] = useState({});
     const [activeSection, setActiveSection] = useState(null);
     const [name1, setName1] = useState('');
-    const [name2, setName2] = useState('');
+    const [getDiaId, setDiaId] = useState(null)
+    const [getDiakey, setDiakey] = useState(null)
 
     // const [tname, setTemp] = useState(null);
 
-
+    const handleFormSubmit = (submission) => {
+        console.log('Form Data submitted :', submission.data);
+    }
 
     // console.log("data values", data)
     const [hasMore, setHasMore] = useState(true)
     useEffect(() => {
         getGroupsData()
+        // getDiagramData
         // getGroupTaskData()
+        getFormData()
         getHistoryData()
-    }, [groupTaskid]);
+    }, [groupTaskid, id]);
 
     const [activeButton, setActiveButton] = useState("Form");
 
@@ -58,12 +65,90 @@ export const Groups = () => {
         });
     }
 
+    // const getDiagramData = () => {
+
+    //     var userId = localStorage.getItem("userId");
+    //     axios.get(`http://localhost:3000/api/tasks?assignee=${userId}`)
+    //       .then((response) => {
+    //         console.log("Diagram Data :- ", response.data);
+
+    //         // var diagramvalue = response.data?.filter((u) => {
+    //         //   return u.id === id
+    //         // })
+
+    //         // console.log("Diagram value :-", diagramvalue[0].processDefinitionId)
+    //         // setDiaId(diagramvalue[0].processDefinitionId)
+    //         // setDiakey(diagramvalue[0].taskDefinitionKey)
+
+    //       }).catch(error => {
+    //         if (error.response) {
+    //           if (error.response.status === 404) {
+    //             console.log('Resource not found');
+    //           } else {
+    //             console.log('Server returned an error:', error.response.status);
+    //           }
+    //         } else if (error.request) {
+    //           console.log('No response received from the server');
+    //         } else {
+    //           console.log('Error:', error.message);
+    //         }
+    //       });
+    //   }
+
+    const getFormData = () => {
+
+        axios.get(`http://localhost:3000/api/task?taskInstanceId=${id}`)
+            .then(response => {
+                console.log("Group Form", response.data)
+
+                // var x = response.data.updatedData.form_def;
+                var x = response.data.updatedData;
+                setFormData(x)
+
+
+            })
+            .catch(error => {
+                if (error.response) {
+                    if (error.response.status === 404) {
+                        console.log('Group Form :- Resource not found');
+                    } else {
+                        console.log('Server returned an error Group Form:', error.response.status);
+                    }
+                } else if (error.request) {
+                    console.log('No response received from the server');
+                } else {
+                    console.log('Error:', error.message);
+                }
+            });
+
+    }
+    const claimTask = () => {
+        var userId = localStorage.getItem("userId");
+        axios.post(`http://localhost:3000/api/task/claim?taskId=${id}&userId=${userId}`)
+            .then(response => {
+                console.log("Group claimTask Data :- ", response);
+
+            })
+            .catch(error => {
+                if (error.response) {
+                    if (error.response.status === 404) {
+                        console.log('Group claimTask :- Resource not found');
+                    } else {
+                        console.log('Server returned an error:', error.response.status);
+                    }
+                } else if (error.request) {
+                    console.log('No response received from the server');
+                } else {
+                    console.log('Error:', error.message);
+                }
+            });
+
+    }
     const getHistoryData = () => {
 
-        axios.get(`http://localhost:3000/api/history/operation?taskId=a7b1962d-512f-11ee-8a3a-606c666732bc`)
+        axios.get(`http://localhost:3000/api/history/operation?taskId=${id}`)
             .then(response => {
                 console.log("Group History Data :- ", response.data);
-
                 setGroupHistoryData(response.data)
             })
             .catch(error => {
@@ -80,81 +165,54 @@ export const Groups = () => {
                 }
             });
 
-
     }
 
-    const getGroupTaskData = (sectionId) => {
+    // const getGroupTaskData = (sectionId) => {
 
-        axios.get(`http://localhost:3000/api/tasks/candidate-group?candidateGroup=${sectionId}`)
-            .then(response => {
-                console.log("Group Task Data :- ", response.data.responseData);
-                const task = response.data.responseData;
-                setGroupTaskData(task)
-            })
-            .catch(error => {
-                if (error.response) {
-                    if (error.response.status === 404) {
-                        console.log('Group Task :- Resource not found');
-                    } else {
-                        console.log('Group Task :- Server returned an error:', error.response.status);
-                    }
-                } else if (error.request) {
-                    console.log('No response received from the server');
-                } else {
-                    console.log('Error:', error.message);
-                }
-            })
+    //     axios.get(`http://localhost:3000/api/tasks/candidate-group?candidateGroup=${sectionId}`)
+    //         .then(response => {
+    //             console.log("Group Task Data :- ", response.data.responseData);
+    //             const task = response.data.responseData;
+    //             setGroupTaskData(task)
+    //         })
+    //         .catch(error => {
+    //             if (error.response) {
+    //                 if (error.response.status === 404) {
+    //                     console.log('Group Task :- Resource not found');
+    //                 } else {
+    //                     console.log('Group Task :- Server returned an error:', error.response.status);
+    //                 }
+    //             } else if (error.request) {
+    //                 console.log('No response received from the server');
+    //             } else {
+    //                 console.log('Error:', error.message);
+    //             }
+    //         })
 
-    };
+    // };
 
     const getGroupsData = () => {
-
-        var userId = localStorage.getItem("userId");
-        axios.get(`http://localhost:3000/api/identity/group/?assignee=${userId}`)
+        setIsLoading(true);
+        axios.get(`http://localhost:3000/api/tasks/candidate-group`)
             .then(response => {
-                console.log("Group list Data :- ", response.data.groups);
-                // const groupJSON = JSON.stringify(response.data.groups)
-                // localStorage.setItem("GroupList", groupJSON);
-                const groupsData = response.data.groups;
+                console.log("Group list Data :- ", response.data);
+                const groupsData = response.data;
                 setData(groupsData);
                 setDataSource(groupsData.slice(0, 10));
                 if (groupsData.length <= 10) {
                     setHasMore(false);
                 }
-                // setGroupTaskid()
-                groupsData.map((u) => {
-                    axios.get(`http://localhost:3000/api/tasks/candidate-group?candidateGroup=${u.id}`)
-                        .then(response => {
-                            console.log("Group Task Data :- ", response.data.responseData);
-                            // setTemp(response.data.responseData);
-                            var xy = response.data.responseData
-                            if (xy.length !== 0) {
-                                xy.map((x) => {
-                                    return (
-                                        <>
-                                            console.log(x.name)
-                                            {/* setTemp(x) */}
-                                        </>
-                                    )
-                                });
-                            }
-                            // const task = response.data.responseData;
-                            // setGroupTaskData(task)
-                        })
-                        .catch(error => {
-                            if (error.response) {
-                                if (error.response.status === 404) {
-                                    console.log('Resource not found');
-                                } else {
-                                    console.log('Server returned an error:', error.response.status);
-                                }
-                            } else if (error.request) {
-                                console.log('No response received from the server');
-                            } else {
-                                console.log('Error:', error.message);
-                            }
-                        });
+
+
+
+                var diagramvalue = response.data?.filter((u) => {
+                    return u.id === id
                 })
+                // console.log("Group Diagram value :-", diagramvalue)
+                console.log("Group Diagram value :-", diagramvalue[0].processDefinitionId)
+                setDiaId(diagramvalue[0].processDefinitionId)
+                setDiakey(diagramvalue[0].taskDefinitionKey)
+                setIsLoading(false);
             })
             .catch(error => {
                 if (error.response) {
@@ -168,6 +226,7 @@ export const Groups = () => {
                 } else {
                     console.log('Error:', error.message);
                 }
+                setIsLoading(false);
             });
 
     };
@@ -212,9 +271,10 @@ export const Groups = () => {
         margin: "10px"
     }
 
-    const toggleCollapse = (sectionId,sectionName) => {
+    const toggleCollapse = (sectionId, sectionName) => {
+        getGroupsData()
         setGroupTaskid(sectionId)
-        getGroupTaskData(sectionId)
+        // getGroupTaskData(sectionId)
         setName1(sectionName)
         console.log(sectionId)
         if (activeSection === sectionId) {
@@ -263,7 +323,7 @@ export const Groups = () => {
 
                     </h4>
 
-                    {/* <ul className="menu-inner py-1" style={ce}>
+                    <ul className="menu-inner py-1" style={ce}>
                         <InfiniteScroll
                             dataLength={dataSource.length}
                             next={fetchMoreData}
@@ -275,67 +335,7 @@ export const Groups = () => {
                                     </div>) : (<></>)
                             }
                             endMessage={<p>You are all set!</p>}
-                            height={containerHeight - 63}
-                        >
-                            {dataSource.length !== 0 ? (
-                                dataSource?.map((u, index) => {
-
-                                    const { name, id } = data[index % data.length]; // Use data from JSON
-
-                                    return (
-                                        <li key={id} className="menu-item bs-toast toast fade show" style={{ margin: "5px", width: "300px" }}>
-                                            
-                                            <h2 className="accordion-header" id="headingOne">
-                                                <button type="button"
-                                                    className={`accordion-button ${activeSection === id ? '' : 'collapsed'
-                                                        }`}
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#accordionOne"
-                                                    aria-expanded="false"
-                                                    aria-controls="accordionOne"
-                                                    onClick={() => toggleCollapse(id)} style={{ color: "#697a8d" }} >
-                                                    <div className="toast-header">
-                                                        <i className="bx bx-bell me-2" ></i>
-                                                        <div className="me-auto fw-semibold">
-                                                            {name}
-                                                        </div>
-                                                    </div>
-                                                </button>
-                                            </h2>
-                                            <div
-                                                id={id}
-                                                className={`accordion-collapse collapse ${activeSection === id ? 'show' : ''
-                                                    }`}
-                                                data-bs-parent="#accordionExample"
-                                                style={{}}
-                                            >
-                                                <div className="accordion-body">
-                                                    Lemon drops chocolate cake gummies carrot cake chupa chups muffin
-                                                    topping. Sesame snaps icing marzipan gummi bears macaroon dragée
-                                                    danish caramels powder. Bear claw dragée pastry topping soufflé. Wafer
-                                                    gummi bears marshmallow pastry pie.
-                                                </div>
-                                            </div>
-                                        </li>
-                                    )
-
-                                })
-                            ) : (<>Data not Found</>)}
-                        </InfiniteScroll>
-                    </ul> */}
-                    {/* <ul className="menu-inner py-1" style={ce}>
-                        <InfiniteScroll
-                            dataLength={dataSource.length}
-                            next={fetchMoreData}
-                            hasMore={hasMore}
-                            loader={
-                                dataSource.length !== 0 ? (
-                                    <div style={ce}>
-                                        <PuffLoader color="#696cff" size={30} />
-                                    </div>) : (<></>)
-                            }
-                            endMessage={<p>You are all set!</p>}
-                            height={containerHeight - 63}
+                            height={containerHeight - 83}
                         >
                             {dataSource.length !== 0 ? (
                                 dataSource?.map((u, index) => {
@@ -344,26 +344,24 @@ export const Groups = () => {
 
                                     return (
                                         <li key={id} className="menu-item bs-toast toast fade show" style={{ margin: "5px", width: "300px" }}>
-                                            <Link to={`/groups/${id}`} style={{ color: "#697a8d" }}>
+                                            <Link to={`/Groups/${id}`} onClick={() => toggleCollapse(id, name)} style={{ color: "#697a8d" }}>
                                                 <div className="toast-header">
                                                     <i className="bx bx-bell me-2" style={{ marginBottom: "5px" }}></i>
                                                     <div className="me-auto fw-semibold" style={{ marginBottom: "5px" }}>
                                                         {name}
                                                     </div>
-                                                    {/* <small>{formattedDate(created)}</small> */}
-                    {/* </div> */}
-                    {/* <div className="toast-body" style={{ textAlign: "-webkit-left" }}>
-                                                {task_details}
-                                            </div> */}
-                    {/* </Link>
+                                                    <small>{formattedDate(created)}</small>
+                                                </div>
+
+                                            </Link>
                                         </li>
                                     )
 
                                 })
                             ) : (<>Data not Found</>)}
                         </InfiniteScroll>
-                    </ul> */}
-                    <div className="col-md mb-4 mb-md-2" style={ce}>
+                    </ul>
+                    {/* <div className="col-md mb-4 mb-md-2" style={ce}>
                         <div className="accordion py-1" id="accordionExample">
                             <InfiniteScroll
                                 dataLength={dataSource.length}
@@ -429,10 +427,8 @@ export const Groups = () => {
                                 ) : (<>Data not Found</>)}
                             </InfiniteScroll>
                         </div>
-                    </div>
-                    {/* {tname.map((u)=>{
-    return console.log(u.name)
-})} */}
+                    </div> */}
+
                 </aside>
 
                 <div className="layout-page">
@@ -456,10 +452,12 @@ export const Groups = () => {
                                     </div>
                                 </div>
                                 : <>
-                                    <h4 class="py-3 mb-4" style={{ textAlign: "start" }}>
-                                        <span class="text-muted fw-light">{name1} / </span> {name2}
-                                    </h4>
-
+                                    <div className="py-3 mb-4 d-flex justify-content-between">
+                                        <h4 style={{ textAlign: "start" }}>
+                                            <span className="text-muted fw-light"> Group Tasks List / </span> {name1}
+                                        </h4>
+                                        <Link className="nav-link" style={{ border: "solid", borderRadius: "5px" }} onClick={claimTask}><i className="bx bx-plus me-0 me-sm-1"></i>claim</Link>
+                                    </div>
                                     <div className="row">
                                         <div className="col-md-12">
 
@@ -510,6 +508,9 @@ export const Groups = () => {
                                                         <i className="bx bx-link-alt me-1"></i> Document
                                                     </Link>
                                                 </li>
+                                                {/* <li className="nav-item">
+                                                    
+                                                </li> */}
                                             </ul>
                                             {/* <hr /> */}
 
@@ -519,62 +520,73 @@ export const Groups = () => {
                                         <div className="col-md-12">
                                             {activeButton === 'Form' && (
                                                 <div className='card' style={{ padding: "30px" }}>
-                                                    {/* {id ? */}
-
-                                                    {/* <Form key={id} placeholder="enter name" form={formData} onSubmit={handleFormSubmit} /> */}
-
-                                                    {/* : ''} */}
+                                                    {formData ?
+                                                        <Form key={id} placeholder="enter name" form={formData.form_def} onSubmit={handleFormSubmit} />
+                                                        : <>No data</>}
                                                 </div>
                                             )}
 
                                             {activeButton === 'History' && (
                                                 <>
-                                                    <div class="col-12 col-lg-12">
-                                                        <div class="card mb-4">
-
-                                                            <div class="card-datatable table-responsive">
-                                                                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                                                                    <table class="datatables-order-details table dataTable no-footer dtr-column" id="DataTables_Table_0" style={{ width: "709px;" }}>
-                                                                        <tbody>
-                                                                            {
-                                                                                groupHistoryData.map((u) => {
-                                                                                    return (
-                                                                                        <tr class="odd">
-                                                                                            <td class="control dtr-hidden" tabIndex="0" style={{ display: "none;" }}></td>
-                                                                                            {/* <td class="  dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes form-check-input"/></td> */}
-                                                                                            <td class="sorting_1">
-                                                                                                <div class="d-flex justify-content-start align-items-center text-nowrap">
-                                                                                                    {/* <div class="avatar-wrapper">
-                                                                                            <div class="avatar me-2"><img src="../../assets/img/products/woodenchair.png" alt="product-Wooden Chair" class="rounded-2"/></div>
+                                                    {groupHistoryData.length ?
+                                                        <div className="col-12 col-lg-12">
+                                                            <div className="card mb-4">
+                                                                <div className="card-datatable table-responsive">
+                                                                    <div id="DataTables_Table_0_wrapper" className="dataTables_wrapper dt-bootstrap5 no-footer">
+                                                                        <table className="datatables-order-details table dataTable no-footer dtr-column" id="DataTables_Table_0" style={{ width: "709px;" }}>
+                                                                            <tbody>
+                                                                                {
+                                                                                    groupHistoryData.map((u) => {
+                                                                                        return (
+                                                                                            <tr className="odd">
+                                                                                                <td className="control dtr-hidden" tabIndex="0" style={{ display: "none;" }}></td>
+                                                                                                {/* <td className="  dt-checkboxes-cell"><input type="checkbox" className="dt-checkboxes form-check-input"/></td> */}
+                                                                                                <td className="sorting_1">
+                                                                                                    <div className="d-flex justify-content-start align-items-center text-nowrap">
+                                                                                                        {/* <div className="avatar-wrapper">
+                                                                                            <div className="avatar me-2"><img src="../../assets/img/products/woodenchair.png" alt="product-Wooden Chair" className="rounded-2"/></div>
                                                                                         </div> */}
-                                                                                                    <div class="d-flex flex-column">
-                                                                                                        <h6 class="text-body mb-0">{u.userId}</h6>
-                                                                                                        <small class="text-muted">{formattedDate(u.timestamp)}</small>
+                                                                                                        <div className="d-flex flex-column">
+                                                                                                            <h6 className="text-body mb-0">{u.userId}</h6>
+                                                                                                            <small className="text-muted">{formattedDate(u.timestamp)}</small>
+                                                                                                        </div>
                                                                                                     </div>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                            <td><span>{formattedTime(u.timestamp)}</span></td>
-                                                                                            {/* <td class="" ><span class="text-body">2</span></td> */}
-                                                                                            <td class="" >
-                                                                                                <h6 class="mb-0">{u.operationType}</h6>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    )
-                                                                                })
-                                                                            }
-                                                                        </tbody>
-                                                                    </table>
+                                                                                                </td>
+                                                                                                <td><span>{formattedTime(u.timestamp)}</span></td>
+                                                                                                {/* <td className="" ><span className="text-body">2</span></td> */}
+                                                                                                <td className="" >
+                                                                                                    <h6 className="mb-0">{u.operationType}</h6>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        )
+                                                                                    })
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                        : <div className='card' style={{ padding: "30px" }}>
+                                                            No Data
+                                                        </div>
+                                                    }
                                                 </>
                                             )}
 
                                             {activeButton === 'Diagram' && (
                                                 <>
                                                     <div style={{ height: "60vh" }}>
-                                                        {/* <MainBpmn style={{ height: "60vh" }} getDiaId={getDiaId} /> */}
+                                                        {/* {getDiaId + "++++" + getDiakey} */}
+                                                        {isLoading ? (
+                                                            <div style={ce}>
+                                                                <PuffLoader color="#696cff" size={30} />
+                                                            </div>
+                                                        ) : (
+                                                            getDiaId ?
+                                                                <MainBpmn style={{ height: "60vh" }} getDiaId={getDiaId} getDiakey={getDiakey} />
+                                                                : "no data"
+                                                        )}
                                                     </div>
                                                 </>
 

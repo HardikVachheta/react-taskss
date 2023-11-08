@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet'
+import HelmetExport, { Helmet } from 'react-helmet'
 import { Navbar } from './Navbar'
 import { Taskbar2 } from './Taskbar2'
 
@@ -17,25 +17,49 @@ export const Dashboard = () => {
     }, [])
     return (
         <div>
-        {/* // <div lang="en" class="light-style layout-navbar-fixed layout-compact layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../../assets/" data-template="vertical-menu-template"> */}
+            <Helmet>
+                <title>Dashboard </title>
+                {/* <link rel="canonical" href="https://themeselection.com/item/sneat-bootstrap-html-admin-template/" /> */}
+
+                <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+                {/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
+                {/* <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" /> */}
+                <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
+
+                <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+                <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome.css" />
+                <link rel="stylesheet" href="../assets/vendor/fonts/flag-icons.css" />
+                <link rel="stylesheet" href="../assets/css/demo.css" />
+
+                <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+                <link rel="stylesheet" href="../assets/vendor/libs/typeahead-js/typeahead.css" />
+                <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+                <link rel="stylesheet" href="../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
+                <link rel="stylesheet" href="../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
+                <link rel="stylesheet" href="../assets/vendor/css/pages/app-logistics-dashboard.css" />
+
+                <script src="../assets/vendor/js/helpers.js"></script>
+                {/* <script src="../assets/vendor/js/template-customizer.js"></script> */}
+                {/* <script src="../assets/js/config.js"></script> */}
+                <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
+                <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/theme-semi-dark.css" class="template-customizer-theme-css" />
+
+                <script type="text/javascript" src="https://a.omappapi.com/app/js/api.min.js" async="" data-user="252882" data-account="269977"></script>
+                {/* <script async="" src="https://script.hotjar.com/modules.daa7524f0a3a92a9c578.js" charset="utf-8"></script> */}
+                <link rel="stylesheet" href="https://a.omappapi.com/app/js/api.min.css" id="omapi-css" media="all" />
+
+                <link rel="stylesheet" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/pages/app-logistics-dashboard.css" />
+            </Helmet>
+            {/* // <div lang="en" class="light-style layout-navbar-fixed layout-compact layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template"> */}
             {/* <Navbar_u /> */}
-            
+
             <div className="layout-wrapper layout-content-navbar">
 
                 <Helmet>
-                    <title>Dashboard </title>
-
-                    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
-                    <link rel="preconnect" href="https://fonts.googleapis.com" />
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-                    <link
-                        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-                        rel="stylesheet"
-                    />
                     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
                     <link rel="stylesheet" href="../assets/vendor/css/core.css" className="template-customizer-core-css" />
                     <link rel="stylesheet" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/theme-semi-dark.css" className="template-customizer-theme-css" />
-                    <link rel="stylesheet" href="../assets/css/demo.css" />
+                    
                     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
                     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
@@ -45,7 +69,7 @@ export const Dashboard = () => {
                     {/* <Taskbar /> */}
                     {/* <Taskbar2 /> */}
 
-                    <aside id="layout-menu" className="layout-menu menu-vertical menu"
+                    {/* <aside id="layout-menu" className="layout-menu menu-vertical menu"
                         style={{ width: "330px", backgroundColor: "rgba(255,255,255,.85)" }}>
 
 
@@ -65,7 +89,7 @@ export const Dashboard = () => {
                             </div>
                         </div>
 
-                    </aside>
+                    </aside> */}
                     <div className="layout-page" >
                         <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
                             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none "><a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)"><i class="bx bx-menu bx-sm"></i></a></div>
@@ -109,10 +133,80 @@ export const Dashboard = () => {
                                 </ul>
                             </div>
                         </nav>
-                        <div className="content-wrapper">
-                            <div className="container-xxl flex-grow-1 container-p-y">
-                                {/* <div className="container-xxl flex-grow-1 container-p-y" style={scroll1}> */}
-                                {/* <TaskbarPages /> */}
+                        <div class="content-wrapper">
+                            <div class="flex-grow-1 container-p-y container-fluid">
+                                <div class="row">
+                                    <div class="col-sm-6 col-lg-3 mb-4">
+                                        <div class="card card-border-shadow-primary h-100">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center mb-2 pb-1">
+                                                    <div class="avatar me-2">
+                                                        <span class="avatar-initial rounded bg-label-primary"><i class="bx bxs-truck"></i></span>
+                                                    </div>
+                                                    <h4 class="ms-1 mb-0">42</h4>
+                                                </div>
+                                                <p class="mb-1">On route vehicles</p>
+                                                <p class="mb-0">
+                                                    <span class="fw-medium me-1">+18.2%</span>
+                                                    <small class="text-muted">than last week</small>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-3 mb-4">
+                                        <div class="card card-border-shadow-warning h-100">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center mb-2 pb-1">
+                                                    <div class="avatar me-2">
+                                                        <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-error"></i></span>
+                                                    </div>
+                                                    <h4 class="ms-1 mb-0">8</h4>
+                                                </div>
+                                                <p class="mb-1">Vehicles with errors</p>
+                                                <p class="mb-0">
+                                                    <span class="fw-medium me-1">-8.7%</span>
+                                                    <small class="text-muted">than last week</small>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-3 mb-4">
+                                        <div class="card card-border-shadow-danger h-100">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center mb-2 pb-1">
+                                                    <div class="avatar me-2">
+                                                        <span class="avatar-initial rounded bg-label-danger"><i class="bx bx-git-repo-forked"></i></span>
+                                                    </div>
+                                                    <h4 class="ms-1 mb-0">27</h4>
+                                                </div>
+                                                <p class="mb-1">Deviated from route</p>
+                                                <p class="mb-0">
+                                                    <span class="fw-medium me-1">+4.3%</span>
+                                                    <small class="text-muted">than last week</small>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-3 mb-4">
+                                        <div class="card card-border-shadow-info h-100">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center mb-2 pb-1">
+                                                    <div class="avatar me-2">
+                                                        <span class="avatar-initial rounded bg-label-info"><i class="bx bx-time-five"></i></span>
+                                                    </div>
+                                                    <h4 class="ms-1 mb-0">13</h4>
+                                                </div>
+                                                <p class="mb-1">Late vehicles</p>
+                                                <p class="mb-0">
+                                                    <span class="fw-medium me-1">-2.5%</span>
+                                                    <small class="text-muted">than last week</small>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* <div className="content-wrapper">
+                            <div className="container-xxl flex-grow-1 container-p-y">                            
                                 <div style={{ outlineStyle: "solid", padding: "25px", borderRadius: "0.375rem", color: "#32333754" }} >
                                     <div className="me-3" style={{
                                         position: "relative",
@@ -129,11 +223,13 @@ export const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
+                        </div> */}
+                            </div>
                         </div>
                     </div>
                 </div>
 
             </div>
-        </div>
+        </div >
     )
 }

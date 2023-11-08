@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import ReactBpmn from 'react-bpmn';
 import '../data/dia.css'
+import { Helmet } from 'react-helmet';
 
-export const MainBpmn = ({ getDiaId , getDiakey }) => {
+export const MainBpmn = ({ getDiaId, getDiakey }) => {
     const bpmnRef = useRef();
 
     function onShown() {
@@ -24,6 +25,13 @@ export const MainBpmn = ({ getDiaId , getDiakey }) => {
 
     return (
         <div style={{ height: '60vh' }}>
+            
+            {/* <Helmet>
+                <link rel="stylesheet" href="https://unpkg.com/bpmn-js@15.1.2/dist/assets/diagram-js.css" />
+                <link rel="stylesheet" href="https://unpkg.com/bpmn-js@15.1.2/dist/assets/bpmn-js.css" />
+                <link rel="stylesheet" href="https://unpkg.com/bpmn-js@15.1.2/dist/assets/bpmn-font/css/bpmn.css" />
+            </Helmet> */}
+
             <ReactBpmn
                 url={`http://localhost:3000/api/diagram?processDefinitionId=${getDiaId}`}
                 onShown={onShown}

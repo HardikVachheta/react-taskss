@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import BpmnJS from 'bpmn-js/dist/bpmn-navigated-viewer.production.min.js'; // Adjust the path as needed
-import '../data/dia.css'
+// import '../data/dia.css'
 
 export const MainBpmn2 = ({ getDiaId }) => {
   useEffect(() => {
