@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react'
 import HelmetExport, { Helmet } from 'react-helmet'
 import { Navbar } from './Navbar'
 import { Taskbar2 } from './Taskbar2'
+// import { Doughnut } from 'react-chartjs-2';
+import { Chart } from "react-google-charts";
+import axios from 'axios';
+import '../data/chart.css'
+
 
 export const Dashboard = () => {
 
@@ -12,8 +17,91 @@ export const Dashboard = () => {
     //     overflowY: "auto",
     //     behavior: 'smooth',
     // }
+
+    const [assginuser, setAssginuser] = useState('');
+    const [unassginuser, setUnAssginuser] = useState('');
+    const [withcandidategroups, setwithcandidategroups] = useState('');
+    const [unfinishedprocessinstance, setunfinishedprocessinstance] = useState('');
+    const [latestprocessdefinition, setlatestprocessdefinition] = useState('');
+    const [deployments, setdeployments] = useState('');
+
+    const getAssginuser = () => {
+        axios.get("http://localhost:3000/api/taskcount/assignuser").then(res => {
+            console.log("assignuser :", res.data.taskCount.count)
+            setAssginuser(res.data.taskCount.count)
+        })
+    }
+
+    const getUnAssginuser = () => {
+        axios.get("http://localhost:3000/api/taskcount/unassignnuser").then(res => {
+            console.log("unassignnuser :", res.data.unassignedTaskCount.count)
+            setUnAssginuser(res.data.unassignedTaskCount.count)
+        })
+    }
+
+    const getwithcandidategroups = () => {
+        axios.get("http://localhost:3000/api/taskcount/withcandidategroups").then(res => {
+            console.log("withcandidategroups :", res.data.taskCount.count)
+            setwithcandidategroups(res.data.taskCount.count)
+        })
+    }
+    const getunfinishedprocessinstance = () => {
+        axios.get("http://localhost:3000/api/count/unfinishedprocessinstance").then(res => {
+            console.log("unfinishedprocessinstance :", res.data.unfinishedProcessInstanceCount.count)
+            setunfinishedprocessinstance(res.data.unfinishedProcessInstanceCount.count)
+        })
+    }
+    const getlatestprocessdefinition = () => {
+        axios.get("http://localhost:3000/api/count/latestprocessdefinition").then(res => {
+            console.log("latestprocessdefinition :", res.data.processDefinitionCount.count)
+            setlatestprocessdefinition(res.data.processDefinitionCount.count)
+        })
+    }
+    const getdeployments = () => {
+        axios.get("http://localhost:3000/api/count/deployments").then(res => {
+            console.log("deployments :", res.data.processDefinitionCount.count)
+            setdeployments(res.data.processDefinitionCount.count)
+        })
+    }
+
+
+    const data = [
+        ["Task", "Hours per Day"],
+        ["Assginuser", assginuser],
+        ["UnAssginuser", unassginuser],
+        ["assigned to 1 or more groups", withcandidategroups],
+    ];
+
+    const options = {
+        title: "Assignments by type",
+        pieHole: 0.4,
+        is3D: false,
+    };
+
+    const data2 = [
+        ["Task", "Hours per Day"],
+        ["unfinishedprocessinstance", unfinishedprocessinstance],
+        ["deployments", deployments],
+        ["latestprocessdefinition", latestprocessdefinition],
+    ];
+
+    const options2 = {
+        title: "Assignments by type",
+        pieHole: 0.4,
+        is3D: false,
+    };
+
+
+
     useEffect(() => {
         console.log("---------Dashboard Page---------")
+        getAssginuser()
+        getUnAssginuser()
+        getwithcandidategroups()
+        getunfinishedprocessinstance()
+        getdeployments()
+        getlatestprocessdefinition()
+
     }, [])
     return (
         <div>
@@ -33,27 +121,21 @@ export const Dashboard = () => {
                 <link rel="stylesheet" href="../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
                 <link rel="stylesheet" href="../assets/vendor/css/pages/app-logistics-dashboard.css" />
+                <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+
+                <link rel="stylesheet" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/theme-semi-dark.css" className="template-customizer-theme-css" />
 
                 <script src="../assets/vendor/js/helpers.js"></script>
-                {/* <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" /> */}
-                {/* <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/theme-semi-dark.css" class="template-customizer-theme-css" /> */}
-
-                <script type="text/javascript" src="https://a.omappapi.com/app/js/api.min.js" async="" data-user="252882" data-account="269977"></script>                
-                <link rel="stylesheet" href="https://a.omappapi.com/app/js/api.min.css" id="omapi-css" media="all" />
-                <link rel="stylesheet" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/pages/app-logistics-dashboard.css" />
             </Helmet>
-            {/* // <div lang="en" class="light-style layout-navbar-fixed layout-compact layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template"> */}
+            {/* // <div lang="en" className="light-style layout-navbar-fixed layout-compact layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template"> */}
             {/* <Navbar_u /> */}
 
             <div className="layout-wrapper layout-content-navbar">
 
                 <Helmet>
-                    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-                    
-                    <link rel="stylesheet" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/theme-semi-dark.css" className="template-customizer-theme-css" />
-                    
-                    
-                    
+
+
+
 
                 </Helmet>
                 <div className="layout-container">
@@ -83,120 +165,128 @@ export const Dashboard = () => {
 
                     </aside> */}
                     <div className="layout-page" >
-                        <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
-                            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none "><a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)"><i class="bx bx-menu bx-sm"></i></a></div>
-                            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                                <div class="navbar-nav align-items-center">
-                                    <div class="nav-item d-flex align-items-center"><i class="bx bx-search fs-4 lh-0"></i>
-                                        <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2" placeholder="Search..." aria-label="Search..." />
+                        <nav className="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+                            <div className="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none "><a className="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)"><i className="bx bx-menu bx-sm"></i></a></div>
+                            <div className="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                                <div className="navbar-nav align-items-center">
+                                    <div className="nav-item d-flex align-items-center"><i className="bx bx-search fs-4 lh-0"></i>
+                                        <input type="text" className="form-control border-0 shadow-none ps-1 ps-sm-2" placeholder="Search..." aria-label="Search..." />
                                     </div>
                                 </div>
-                                <ul class="navbar-nav flex-row align-items-center ms-auto">
-                                    <li class="nav-item lh-1 me-3"><span></span></li>
-                                    <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                                        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                            <div class="avatar avatar-online"><img src="../assets/img/avatars/1.png" alt="" class="w-px-40 h-auto rounded-circle" /></div>
+                                <ul className="navbar-nav flex-row align-items-center ms-auto">
+                                    <li className="nav-item lh-1 me-3"><span></span></li>
+                                    <li className="nav-item navbar-dropdown dropdown-user dropdown">
+                                        <a className="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                                            <div className="avatar avatar-online"><img src="../assets/img/avatars/1.png" alt="" className="w-px-40 h-auto rounded-circle" /></div>
                                         </a>
-                                        <ul class="dropdown-menu dropdown-menu-end">
+                                        <ul className="dropdown-menu dropdown-menu-end">
                                             <li>
-                                                <a class="dropdown-item" href="#">
-                                                    <div class="d-flex">
-                                                        <div class="flex-shrink-0 me-3">
-                                                            <div class="avatar avatar-online">
-                                                                <img src="../assets/img/avatars/1.png" alt="" class="w-px-40 h-auto rounded-circle" />
+                                                <a className="dropdown-item" href="#">
+                                                    <div className="d-flex">
+                                                        <div className="flex-shrink-0 me-3">
+                                                            <div className="avatar avatar-online">
+                                                                <img src="../assets/img/avatars/1.png" alt="" className="w-px-40 h-auto rounded-circle" />
                                                             </div>
                                                         </div>
-                                                        <div class="flex-grow-1"><span class="fw-medium d-block">John Doe</span><small class="text-muted">Admin</small></div>
+                                                        <div className="flex-grow-1"><span className="fw-medium d-block">John Doe</span><small className="text-muted">Admin</small></div>
                                                     </div>
                                                 </a>
                                             </li>
                                             <li>
-                                                <div class="dropdown-divider"></div>
+                                                <div className="dropdown-divider"></div>
                                             </li>
-                                            <li><a class="dropdown-item" href="#"><i class="bx bx-user me-2"></i><span class="align-middle">My Profile</span></a></li>
-                                            <li><a class="dropdown-item" href="#"><i class="bx bx-cog me-2"></i><span class="align-middle">Settings</span></a></li>
-                                            <li><a class="dropdown-item" href="#"><span class="d-flex align-items-center align-middle"><i class="flex-shrink-0 bx bx-credit-card me-2"></i><span class="flex-grow-1 align-middle ms-1">Billing</span><span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span></span></a></li>
+                                            <li><a className="dropdown-item" href="#"><i className="bx bx-user me-2"></i><span className="align-middle">My Profile</span></a></li>
+                                            <li><a className="dropdown-item" href="#"><i className="bx bx-cog me-2"></i><span className="align-middle">Settings</span></a></li>
+                                            <li><a className="dropdown-item" href="#"><span className="d-flex align-items-center align-middle"><i className="flex-shrink-0 bx bx-credit-card me-2"></i><span className="flex-grow-1 align-middle ms-1">Billing</span><span className="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span></span></a></li>
                                             <li>
-                                                <div class="dropdown-divider"></div>
+                                                <div className="dropdown-divider"></div>
                                             </li>
-                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-power-off me-2"></i><span class="align-middle">Log Out</span></a></li>
+                                            <li><a className="dropdown-item" href="javascript:void(0);"><i className="bx bx-power-off me-2"></i><span className="align-middle">Log Out</span></a></li>
                                         </ul>
                                     </li>
                                 </ul>
                             </div>
                         </nav>
-                        <div class="content-wrapper">
-                            <div class="flex-grow-1 container-p-y container-fluid">
-                                <div class="row">
-                                    <div class="col-sm-6 col-lg-3 mb-4">
-                                        <div class="card card-border-shadow-primary h-100">
-                                            <div class="card-body">
-                                                <div class="d-flex align-items-center mb-2 pb-1">
-                                                    <div class="avatar me-2">
-                                                        <span class="avatar-initial rounded bg-label-primary"><i class="bx bxs-truck"></i></span>
+                        <div className="content-wrapper" style={{overflow:"auto" , height:"420px"}} >
+                            <div className="flex-grow-1 container-p-y container-fluid">
+                                <div className="row">
+
+                                    <div className="col-sm-6 col-lg-3 mb-4">
+                                        <div className="card card-border-shadow-primary h-100">
+                                            <div className="card-body">
+                                                <div className="d-flex align-items-center mb-2 pb-1">
+                                                    <div className="avatar me-2">
+                                                        <span className="avatar-initial rounded bg-label-primary"><i className="bx bxs-truck"></i></span>
                                                     </div>
-                                                    <h4 class="ms-1 mb-0">42</h4>
+                                                    <h4 className="ms-1 mb-0">{latestprocessdefinition}</h4>
+                                                    <p className="mb-0" style={{ marginLeft: "6px" }}>Process Definition</p>
                                                 </div>
-                                                <p class="mb-1">On route vehicles</p>
-                                                <p class="mb-0">
-                                                    <span class="fw-medium me-1">+18.2%</span>
-                                                    <small class="text-muted">than last week</small>
-                                                </p>
+
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-lg-3 mb-4">
-                                        <div class="card card-border-shadow-warning h-100">
-                                            <div class="card-body">
-                                                <div class="d-flex align-items-center mb-2 pb-1">
-                                                    <div class="avatar me-2">
-                                                        <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-error"></i></span>
+
+                                    <div className="col-sm-6 col-lg-3 mb-4">
+                                        <div className="card card-border-shadow-danger h-100">
+                                            <div className="card-body">
+                                                <div className="d-flex align-items-center mb-2 pb-1">
+                                                    <div className="avatar me-2">
+                                                        <span className="avatar-initial rounded bg-label-danger"><i className="bx bx-git-repo-forked"></i></span>
                                                     </div>
-                                                    <h4 class="ms-1 mb-0">8</h4>
+                                                    <h4 className="ms-1 mb-0">27</h4>
+                                                    <p className="mb-0" style={{ marginLeft: "6px" }}>Decision Definitions</p>
                                                 </div>
-                                                <p class="mb-1">Vehicles with errors</p>
-                                                <p class="mb-0">
-                                                    <span class="fw-medium me-1">-8.7%</span>
-                                                    <small class="text-muted">than last week</small>
-                                                </p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-lg-3 mb-4">
-                                        <div class="card card-border-shadow-danger h-100">
-                                            <div class="card-body">
-                                                <div class="d-flex align-items-center mb-2 pb-1">
-                                                    <div class="avatar me-2">
-                                                        <span class="avatar-initial rounded bg-label-danger"><i class="bx bx-git-repo-forked"></i></span>
+                                    <div className="col-sm-6 col-lg-3 mb-4">
+                                        <div className="card card-border-shadow-info h-100">
+                                            <div className="card-body">
+                                                <div className="d-flex align-items-center mb-2 pb-1">
+                                                    <div className="avatar me-2">
+                                                        <span className="avatar-initial rounded bg-label-info"><i className="bx bx-time-five"></i></span>
                                                     </div>
-                                                    <h4 class="ms-1 mb-0">27</h4>
+                                                    <h4 className="ms-1 mb-0">13</h4>
+                                                    <p className="mb-0" style={{ marginLeft: "6px" }}>Case Definitions</p>
                                                 </div>
-                                                <p class="mb-1">Deviated from route</p>
-                                                <p class="mb-0">
-                                                    <span class="fw-medium me-1">+4.3%</span>
-                                                    <small class="text-muted">than last week</small>
-                                                </p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-lg-3 mb-4">
-                                        <div class="card card-border-shadow-info h-100">
-                                            <div class="card-body">
-                                                <div class="d-flex align-items-center mb-2 pb-1">
-                                                    <div class="avatar me-2">
-                                                        <span class="avatar-initial rounded bg-label-info"><i class="bx bx-time-five"></i></span>
+                                    <div className="col-sm-6 col-lg-3 mb-4">
+                                        <div className="card card-border-shadow-warning h-100">
+                                            <div className="card-body">
+                                                <div className="d-flex align-items-center mb-2 pb-1">
+                                                    <div className="avatar me-2">
+                                                        <span className="avatar-initial rounded bg-label-warning"><i className="bx bx-error"></i></span>
                                                     </div>
-                                                    <h4 class="ms-1 mb-0">13</h4>
+                                                    <h4 className="ms-1 mb-0">{deployments}</h4>
+                                                    {/* Deployments */}
+                                                    <p className="mb-0" style={{ marginLeft: "6px" }}>Deployments</p>
                                                 </div>
-                                                <p class="mb-1">Late vehicles</p>
-                                                <p class="mb-0">
-                                                    <span class="fw-medium me-1">-2.5%</span>
-                                                    <small class="text-muted">than last week</small>
-                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div className="row">
+                                    <Chart
+                                        chartType="PieChart"
+                                        width="100%"
+                                        height="400px"
+                                        data={data}
+                                        options={options}
+                                    />
+                                </div>
+                                <div className="row">
+                                    <Chart
+                                        chartType="PieChart"
+                                        width="100%"
+                                        height="400px"
+                                        data={data2}
+                                        options={options2}
+                                    />
+                                </div>
+
+
                                 {/* <div className="content-wrapper">
                             <div className="container-xxl flex-grow-1 container-p-y">                            
                                 <div style={{ outlineStyle: "solid", padding: "25px", borderRadius: "0.375rem", color: "#32333754" }} >

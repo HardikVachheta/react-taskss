@@ -96,30 +96,33 @@ export const Groups = () => {
     //   }
 
     const getFormData = () => {
+        {
+            id ?
+                axios.get(`http://localhost:3000/api/task?taskInstanceId=${id}`)
+                    .then(response => {
+                        console.log("Group Form", response.data)
 
-        axios.get(`http://localhost:3000/api/task?taskInstanceId=${id}`)
-            .then(response => {
-                console.log("Group Form", response.data)
-
-                // var x = response.data.updatedData.form_def;
-                var x = response.data.updatedData;
-                setFormData(x)
+                        // var x = response.data.updatedData.form_def;
+                        var x = response.data.updatedData;
+                        setFormData(x)
 
 
-            })
-            .catch(error => {
-                if (error.response) {
-                    if (error.response.status === 404) {
-                        console.log('Group Form :- Resource not found');
-                    } else {
-                        console.log('Server returned an error Group Form:', error.response.status);
-                    }
-                } else if (error.request) {
-                    console.log('No response received from the server');
-                } else {
-                    console.log('Error:', error.message);
-                }
-            });
+                    })
+                    .catch(error => {
+                        if (error.response) {
+                            if (error.response.status === 404) {
+                                console.log('Group Form :- Resource not found');
+                            } else {
+                                console.log(' Group Form :- Server returned an error:', error.response.status);
+                            }
+                        } else if (error.request) {
+                            console.log('No response received from the server');
+                        } else {
+                            console.log('Error:', error.message);
+                        }
+                    })
+                : console.log("Wait for get id")
+        }
 
     }
     const claimTask = () => {
@@ -156,7 +159,7 @@ export const Groups = () => {
                     if (error.response.status === 404) {
                         console.log('Group History :- Resource not found');
                     } else {
-                        console.log('Server returned an error:', error.response.status);
+                        console.log('Group History :- Server returned an error:', error.response.status);
                     }
                 } else if (error.request) {
                     console.log('No response received from the server');
@@ -195,7 +198,7 @@ export const Groups = () => {
         setIsLoading(true);
         axios.get(`http://localhost:3000/api/tasks/candidate-group`)
             .then(response => {
-                console.log("Group list Data :- ", response.data);
+                console.log("Group list Data :- ", response);
                 const groupsData = response.data;
                 setData(groupsData);
                 setDataSource(groupsData.slice(0, 10));
@@ -205,13 +208,16 @@ export const Groups = () => {
 
 
 
-                var diagramvalue = response.data?.filter((u) => {
-                    return u.id === id
-                })
-                // console.log("Group Diagram value :-", diagramvalue)
-                console.log("Group Diagram value :-", diagramvalue[0].processDefinitionId)
-                setDiaId(diagramvalue[0].processDefinitionId)
-                setDiakey(diagramvalue[0].taskDefinitionKey)
+                var diagramvalue = response.data?.filter((u) => u.id === id)
+
+                if (diagramvalue.length > 0) {
+                    console.log("Group Diagram value :-", diagramvalue[0].processDefinitionId);
+                    setDiaId(diagramvalue[0].processDefinitionId);
+                    setDiakey(diagramvalue[0].taskDefinitionKey);
+                } else {
+                    console.log("No matching data found");
+                }
+
                 setIsLoading(false);
             })
             .catch(error => {
@@ -322,45 +328,50 @@ export const Groups = () => {
                         </Link>
 
                     </h4>
+                    {isLoading ? (
+                        <div style={ce}>
+                            <PuffLoader color="#696cff" size={30} />
+                        </div>
+                    ) : (
+                        <ul className="menu-inner py-1" style={ce}>
+                            <InfiniteScroll
+                                dataLength={dataSource.length}
+                                next={fetchMoreData}
+                                hasMore={hasMore}
+                                loader={
+                                    dataSource.length !== 0 ? (
+                                        <div style={ce}>
+                                            <PuffLoader color="#696cff" size={30} />
+                                        </div>) : (<></>)
+                                }
+                                endMessage={<p>You are all set!</p>}
+                                height={containerHeight - 83}
+                            >
+                                {dataSource.length !== 0 ? (
+                                    dataSource?.map((u, index) => {
 
-                    <ul className="menu-inner py-1" style={ce}>
-                        <InfiniteScroll
-                            dataLength={dataSource.length}
-                            next={fetchMoreData}
-                            hasMore={hasMore}
-                            loader={
-                                dataSource.length !== 0 ? (
-                                    <div style={ce}>
-                                        <PuffLoader color="#696cff" size={30} />
-                                    </div>) : (<></>)
-                            }
-                            endMessage={<p>You are all set!</p>}
-                            height={containerHeight - 83}
-                        >
-                            {dataSource.length !== 0 ? (
-                                dataSource?.map((u, index) => {
+                                        const { name, id, created, processDefinitionId } = data[index % data.length]; // Use data from JSON
 
-                                    const { name, id, created, processDefinitionId } = data[index % data.length]; // Use data from JSON
-
-                                    return (
-                                        <li key={id} className="menu-item bs-toast toast fade show" style={{ margin: "5px", width: "300px" }}>
-                                            <Link to={`/Groups/${id}`} onClick={() => toggleCollapse(id, name)} style={{ color: "#697a8d" }}>
-                                                <div className="toast-header">
-                                                    <i className="bx bx-bell me-2" style={{ marginBottom: "5px" }}></i>
-                                                    <div className="me-auto fw-semibold" style={{ marginBottom: "5px" }}>
-                                                        {name}
+                                        return (
+                                            <li key={id} className="menu-item bs-toast toast fade show" style={{ margin: "5px", width: "300px" }}>
+                                                <Link to={`/Groups/${id}`} onClick={() => toggleCollapse(id, name)} style={{ color: "#697a8d" }}>
+                                                    <div className="toast-header">
+                                                        <i className="bx bx-bell me-2" style={{ marginBottom: "5px" }}></i>
+                                                        <div className="me-auto fw-semibold" style={{ marginBottom: "5px" }}>
+                                                            {name}
+                                                        </div>
+                                                        <small>{formattedDate(created)}</small>
                                                     </div>
-                                                    <small>{formattedDate(created)}</small>
-                                                </div>
 
-                                            </Link>
-                                        </li>
-                                    )
+                                                </Link>
+                                            </li>
+                                        )
 
-                                })
-                            ) : (<>Data not Found</>)}
-                        </InfiniteScroll>
-                    </ul>
+                                    })
+                                ) : (<>Data not Found</>)}
+                            </InfiniteScroll>
+                        </ul>
+                    )}
                     {/* <div className="col-md mb-4 mb-md-2" style={ce}>
                         <div className="accordion py-1" id="accordionExample">
                             <InfiniteScroll

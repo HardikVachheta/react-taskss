@@ -99,7 +99,7 @@ export const Navbar = () => {
                             <>
                                 <li
                                     className={`menu-item ${item.link === page ? 'active' : ''}  ${item.isOpen ? 'open' : ''} `}
-                                    key={index}>
+                                    key={item.link}>
                                     <Link to={item.link} className={`menu-link ${item.children ? "menu-toggle" : ''}`} onClick={() => toggleMenu(item)}>
                                         <i className={`menu-icon tf-icons ${item.icon}`}></i>
                                         <div data-i18n="Analytics">{item.name}</div>
