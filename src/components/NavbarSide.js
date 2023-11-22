@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import newnav from '../data/nav.json'
 
-export const Navbar = () => {
+export const NavbarSide = () => {
 
     // const [passwordType, setPasswordType] = useState("false");
     const [selectedValue, setSelectedValue] = useState(null);

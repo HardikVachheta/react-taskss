@@ -5,7 +5,7 @@ import { Form } from '@formio/react';
 import { Link, useParams } from 'react-router-dom'
 import { PuffLoader } from 'react-spinners'
 import axios from 'axios'
-import { Navbar } from './Navbar'
+import { NavbarSide } from './NavbarSide'
 import { MainBpmn } from './MainBpmn';
 
 export const Groups = () => {
@@ -315,7 +315,7 @@ export const Groups = () => {
 
             </Helmet>
             <div className="layout-container" >
-                <Navbar />
+                <NavbarSide />
                 <aside id="layout-menu" className="layout-menu menu-vertical menu"
                     style={{ width: "330px", backgroundColor: "rgba(255,255,255,.85)" }}>
 
@@ -523,7 +523,7 @@ export const Groups = () => {
                                                     
                                                 </li> */}
                                             </ul>
-                                            {/* <hr /> */}
+                                            <hr />
 
                                         </div>
                                     </div>

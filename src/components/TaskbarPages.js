@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet';
 import { Form } from '@formio/react';
-import { Navbar } from './Navbar';
+import { NavbarSide } from './NavbarSide';
 import { PuffLoader } from 'react-spinners'
 import { Taskbar2 } from './Taskbar2';
 import axios from 'axios';
@@ -298,7 +298,7 @@ export const TaskbarPages = () => {
         </Helmet>
 
         <div className="layout-container" >
-          <Navbar />
+          <NavbarSide />
           <Taskbar2 sendDataToParent={handleChildData} />
           <div className="layout-page">
             <div className="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none ">
