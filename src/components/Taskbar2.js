@@ -18,21 +18,20 @@ export const Taskbar2 = ({ sendDataToParent }) => {
     const [getId, setId] = useState([])
     const [hasMore, setHasMore] = useState(true)
     const [taskVariable, setTaskVariable] = useState([])
+    const [query, setQuery] = useState("");
 
     var x = data.length
-    // console.log("Task Lenth ", x)
+
+    const [selectedStatus, setSelectedStatus] = useState('');
+
+    const handleChange = (event) => {
+        setSelectedStatus(event.target.value);
+    };
 
     useEffect(() => {
         getTaskData()
     }, []);
 
-    // function formatDate(inputDate) {
-    //     const date = new Date(inputDate);
-    //     const day = date.getDate().toString().padStart(2, '0');
-    //     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based, so we add 1
-    //     const year = date.getFullYear();
-    //     return `${day}-${month}-${year}`;
-    // }
 
     const formattedDate = (dateTimeString) => {
         const dateTime = new Date(dateTimeString);
@@ -165,6 +164,7 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                     {/* <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script> */}
 
                 </Helmet>
+
                 <h4 className="fc-toolbar-title" id="fc-dom-1" style={{ marginTop: "15px" }}>
                     Task List &nbsp;
 
@@ -174,6 +174,33 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                     </Link>
 
                 </h4>
+                {/* <div class="row"> */}
+                <div>
+                    <select
+                        id="ProductStatus"
+                        className="form-select text-capitalize"
+                        value={selectedStatus}
+                        onChange={handleChange}
+                    >
+                        <option value="">Status</option>
+                        <option value="Scheduled">Scheduled</option>
+                        <option value="Publish">Publish</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="align-items-center justify-content-center mb-md-0">
+                    <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                        <label>
+                            <input type='search' class="form-control" placeholder="Search Tasks.." style={{ width: "300px" }} onChange={(e) => setQuery(e.target.value)} />
+                            {/* <input type="search" class="form-control" 
+                                onChange={(e) => setQuery(e.target.value)} placeholder="Search Users.." 
+                                aria-controls="DataTables_Table_0" />*/}
+                        </label>
+
+
+                    </div>
+                </div>
+                {/* </div> */}
                 <ul className="menu-inner py-1" style={ce}>
                     <InfiniteScroll
                         dataLength={dataSource.length}
@@ -189,15 +216,16 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                         height={containerHeight - 63}
                     >
                         {dataSource.length !== 0 ? (
-                            dataSource?.map((u, index) => {
+                            dataSource?.filter((task) => task.name?.includes(query.toLowerCase()))?.map((u, index) => {
 
                                 const { name, id, created, processDefinitionId } = data[index % data.length]; // Use data from JSON
                                 const filteredTaskVariables = taskVariable.filter((x) => x.taskDetail.id === id);
+                                console.log("dataSource", dataSource)
 
                                 return (
                                     <li key={id} className="menu-item bs-toast toast fade show" style={{ margin: "5px", width: "300px" }}>
                                         {/* <Link to={`/groups/${id}`} style={{ color: "#697a8d" }}> */}
-                                        <Link to={`/TaskbarPages/${id}`} onClick={() => { sendDataToParent(processDefinitionId); }} style={{ color: "#697a8d" }} >
+                                        <Link to={`/TaskbarPages/${id}`} onClick={() => { }} style={{ color: "#697a8d" }} >
                                             <div className="toast-header">
                                                 <i className="bx bx-bell me-2" style={{ marginBottom: "5px" }}></i>
                                                 <div className="me-auto fw-semibold" style={{ marginBottom: "5px" }}>
@@ -242,8 +270,8 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                                                     ) : (
                                                         "Nodata"
                                                     )}</td>
-                                                </tr>                                               
-                                            </div>                
+                                                </tr>
+                                            </div>
                                         </Link>
                                     </li>
                                 )

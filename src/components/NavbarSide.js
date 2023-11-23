@@ -21,7 +21,7 @@ export const NavbarSide = () => {
     const pathname = location.pathname;
 
     const isTaskbarPages = location.pathname.includes('TaskbarPages');
-    const isDashboard = location.pathname.includes('Dashboard');
+    const isDashboard = location.pathname.includes('Dashboard') || location.pathname.includes('ProcessDefinition')
     const isGroups = location.pathname.includes('Groups');
 
     var page

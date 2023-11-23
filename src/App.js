@@ -19,6 +19,8 @@ import { PerfectScrollbar } from './components/PerfectScrollbar';
 import { DashboardNew } from './componentsNew/DashboardNew';
 import { MainBpmn } from './components/MainBpmn';
 import Com from './componentsNew/Com';
+import { ProcessDefinition } from './components/ProcessDefinition';
+import { ProcessDefinitionDetails } from './components/ProcessDefinitionDetails';
 
 
 function App() {
@@ -49,6 +51,8 @@ function App() {
         <Route path='/Groups/:id' element={<ProtectedRoutes Component={Groups} />} />
         <Route path='/MyForm' element={<ProtectedRoutes Component={MyForm} />} />
         <Route path='/Formio1' element={<ProtectedRoutes Component={Formio1} />} />
+        <Route path='/Dashboard/ProcessDefinition' element={<ProtectedRoutes Component={ProcessDefinition} />} />
+        <Route path='/Dashboard/ProcessDefinitionDetails' element={<ProtectedRoutes Component={ProcessDefinitionDetails} />} />
 
 
 

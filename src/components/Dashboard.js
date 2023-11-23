@@ -10,6 +10,7 @@ import '../data/chart.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const PieChart = ({ data, options }) => (
     <div>
@@ -20,13 +21,6 @@ const PieChart = ({ data, options }) => (
 
 export const Dashboard = () => {
 
-    // var scroll1 =
-    // {
-    //     maxHeight: "92vh",
-    //     overflowX: "hidden",
-    //     overflowY: "auto",
-    //     behavior: 'smooth',
-    // }
 
     const [assginuser, setAssginuser] = useState('');
     const [unassginuser, setUnAssginuser] = useState('');
@@ -83,7 +77,6 @@ export const Dashboard = () => {
         axios.get("http://localhost:3000/api/count/runninginstances").then(res => {
             console.log("runninginstances :", res.data.processDefinitions)
             setprocessDefinitions(res.data.processDefinitions)
-            // console.log('-----------------------',processDefinitions[0].key)
         })
     }
 
@@ -298,15 +291,15 @@ export const Dashboard = () => {
                                 <Nav className="navbar-nav-right d-flex align-items-center">
                                     <div className="navbar-nav align-items-center">
                                         <div className="nav-item d-flex align-items-center">
-                                            <FontAwesomeIcon icon={faSearch} className="fs-4 lh-0" />
+                                            {/* <FontAwesomeIcon icon={faSearch} className="fs-4 lh-0" />
                                             <input
                                                 type="text"
                                                 className="form-control border-0 shadow-none ps-1 ps-sm-2"
                                                 placeholder="Search..."
                                                 aria-label="Search..."
-                                            />
-                                            {/* <i className="bx bx-search fs-4 lh-0"></i>
-                                            <input type="text" className="form-control border-0 shadow-none ps-1 ps-sm-2" placeholder="Search..." aria-label="Search..." /> */}
+                                            /> */}
+                                            <i className="bx bx-search"></i>
+                                            <input type="text" className="form-control border-0 shadow-none ps-1 ps-sm-2" placeholder="Search..." aria-label="Search..." />
                                         </div>
                                     </div>
                                     <Nav className="navbar-nav flex-row align-items-center ms-auto">
@@ -347,7 +340,7 @@ export const Dashboard = () => {
                             <div className="flex-grow-1 container-p-y container-fluid">
                                 <div className="row">
 
-                                    <div className="col-sm-6 col-lg-4 mb-4">
+                                    <Link className="col-sm-6 col-lg-4 mb-4" to='/Dashboard/ProcessDefinition'>
                                         <div className="card card-border-shadow-primary h-100">
                                             <div className="card-body">
                                                 <div className="d-flex align-items-center mb-2 pb-1">
@@ -360,8 +353,7 @@ export const Dashboard = () => {
 
                                             </div>
                                         </div>
-                                    </div>
-
+                                    </Link>
                                     <div className="col-sm-6 col-lg-4 mb-4">
                                         <div className="card card-border-shadow-danger h-100">
                                             <div className="card-body">
@@ -383,7 +375,6 @@ export const Dashboard = () => {
                                                         <span className="avatar-initial rounded bg-label-warning"><i className="bx bx-error"></i></span>
                                                     </div>
                                                     <h4 className="ms-1 mb-0">{deployments}</h4>
-                                                    {/* Deployments */}
                                                     <p className="mb-0" style={{ marginLeft: "6px" }}>Deployments</p>
                                                 </div>
                                             </div>
