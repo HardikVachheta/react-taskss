@@ -1,43 +1,48 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
+import { Button, Dropdown } from 'react-bootstrap';
 
 export const Taskbar = () => {
-    const windowHeight = window.innerHeight;
-    const [page, setPage] = useState(1);
+    const [sortBy, setSortBy] = useState('name'); // Default sorting property
+    const [sortOrder, setSortOrder] = useState('asc'); // Default sorting order
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(true);
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        setLoading(true);
-        setHasMore(true)
-        // Replace this with your data fetching logic (e.g., an API call)
-        const response = await fetch(`https://api.example.com/data?page=${page}`);
-        const newData = await response.json();
-        setData((prevData) => [...prevData, ...newData]);
-        setLoading(false);
-        setPage(page + 1);
-      };
-  
-      const handleScroll = () => {
-        const scrollY = window.scrollY;
-        const scrollHeight = document.documentElement.scrollHeight;
-        const scrollThreshold = scrollHeight - windowHeight - 200; // Adjust the threshold as needed
-  
-        if (scrollY > scrollThreshold && !loading && hasMore) {
-          fetchData();
-        }
-      };
-  
-      window.addEventListener('scroll', handleScroll);
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
-    }, [page, loading, hasMore]);
-  
+    const [icon, setIcon] = useState('AscIcon');
 
+    useEffect(() => {
+        // Fetch data based on the current sorting option and order
+        const fetchData = async () => {
+            const apiUrl = `http://localhost:3000/api/task/${sortOrder}${sortBy}`;
+            try {
+
+                const response = await axios.get(apiUrl);
+                setData(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, [sortBy, sortOrder]); // Fetch data whenever sorting options change
+
+    const handleSort = (property) => {
+        // Toggle between 'asc' and 'desc' orders
+        const newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+        setSortOrder(newOrder);
+
+        // Update the icon based on the new order
+        setIcon(newOrder === 'asc' ? 'AscIcon' : 'DescIcon'); // Replace 'AscIcon' and 'DescIcon' with your actual icon components or classes
+        setSortBy(property);
+
+
+        // setSortBy(property);
+        // setSortOrder(order);
+    };
+
+    const filteredData = data.filter(task => task.assignee === 'demo');
+
+    console.log("item in name order", filteredData)
     return (
         <div >
             <aside id="layout-menu" className="layout-menu menu-vertical menu"
@@ -60,7 +65,7 @@ export const Taskbar = () => {
                     <link rel="stylesheet" href="https://a.omappapi.com/app/js/api.min.css" id="omapi-css" media="all" />
 
                 </Helmet>
-               
+
                 <h4 className="fc-toolbar-title" id="fc-dom-1" style={{ marginTop: "15px" }}>
                     Task List &nbsp;
                     <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
@@ -68,32 +73,139 @@ export const Taskbar = () => {
                     </button>
 
                 </h4>
+                <div>
+                    <label htmlFor="sortSelect">Sort by:</label>
+                    {/* <Dropdown>
+                        <Dropdown.Toggle variant="outline-primary" id="growthReportId">
+                            ...
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu style={{ zIndex: 1100 }}>
+                            <Dropdown.Item href="javascript:void(0);">2021</Dropdown.Item>
+                            <Dropdown.Item href="javascript:void(0);">2020</Dropdown.Item>
+                            <Dropdown.Item href="javascript:void(0);">2019</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown> */}
+                    {/* <div className="dropdown">
+                        <button
+                            className="btn btn-sm btn-outline-primary dropdown-toggle"
+                            type="button"
+                            id="growthReportId"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="true"
+                        >
+                            2022
+                        </button>
+                        <div
+                            className="dropdown-menu dropdown-menu-end"
+                            aria-labelledby="growthReportId"
+                            style={{
+                                position: "absolute",
+                                inset: "0px 0px auto auto",
+                                margin: 0,
+                                transform: "translate(-77px, 30px)"
+                            }}
+                            data-popper-placement="bottom-end"
+                        >
+                            <a className="dropdown-item" href="javascript:void(0);">
+                                2021
+                            </a>
+                            <a className="dropdown-item" href="javascript:void(0);">
+                                2020
+                            </a>
+                            <a className="dropdown-item" href="javascript:void(0);">
+                                2019
+                            </a>
+                        </div>
+                    </div> */}
+
+                    <select
+                        id="sortSelect"
+                        className='select'
+                        onChange={(e) => setSortBy(e.target.value)}
+                        value={sortBy}
+                        style={{ border: "none" }}
+                    >
+                        <option value="name">Name</option>
+                        <option value="time">Time</option>
+                    </select>
+
+                    <button onClick={() => handleSort(sortBy)}>
+                        {icon === 'AscIcon' ? 'Asc Icon' : 'Desc Icon'}
+                    </button>
+                    {/* <button onClick={() => handleSort(sortBy, 'asc')}>Asc</button>
+                    <button onClick={() => handleSort(sortBy, 'desc')}>Desc</button> */}
+                </div>
+                <div className="btn-group">
+                    <button
+                        type="button"
+
+                        className="btn btn-outline-primary dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="true"
+                    >
+                        Primary
+                    </button>
+                    <ul
+                        className="dropdown-menu ==="
+                        style={{
+                            position: "absolute",
+                            inset: "0px auto auto 0px",
+                            margin: 0,
+                            transform: "translate(0px, 41px)",
+                            zIndex: 1100
+                        }}
+                        data-popper-placement="bottom-start"
+                    >
+                        <li>
+                            <a className="dropdown-item" href="javascript:void(0);">
+                                Action
+                            </a>
+                        </li>
+                        <li>
+                            <a className="dropdown-item" href="javascript:void(0);">
+                                Another action
+                            </a>
+                        </li>
+                        <li>
+                            <a className="dropdown-item" href="javascript:void(0);">
+                                Something else here
+                            </a>
+                        </li>
+                        <li>
+                            <hr className="dropdown-divider" />
+                        </li>
+                        <li>
+                            <a className="dropdown-item" href="javascript:void(0);">
+                                Separated link
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
                 {/* <ul className="menu-inner py-1" style={scroll1}> */}
                 <ul className="menu-inner py-1">
                     {
-                        data?.map((u) => {
-                            // console.log(u)
+                        filteredData?.map((u) => {
                             return (
                                 <li className="menu-item bs-toast toast fade show" role="alert" aria-live="assertive" aria-atomic="true"
                                     style={{ margin: "5px", width: "300px" }}>
-                                    <Link to={`/TaskbarPages/${u.task_id}`} style={{ color: "#697a8d" }}>
-                                        {/* <Link to={`/AutoPages/${u.task_id}`} style={{ color: "#697a8d" }} onClick={getdata}> */}
+                                    <Link to={`/TaskbarPages/${u.id}`} style={{ color: "#697a8d" }}>
                                         <div className="toast-header">
                                             <i className="bx bx-bell me-2"></i>
                                             <div className="me-auto fw-semibold" style={{ textAlign: "start" }}>
-                                                {u?.task_name}</div>
+                                                {u?.name}</div>
                                             <small>11 mins ago</small>
                                         </div>
                                         <div className="toast-body" style={{ textAlign: "-webkit-left" }}>
-                                            {u?.task_details}
+                                            {u?.description}
                                         </div>
                                     </Link>
                                 </li>
                             )
                         })
                     }
-                    {hasMore && <div>Loading...</div>}
                 </ul>
 
             </aside>

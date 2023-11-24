@@ -12,6 +12,7 @@ import '../data/xp.css';
 import { MainBpmn } from './MainBpmn';
 import MainBpmn2 from './MainBpmn2';
 import '../data/text.css'
+import { Taskbar } from './Taskbar';
 
 export const TaskbarPages = () => {
 
@@ -299,7 +300,8 @@ export const TaskbarPages = () => {
 
         <div className="layout-container" >
           <NavbarSide />
-          <Taskbar2 sendDataToParent={handleChildData} />
+          {/* <Taskbar2 sendDataToParent={handleChildData} /> */}
+          <Taskbar />
           <div className="layout-page">
             <div className="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none ">
               <a className="d-flex nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
