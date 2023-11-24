@@ -125,64 +125,19 @@ export const Taskbar = () => {
                         className='select'
                         onChange={(e) => setSortBy(e.target.value)}
                         value={sortBy}
-                        style={{ border: "none" }}
+                        style={{ border: "none",  outline: 'none' , appearance: "none" }}
                     >
-                        <option value="name">Name</option>
-                        <option value="time">Time</option>
+                        <option value="name" style={{width:"25px"}}>Name</option>
+                        <option value="time" style={{width:"25px"}}>Time</option>
                     </select>
 
-                    <button onClick={() => handleSort(sortBy)}>
-                        {icon === 'AscIcon' ? 'Asc Icon' : 'Desc Icon'}
-                    </button>
+                    <spam onClick={() => handleSort(sortBy)} style={{marginLeft:"10px"}}>
+                        {icon === 'AscIcon' ? <i class="bx bxs-up-arrow"/> : <i class="bx bxs-down-arrow"/>}
+                    </spam>
                     {/* <button onClick={() => handleSort(sortBy, 'asc')}>Asc</button>
                     <button onClick={() => handleSort(sortBy, 'desc')}>Desc</button> */}
                 </div>
-                <div className="btn-group">
-                    <button
-                        type="button"
-
-                        className="btn btn-outline-primary dropdown-toggle"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="true"
-                    >
-                        Primary
-                    </button>
-                    <ul
-                        className="dropdown-menu ==="
-                        style={{
-                            position: "absolute",
-                            inset: "0px auto auto 0px",
-                            margin: 0,
-                            transform: "translate(0px, 41px)",
-                            zIndex: 1100
-                        }}
-                        data-popper-placement="bottom-start"
-                    >
-                        <li>
-                            <a className="dropdown-item" href="javascript:void(0);">
-                                Action
-                            </a>
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="javascript:void(0);">
-                                Another action
-                            </a>
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="javascript:void(0);">
-                                Something else here
-                            </a>
-                        </li>
-                        <li>
-                            <hr className="dropdown-divider" />
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="javascript:void(0);">
-                                Separated link
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                
 
                 {/* <ul className="menu-inner py-1" style={scroll1}> */}
                 <ul className="menu-inner py-1">
