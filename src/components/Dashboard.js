@@ -324,7 +324,7 @@ export const Dashboard = () => {
                                                         </div>
                                                     </Dropdown.Item>
                                                     <Dropdown.Divider />
-                                                    <Dropdown.Item href="#"><i className="bx bx-user me-2"></i><span className="align-middle">My Profile</span></Dropdown.Item>
+                                                    <Dropdown.Item  as={Link} to="/AdminDashboard"><i className="bx bx-user me-2"></i><span className="align-middle">Admin</span></Dropdown.Item>
                                                     <Dropdown.Item href="#"><i className="bx bx-cog me-2"></i><span className="align-middle">Settings</span></Dropdown.Item>
                                                     <Dropdown.Item href="#"><i className="flex-shrink-0 bx bx-credit-card me-2"></i><span className="flex-grow-1 align-middle ms-1">Billing</span><span className="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span></Dropdown.Item>
                                                     <Dropdown.Divider />

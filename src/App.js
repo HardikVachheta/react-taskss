@@ -21,6 +21,8 @@ import { MainBpmn } from './components/MainBpmn';
 import Com from './componentsNew/Com';
 import { ProcessDefinition } from './components/ProcessDefinition';
 import { ProcessDefinitionDetails } from './components/ProcessDefinitionDetails';
+import { AdminDashboard } from './components/AdminDashboard';
+import { CreateUser } from './components/CreateUser';
 
 
 function App() {
@@ -53,6 +55,10 @@ function App() {
         <Route path='/Formio1' element={<ProtectedRoutes Component={Formio1} />} />
         <Route path='/Dashboard/ProcessDefinition' element={<ProtectedRoutes Component={ProcessDefinition} />} />
         <Route path='/Dashboard/ProcessDefinitionDetails' element={<ProtectedRoutes Component={ProcessDefinitionDetails} />} />
+        
+        
+        <Route path='/AdminDashboard' element={<ProtectedRoutes Component={AdminDashboard} />} />
+        <Route path='/AdminDashboard/CreateUser' element={<ProtectedRoutes Component={CreateUser} />} />
 
 
 
