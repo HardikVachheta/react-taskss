@@ -1,6 +1,10 @@
+import { useFormik } from 'formik';
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { createUserSchema } from '../schemas';
+import axios from 'axios';
 
 export const CreateUser = () => {
 
@@ -24,7 +28,61 @@ export const CreateUser = () => {
     const handleSubmenuClick = (submenuId) => {
         setActiveSubmenu(submenuId);
     };
-    // console.log("menuItems",menuItems)
+
+    const initialValues = {
+        id: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+    };
+
+
+    const navigate = useNavigate();
+
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+        initialValues: initialValues,
+        validationSchema: createUserSchema,
+        onSubmit: (values, action) => {
+            console.log("New User",values)
+
+            if (values.firstName && values.lastName && values.email && values.password) {
+
+                axios.post('http://localhost:3000/api/user/create',values).then((res)=> {
+                    console.log("inserted data",res)
+                })
+
+                Swal.fire({
+                    title: 'Create User Successful',
+                    icon: 'success',
+                    timer: 1500
+                });
+
+
+                navigate("/AdminDashboard")
+
+            } else {
+                Swal.fire({
+                    title: 'Enter Data',
+                    icon: 'error',
+                    timer: 1500
+                });
+            }
+
+            action.resetForm()
+        }
+    })
+
+
+    const [passwordType, setPasswordType] = useState("password");
+
+    const togglePassword = () => {
+        if (passwordType === "password") {
+            setPasswordType("text")
+            return;
+        }
+        setPasswordType("password")
+    }
 
     return (
         <div lang="en" class="light-style layout-compact layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="horizontal-menu-template">
@@ -60,6 +118,7 @@ export const CreateUser = () => {
                         data-bg-class="bg-menu-theme"
                         style={{
                             touchAction: "none",
+                            position: "fixed",
                             userSelect: "none",
                             WebkitUserDrag: "none",
                             WebkitTapHighlightColor: "rgba(0, 0, 0, 0)"
@@ -332,21 +391,30 @@ export const CreateUser = () => {
                         </div>
                     </aside>
 
-                    <div className="layout-page">
+                    <div className="layout-page" style={{ marginTop: "60px" }}>
                         <div className="content-wrapper">
                             <div className="container-xxl flex-grow-1 container-p-y">
 
                                 <div className="row">
                                     <div className="col-xxl">
                                         <div className="card mb-4">
-                                            <form className="card-body">
+                                            <form className="card-body" onSubmit={handleSubmit}>
                                                 <h5 className='d-flex justify-content-start align-items-center'>1. User Account</h5>
                                                 <div className="row mb-3">
                                                     <label className="col-sm-3 col-form-label" htmlFor="multicol-username">
                                                         User Id
                                                     </label>
                                                     <div className="col-sm-9">
-                                                        <input type="text" id="multicol-username" className="form-control" placeholder="john.doe" />
+                                                        <input
+                                                            type="text"
+                                                            name='id'
+                                                            value={values.id}
+                                                            onChange={handleChange}
+                                                            onBlur={handleBlur}
+                                                            id="multicol-id" className="form-control" placeholder="john.doe" />
+                                                        {errors.id && touched.id ? (
+                                                            <div className="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.id}</div>
+                                                        ) : null}
                                                     </div>
                                                 </div>
                                                 <div className="row form-password-toggle mb-3">
@@ -355,11 +423,22 @@ export const CreateUser = () => {
                                                     </label>
                                                     <div className="col-sm-9">
                                                         <div className="input-group input-group-merge">
-                                                            <input type="password" id="multicol-password" className="form-control" placeholder="············" aria-describedby="multicol-password2" />
-                                                            <span className="input-group-text cursor-pointer" id="multicol-password2" >
-                                                                <i className="bx bx-hide" />
+                                                            <input
+                                                                type={passwordType}
+                                                                name='password'
+                                                                value={values.password}
+                                                                onChange={handleChange}
+                                                                onBlur={handleBlur}
+                                                                id="multicol-password" className="form-control" placeholder="············" aria-describedby="multicol-password2" />
+
+                                                            <span className="input-group-text cursor-pointer" onClick={togglePassword}>
+                                                                {passwordType === "password" ?
+                                                                    <i className="bx bx-hide"></i> : <i className="bx bx-show"></i>}
                                                             </span>
                                                         </div>
+                                                        {errors.password && touched.password ? (
+                                                            <div className="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.password}</div>
+                                                        ) : null}
                                                     </div>
                                                 </div>
                                                 <div className="row form-password-toggle">
@@ -368,11 +447,21 @@ export const CreateUser = () => {
                                                     </label>
                                                     <div className="col-sm-9">
                                                         <div className="input-group input-group-merge">
-                                                            <input type="password" id="multicol-password" className="form-control" placeholder="············" aria-describedby="multicol-password2" />
-                                                            <span className="input-group-text cursor-pointer" id="multicol-password2" >
-                                                                <i className="bx bx-hide" />
+                                                            <input
+                                                                type={passwordType}
+                                                                name='confirm_password'
+                                                                value={values.confirm_password}
+                                                                onChange={handleChange}
+                                                                onBlur={handleBlur}
+                                                                id="multicol-password_confirm_password" className="form-control" placeholder="············" aria-describedby="multicol-password2" />
+                                                            <span className="input-group-text cursor-pointer" onClick={togglePassword}>
+                                                                {passwordType === "password" ?
+                                                                    <i className="bx bx-hide"></i> : <i className="bx bx-show"></i>}
                                                             </span>
                                                         </div>
+                                                        {errors.confirm_password && touched.confirm_password ? (
+                                                            <div className="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.confirm_password}</div>
+                                                        ) : null}
                                                     </div>
                                                 </div>
                                                 <hr className="my-4 mx-n4" />
@@ -382,7 +471,15 @@ export const CreateUser = () => {
                                                         First Name
                                                     </label>
                                                     <div className="col-sm-9">
-                                                        <input type="text" id="multicol-full-name" className="form-control" placeholder="John Doe" />
+                                                        <input type="text"
+                                                            name='firstName'
+                                                            value={values.firstName}
+                                                            onChange={handleChange}
+                                                            onBlur={handleBlur}
+                                                            id="multicol-first-name" className="form-control" placeholder="John Doe" />
+                                                        {errors.firstName && touched.firstName ? (
+                                                            <div className="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.firstName}</div>
+                                                        ) : null}
                                                     </div>
                                                 </div>
 
@@ -391,7 +488,15 @@ export const CreateUser = () => {
                                                         Last Name
                                                     </label>
                                                     <div className="col-sm-9">
-                                                        <input type="text" id="multicol-full-name" className="form-control" placeholder="John Doe" />
+                                                        <input type="text"
+                                                            name='lastName'
+                                                            value={values.lastName}
+                                                            onChange={handleChange}
+                                                            onBlur={handleBlur}
+                                                            id="multicol-last-name" className="form-control" placeholder="John Doe" />
+                                                        {errors.lastName && touched.lastName ? (
+                                                            <div className="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.lastName}</div>
+                                                        ) : null}
                                                     </div>
                                                 </div>
                                                 <div className="row mb-3">
@@ -400,11 +505,20 @@ export const CreateUser = () => {
                                                     </label>
                                                     <div className="col-sm-9">
                                                         <div className="input-group input-group-merge">
-                                                            <input type="text" id="multicol-email" className="form-control" placeholder="john.doe" aria-label="john.doe" aria-describedby="multicol-email2" />
+                                                            <input type="text"
+                                                                name='email'
+                                                                value={values.email}
+                                                                onChange={handleChange}
+                                                                onBlur={handleBlur}
+                                                                id="multicol-email" className="form-control" placeholder="john.doe" aria-label="john.doe" aria-describedby="multicol-email2" />
+
                                                             <span className="input-group-text" id="multicol-email2">
                                                                 @example.com
                                                             </span>
                                                         </div>
+                                                        {errors.email && touched.email ? (
+                                                                <div className="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.email}</div>
+                                                            ) : null}
                                                     </div>
                                                 </div>
                                                 <div className="pt-4">
@@ -413,7 +527,7 @@ export const CreateUser = () => {
                                                             <button type="submit" className="btn btn-primary me-sm-2 me-1">
                                                                 Submit
                                                             </button>
-                                                            <button type="reset" className="btn btn-label-secondary">
+                                                            <button type="reset" onClick={ () => navigate('/AdminDashboard')} className="btn btn-label-secondary">
                                                                 Cancel
                                                             </button>
                                                         </div>

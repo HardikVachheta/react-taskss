@@ -22,3 +22,13 @@ export const autoPage1Schema = Yup.object ({
 export const commentSchema = Yup.object ({
     comment : Yup.string().min(2).max(25).required("Please enter your comment"),
 })
+
+export const createUserSchema = Yup.object ({
+    id : Yup.string().min(2).max(25).required("Please enter your Id"),
+    password : Yup.string().min(6).required("Please enter your password"),
+    confirm_password : Yup.string().required().oneOf([Yup.ref('password'),null],"Password must match"),
+
+    firstName : Yup.string().min(2).max(25).required("Please enter your First name"),
+    lastName : Yup.string().min(2).max(25).required("Please enter your Last name"),
+    email : Yup.string().email().required("Please enter your email"),
+}) 

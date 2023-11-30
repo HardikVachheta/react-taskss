@@ -57,14 +57,16 @@ export const AdminDashboard = () => {
 
             <div className="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
                 <div className="layout-container">
-                    {/* <AdminNav/> */}
+                {/* <AdminNav/> */}
                     <aside
                         id="layout-menu"
                         className="layout-menu-horizontal menu menu-horizontal container-fluid flex-grow-0 bg-menu-theme"
                         data-bg-class="bg-menu-theme"
+                    
                         style={{
                             touchAction: "none",
                             userSelect: "none",
+                            position: "fixed",
                             WebkitUserDrag: "none",
                             WebkitTapHighlightColor: "rgba(0, 0, 0, 0)"
                         }}
@@ -375,8 +377,9 @@ export const AdminDashboard = () => {
                             ))}
                         </ul>
                     </aside> */}
-                    <div className="layout-page">
+                    <div className="layout-page" style={{ marginTop:"60px"}}>
                         <div className="content-wrapper">
+                    {/* <AdminNav/> */}
                             <div className="container-xxl flex-grow-1 container-p-y">
                                 <div className="row">
                                     <div className="col-md-6 col-lg-4 mb-4">
@@ -389,9 +392,9 @@ export const AdminDashboard = () => {
                                                 <Link to='/AdminDashboard/CreateUser' className="d-flex justify-content-start align-items-center mb-4">
                                                     <h5 className="mb-0">Create User</h5>
                                                 </Link>
-                                                <div className="d-flex justify-content-start align-items-center mb-4">
+                                                <Link to='/AdminDashboard/ListUser' className="d-flex justify-content-start align-items-center mb-4">
                                                     <h5 className="mb-0">List Of Users</h5>
-                                                </div>
+                                                </Link>
                                                 <div className="d-flex justify-content-start align-items-center mb-4">
                                                     <h5 className="mb-0">My Profile</h5>
                                                 </div>
@@ -424,9 +427,9 @@ export const AdminDashboard = () => {
                                                 <hr />
                                             </div>
                                             <div className="card-body">
-                                                <div className="d-flex justify-content-start align-items-center mb-4">
+                                                <Link to='/' className="d-flex justify-content-start align-items-center mb-4">
                                                     <h5 className="mb-0">Create User</h5>
-                                                </div>
+                                                </Link>
                                                 <div className="d-flex justify-content-start align-items-center mb-4">
                                                     <h5 className="mb-0">List Of Users</h5>
                                                 </div>

@@ -23,6 +23,7 @@ import { ProcessDefinition } from './components/ProcessDefinition';
 import { ProcessDefinitionDetails } from './components/ProcessDefinitionDetails';
 import { AdminDashboard } from './components/AdminDashboard';
 import { CreateUser } from './components/CreateUser';
+import { ListOfUser } from './components/ListOfUser';
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
         
         <Route path='/AdminDashboard' element={<ProtectedRoutes Component={AdminDashboard} />} />
         <Route path='/AdminDashboard/CreateUser' element={<ProtectedRoutes Component={CreateUser} />} />
+        <Route path='/AdminDashboard/ListUser' element={<ProtectedRoutes Component={ListOfUser} />} />
 
 
 

@@ -127,10 +127,7 @@ export const Registration = () => {
                                                 type="text"
                                                 className="form-control"
                                                 id="email"
-                                                name='email'
-                                                value={values.email}
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
+                                                name='email'c
                                                 placeholder="Enter your email"
                                                 autofocus
                                             />
