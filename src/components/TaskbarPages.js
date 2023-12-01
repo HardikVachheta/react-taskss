@@ -300,8 +300,8 @@ export const TaskbarPages = () => {
 
         <div className="layout-container" >
           <NavbarSide />
-          {/* <Taskbar2 sendDataToParent={handleChildData} /> */}
-          <Taskbar />
+          <Taskbar2 sendDataToParent={handleChildData} />
+          {/* <Taskbar /> */}
           <div className="layout-page">
             <div className="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none ">
               <a className="d-flex nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
@@ -495,88 +495,4 @@ export const TaskbarPages = () => {
 
     </div >
   )
-  // var x = formData.form_def.components
-  // console.log("formData", x)
-  // ============================================================================
-  // var formData
-  // const schema = {
-  //   title: formData.title,
-  //   type: formData.type,
-  //   required: formData.required,
-  //   properties: Object.fromEntries(
-  //     formData.properties.map((property) => [
-  //       property.name,
-  //       {
-  //         type: property.type,
-  //         title: property.label,
-  //         minLength: property.minLength,
-  //         maxLength: property.maxLength,
-  //         format: property.format,
-  //         enum: property.enum,
-  //         placeholder: property.placeholder,
-
-  //       },
-  //     ])
-  //   ),
-  // };
-  // const schema = {
-  //   title: 'Your Form ',
-  //   type: object,
-  //   properties: Object.fromEntries(
-  //     formData.properties.map((property) => [
-  //       property.name,
-  //       {
-  //         type: property.type,
-  //         title: property.label,
-  //         // minLength: property.minLength,
-  //         // maxLength: property.maxLength,
-  //         // format: property.format,
-  //         // enum: property.enum,
-  //         // placeholder: property.placeholder,
-
-  //       },
-  //     ])
-  //   ),
-  // };
-  // const schema = {
-  //   type: 'object',
-  //   fproperties: Object.fromEntries(
-  //     formData.components.map(field => [field.name, { type: field.type, title: field.label }])
-  //   ),
-  //   // required: formData..map(field => field.name),
-  // };
-
-  // const onSubmit = ({ formData }) => {
-  //   // Handle form submission here
-  //   console.log('Form data submitted:', formData);
-  // };
-  // const jsonSchema = formData.form_def.components;
-  // console.log(jsonSchema)
-
-  // const uiSchema = {
-  //   // classNames: "form-control",
-  // };
-
-  // const getPlaceholder = (propertyName) => {
-  //   const property = formData.properties.find((property) => property.name === propertyName);
-  //   return property ? property.placeholder : "";
-  // };
-
-  // Object.keys(jsonSchema.properties).forEach((propertyName) => {
-  //   uiSchema[propertyName] = { 
-  //     "ui:placeholder": getPlaceholder(propertyName),
-  //   };
-  // });
-
-
-  // const onSubmit = ({ formData }) => {
-  //   console.log(formData);
-  // };
-
-
-  // ============================================================================
-  //  const setValue = () =>{
-
-  //  }
-
 }

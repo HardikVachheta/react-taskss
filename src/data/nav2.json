@@ -1,43 +1,42 @@
 {
-    "menu": [
-      {
-        "id": "dashboards",
-        "icon": "tf-icons bx bx-home-circle",
-        "label": "Dashboards",
-        "submenu": [
-          {
-            "id": "analytics",
-            "icon": "tf-icons bx bx-pie-chart-alt-2",
-            "label": "Analytics",
-            "link": "#"
-          },
-          {
-            "id": "crm",
-            "icon": "tf-icons bx bx-shape-circle",
-            "label": "CRM",
-            "link": "#"
-          }
-        ]
-      },
-      {
-        "id": "layouts",
-        "icon": "tf-icons bx bx-layout",
-        "label": "Layouts",
-        "submenu": [
-          {
-            "id": "withoutMenu",
-            "icon": "tf-icons bx bx-menu",
-            "label": "Without menu",
-            "link": "layouts-without-menu.html"
-          },
-          {
-            "id": "vertical",
-            "icon": "tf-icons bx bx-vertical-center",
-            "label": "Vertical",
-            "link": "../vertical-menu-template/"
-          }
-        ]
-      }
-    ]
-  }
-  
+  "menu": [
+    {
+      "id": "user",
+      "icon": "tf-icons bx bx-user",
+      "label": "Users",
+      "submenu": [
+        {
+          "id": "createuser",
+          "icon": "tf-icons bx bx-home-circle",
+          "label": "Create User",
+          "link": "/AdminDashboard/CreateUser"
+        },
+        {
+          "id": "userlist",
+          "icon": "bx bx-shape-circle",
+          "label": "List User",
+          "link": "/AdminDashboard/ListUser"
+        }
+      ]
+    },
+    {
+      "id": "layouts",
+      "icon": "tf-icons bx bx-layout",
+      "label": "Layouts",
+      "submenu": [
+        {
+          "id": "withoutMenu",
+          "icon": "tf-icons bx bx-menu",
+          "label": "Without menu",
+          "link": "layouts-without-menu.html"
+        },
+        {
+          "id": "vertical",
+          "icon": "tf-icons bx bx-vertical-center",
+          "label": "Vertical",
+          "link": "../vertical-menu-template/"
+        }
+      ]
+    }
+  ]
+}

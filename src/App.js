@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Login } from './components/Login';
 import { Dashboard } from './components/Dashboard';
 import { Registration } from './components/Registration';
@@ -21,10 +21,10 @@ import { MainBpmn } from './components/MainBpmn';
 import Com from './componentsNew/Com';
 import { ProcessDefinition } from './components/ProcessDefinition';
 import { ProcessDefinitionDetails } from './components/ProcessDefinitionDetails';
-import { AdminDashboard } from './components/AdminDashboard';
-import { CreateUser } from './components/CreateUser';
-import { ListOfUser } from './components/ListOfUser';
-
+import { AdminDashboard } from './components/AdminDashboard/AdminDashboard';
+import { CreateUser } from './components/AdminDashboard/CreateUser';
+import { ListOfUser } from './components/AdminDashboard/ListOfUser';
+import { UpdateUser } from './components/AdminDashboard/UpdateUser';
 
 function App() {
   <Helmet>
@@ -61,8 +61,8 @@ function App() {
         <Route path='/AdminDashboard' element={<ProtectedRoutes Component={AdminDashboard} />} />
         <Route path='/AdminDashboard/CreateUser' element={<ProtectedRoutes Component={CreateUser} />} />
         <Route path='/AdminDashboard/ListUser' element={<ProtectedRoutes Component={ListOfUser} />} />
-
-
+        <Route path='/AdminDashboard/UpdateUser' element={<ProtectedRoutes Component={UpdateUser} />} />
+        <Route path='/AdminDashboard/UpdateUser/:id' element={<ProtectedRoutes Component={UpdateUser} />} />
 
       </Routes>
     </div>

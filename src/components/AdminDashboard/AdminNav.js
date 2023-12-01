@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import menuData from '../data/nav2.json';
+import menuData from '../../data/nav2.json';
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
+
 
 const AdminNav = () => {
   const [openMenu, setOpenMenu] = useState(null);
@@ -32,10 +34,10 @@ const AdminNav = () => {
             className={`menu-item ${activeSubmenu === item.id ? 'active' : ''}`}
             onClick={() => handleSubmenuClick(item.id)}
           >
-            <a href={item.link} className="menu-link">
-              <i className={`menu-icon tf-icons ${item.icon}`} />
+            <Link to={item.link} className="menu-link">
+              <i className={`menu-icon ${item.icon}`} style={{content: "none"}}/>
               <div data-i18n={item.label}>{item.label}</div>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
@@ -45,18 +47,21 @@ const AdminNav = () => {
   const generateMenu = () => {
     return (
       <ul className="menu-inner" style={{ marginLeft: 0 }}>
+        <li className='menu-item me-4'>
+          <Link to="/AdminDashboard" class="app-brand-text demo menu-text fw-bold" style={{fontSize:"180%"}}>Hardik</Link>
+        </li>
         {menuData.menu.map((menuItem) => (
           <li
             key={menuItem.id}
-            className={`menu-item ${activeMenu === menuItem.id ? 'active' : ''} ${openMenu === menuItem.id ? 'open' : ''}`}
+            className={`menu-item ${activeMenu === menuItem.id ? 'active' : ''} ${openMenu === menuItem.id ? 'active open' : ''}`}
             onMouseEnter={() => handleMenuEnter(menuItem.id)}
             onMouseLeave={handleMenuLeave}
             onClick={() => handleMenuClick(menuItem.id)}
           >
-            <a href="javascript:void(0)" className="menu-link menu-toggle">
-              <i className={`menu-icon tf-icons ${menuItem.icon}`} />
+            <Link to="" className="menu-link menu-toggle">
+              <i className={`menu-icon ${menuItem.icon}`} />
               <div data-i18n={menuItem.label}>{menuItem.label}</div>
-            </a>
+            </Link>
             {menuItem.submenu && generateSubMenu(menuItem.submenu)}
           </li>
         ))}
@@ -73,14 +78,15 @@ const AdminNav = () => {
         touchAction: "none",
         userSelect: "none",
         WebkitUserDrag: "none",
+        position: 'fixed',
         WebkitTapHighlightColor: "rgba(0, 0, 0, 0)"
       }}
     >
-        <Helmet>
+      <Helmet>
         <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/core.css" className="template-customizer-core-css" />
-                <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/theme-default.css" className="template-customizer-theme-css" />
+        <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/theme-default.css" className="template-customizer-theme-css" />
 
-        </Helmet>
+      </Helmet>
       {generateMenu()}
       {/* ... other code ... */}
     </aside>

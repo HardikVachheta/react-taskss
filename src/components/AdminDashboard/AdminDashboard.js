@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
-import menuItems from '../data/nav2.json';
+import menuItems from '../../data/nav2.json';
 // import { Nav, NavDropdown } from 'react-bootstrap';
 import { Nav, Navbar, Dropdown } from 'react-bootstrap';
 import AdminNav from './AdminNav';
@@ -57,8 +57,8 @@ export const AdminDashboard = () => {
 
             <div className="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
                 <div className="layout-container">
-                {/* <AdminNav/> */}
-                    <aside
+                <AdminNav/>
+                    {/* <aside
                         id="layout-menu"
                         className="layout-menu-horizontal menu menu-horizontal container-fluid flex-grow-0 bg-menu-theme"
                         data-bg-class="bg-menu-theme"
@@ -336,47 +336,8 @@ export const AdminDashboard = () => {
                             </div>
                             <a href="#" className="menu-horizontal-next disabled d-none" />
                         </div>
-                    </aside>
-                    {/* <aside id="layout-menu"
-                        className="layout-menu-horizontal menu menu-horizontal container-fluid flex-grow-0 bg-menu-theme"
-                        data-bg-class="bg-menu-theme"
-                        style={{
-                            touchAction: "none",
-                            userSelect: "none",
-                            WebkitUserDrag: "none",
-                            WebkitTapHighlightColor: "rgba(0, 0, 0, 0)"
-                        }}>
-                        <ul className="menu-inner" style={{ marginLeft: 0 }}>
-                            {menuItems?.menu.map((menuItem) => (
-                                <li
-                                    key={menuItem.id}
-                                    className={`menu-item ${activeMenu === menuItem.id ? 'active' : ''} ${openMenu === menuItem.id ? 'open' : ''}`}
-                                    onMouseEnter={() => handleMenuEnter(menuItem.id)}
-                                    onMouseLeave={handleMenuLeave}
-                                    onClick={() => handleMenuClick(menuItem.id)}
-                                >
-                                    <a href="javascript:void(0)" className="menu-link menu-toggle">
-                                        <i className={`menu-icon ${menuItem.icon}`} />
-                                        <div>{menuItem.label}</div>
-                                    </a>
-                                    <ul className="menu-sub">
-                                        {menuItem?.submenu.map((subMenuItem) => (
-                                            <li
-                                                key={subMenuItem.id}
-                                                className={`menu-item ${activeSubmenu === subMenuItem.id ? 'active' : ''}`}
-                                                onClick={() => handleSubmenuClick(subMenuItem.id)}
-                                            >
-                                                <a href={subMenuItem.link} className="menu-link">
-                                                    <i className={`menu-icon ${subMenuItem.icon}`} />
-                                                    <div>{subMenuItem.label}</div>
-                                                </a>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </li>
-                            ))}
-                        </ul>
                     </aside> */}
+                   
                     <div className="layout-page" style={{ marginTop:"60px"}}>
                         <div className="content-wrapper">
                     {/* <AdminNav/> */}

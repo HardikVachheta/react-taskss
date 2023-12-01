@@ -3,31 +3,11 @@ import React, { useState } from 'react'
 import { Helmet } from 'react-helmet';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { createUserSchema } from '../schemas';
+import { createUserSchema } from '../../schemas';
 import axios from 'axios';
+import AdminNav from './AdminNav';
 
 export const CreateUser = () => {
-
-    const [openMenu, setOpenMenu] = useState(null);
-    const [activeMenu, setActiveMenu] = useState('dashboards');
-    const [activeSubmenu, setActiveSubmenu] = useState(null);
-
-    const handleMenuEnter = (menuId) => {
-        setOpenMenu(menuId);
-    };
-
-    const handleMenuLeave = () => {
-        setOpenMenu(null);
-    };
-
-    const handleMenuClick = (menuId) => {
-        setActiveMenu((prevActiveMenu) => (prevActiveMenu === menuId ? null : menuId));
-        // setActiveMenu(menuId);
-    };
-
-    const handleSubmenuClick = (submenuId) => {
-        setActiveSubmenu(submenuId);
-    };
 
     const initialValues = {
         id: "",
@@ -44,12 +24,12 @@ export const CreateUser = () => {
         initialValues: initialValues,
         validationSchema: createUserSchema,
         onSubmit: (values, action) => {
-            console.log("New User",values)
+            console.log("New User", values)
 
             if (values.firstName && values.lastName && values.email && values.password) {
 
-                axios.post('http://localhost:3000/api/user/create',values).then((res)=> {
-                    console.log("inserted data",res)
+                axios.post('http://localhost:3000/api/user/create', values).then((res) => {
+                    console.log("inserted data", res)
                 })
 
                 Swal.fire({
@@ -111,8 +91,8 @@ export const CreateUser = () => {
 
             <div className="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
                 <div className="layout-container">
-                    {/* <AdminNav/> */}
-                    <aside
+                    <AdminNav />
+                    {/* <aside
                         id="layout-menu"
                         className="layout-menu-horizontal menu menu-horizontal container-fluid flex-grow-0 bg-menu-theme"
                         data-bg-class="bg-menu-theme"
@@ -389,12 +369,14 @@ export const CreateUser = () => {
                             </div>
                             <a href="#" className="menu-horizontal-next disabled d-none" />
                         </div>
-                    </aside>
+                    </aside> */}
 
                     <div className="layout-page" style={{ marginTop: "60px" }}>
                         <div className="content-wrapper">
-                            <div className="container-xxl flex-grow-1 container-p-y">
-
+                            <h6 className='d-flex'>
+                                <span class="text-muted fw-light">&emsp;&emsp; Dashboard » Users </span>&nbsp; » Create
+                            </h6>
+                            <div className="container-xxl flex-grow-1">
                                 <div className="row">
                                     <div className="col-xxl">
                                         <div className="card mb-4">
@@ -517,8 +499,8 @@ export const CreateUser = () => {
                                                             </span>
                                                         </div>
                                                         {errors.email && touched.email ? (
-                                                                <div className="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.email}</div>
-                                                            ) : null}
+                                                            <div className="form-error d-flex justify-content-between" style={{ color: "red" }}>{errors.email}</div>
+                                                        ) : null}
                                                     </div>
                                                 </div>
                                                 <div className="pt-4">
@@ -527,7 +509,7 @@ export const CreateUser = () => {
                                                             <button type="submit" className="btn btn-primary me-sm-2 me-1">
                                                                 Submit
                                                             </button>
-                                                            <button type="reset" onClick={ () => navigate('/AdminDashboard')} className="btn btn-label-secondary">
+                                                            <button type="reset" onClick={() => navigate('/AdminDashboard')} className="btn btn-label-secondary">
                                                                 Cancel
                                                             </button>
                                                         </div>

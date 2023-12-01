@@ -32,32 +32,7 @@ export const Taskbar2 = ({ sendDataToParent }) => {
         getTaskData()
     }, []);
 
-
-    const [sortBy, setSortBy] = useState('name'); // Default sorting property
-    const [sortOrder, setSortOrder] = useState('asc'); // Default sorting order
-    const [dataOperation, setDataOperation] = useState([]);
   
-    useEffect(() => {
-      // Fetch data based on the current sorting option and order
-      const fetchData = async () => {
-        const apiUrl = `http://localhost:3000/api/task/${sortOrder}${sortBy}`;
-        try {
-          const response = await fetch(apiUrl);
-          const jsonData = await response.json();
-          setDataOperation(jsonData);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-  
-      fetchData();
-    }, [sortBy, sortOrder]); // Fetch data whenever sorting options change
-  
-    const handleSort = (property, order) => {
-      setSortBy(property);
-      setSortOrder(order);
-    };
-
     const formattedDate = (dateTimeString) => {
         const dateTime = new Date(dateTimeString);
         return dateTime.toLocaleDateString('en-GB', {
@@ -199,29 +174,7 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                     </Link>
 
                 </h4>
-                {/* <div class="row"> */}
-                <div>
-                    <select
-                        id="ProductStatus"
-                        className="form-select text-capitalize"
-                        value={selectedStatus}
-                        onChange={handleChange}
-                    >
-                        <option value="">Status</option>
-                        <option value="Scheduled">Scheduled</option>
-                        <option value="Publish">Publish</option>
-                        <option value="Inactive">Inactive</option>
-                    </select>
-                </div>
-                <div class="align-items-center justify-content-center mb-md-0">
-                    <div id="DataTables_Table_0_filter" class="dataTables_filter">
-                        <label>
-                            <input type='search' class="form-control" placeholder="Search Tasks.." style={{ width: "300px" }} onChange={(e) => setQuery(e.target.value)} />                            
-                        </label>
-
-                    </div>
-                </div>
-                {/* </div> */}
+               
                 <ul className="menu-inner py-1" style={ce}>
                     <InfiniteScroll
                         dataLength={dataSource.length}
