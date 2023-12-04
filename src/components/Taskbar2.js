@@ -195,6 +195,7 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                                 const { name, id, created, processDefinitionId } = data[index % data.length]; // Use data from JSON
                                 const filteredTaskVariables = taskVariable.filter((x) => x.taskDetail.id === id);
                                 console.log("dataSource", dataSource)
+                                console.log("filteredTaskVariables", filteredTaskVariables)
 
                                 return (
                                     <li key={id} className="menu-item bs-toast toast fade show" style={{ margin: "5px", width: "300px" }}>
@@ -216,13 +217,13 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                                                 </tr>
                                                 <tr>
                                                     <td>{filteredTaskVariables.length > 0 ? (
-                                                        filteredTaskVariables[0].taskVariables.amount.value
+                                                        filteredTaskVariables[0].taskVariables.amount?.value
                                                     ) : (
                                                         "Nodata"
                                                     )}</td>
                                                     &nbsp;
                                                     <td>{filteredTaskVariables.length > 0 ? (
-                                                        filteredTaskVariables[0].taskVariables.invoiceNumber.value
+                                                        filteredTaskVariables[0].taskVariables.invoiceNumber?.value
                                                     ) : (
                                                         "Nodata"
                                                     )}</td>
@@ -234,13 +235,13 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                                                 </tr>
                                                 <tr>
                                                     <td>{filteredTaskVariables.length > 0 ? (
-                                                        filteredTaskVariables[0].taskVariables.creditor.value
+                                                        filteredTaskVariables[0].taskVariables.creditor?.value
                                                     ) : (
                                                         "Nodata"
                                                     )}</td>
                                                     &nbsp;
                                                     <td>{filteredTaskVariables.length > 0 ? (
-                                                        filteredTaskVariables[0].taskVariables.approver.value
+                                                        filteredTaskVariables[0].taskVariables.approver?.value
                                                     ) : (
                                                         "Nodata"
                                                     )}</td>

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 // import menuItems from '../data/nav2.json';
 import axios from 'axios';
 import AdminNav from './AdminNav';
+import { AdminNav2 } from './AdminNav2';
 
 export const ListOfUser = () => {
 
@@ -96,70 +97,7 @@ export const ListOfUser = () => {
             <div className="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
                 <div className="layout-container">
                     {/* <AdminNav /> */}
-                    <aside
-                        id="layout-menu"
-                        className="layout-menu-horizontal menu menu-horizontal container-fluid flex-grow-0 bg-menu-theme"
-                        data-bg-class="bg-menu-theme"
-
-                        style={{
-                            touchAction: "none",
-                            userSelect: "none",
-                            position: "fixed",
-                            WebkitUserDrag: "none",
-                            WebkitTapHighlightColor: "rgba(0, 0, 0, 0)"
-                        }}
-                    >
-                        <div className="container-xxl d-flex h-100">
-                            <a href="#" className="menu-horizontal-prev d-none" />
-                            <div className="menu-horizontal-wrapper">
-                                <ul className="menu-inner" style={{ marginLeft: 0 }}>
-                                    <li className={`menu-item ${activeMenu === 'dashboards' ? 'active' : ''} ${openMenu === 'dashboards' ? 'open' : ''}`}
-                                        onMouseEnter={() => handleMenuEnter('dashboards')}
-                                        onMouseLeave={handleMenuLeave}
-                                        onClick={() => handleMenuClick('dashboards')}>
-                                        <Link
-                                            to="/AdminDashboard"
-                                            className="menu-link"
-                                        >
-                                            <i className="menu-icon tf-icons bx bx-home-circle" />
-                                            <div data-i18n="Dashboards">Dashboards</div>
-                                        </Link>
-                                    </li>
-                                    <li className={`menu-item ${openMenu === 'layouts' ? 'open' : ''}`}
-                                        onMouseEnter={() => handleMenuEnter('layouts')}
-                                        onMouseLeave={handleMenuLeave}>
-                                        <a
-                                            href="javascript:void(0)"
-                                            className="menu-link menu-toggle"
-                                        >
-                                            <i className="menu-icon tf-icons bx bx-layout" />
-                                            <div data-i18n="Layouts">User</div>
-                                        </a>
-                                        <ul className="menu-sub">
-                                            <li className="menu-item">
-                                                <Link to="/AdminDashboard/CreateUser" className="menu-link">
-                                                    <i className="menu-icon tf-icons bx bx-menu" />
-                                                    <div data-i18n="Without menu">User Create</div>
-                                                </Link>
-                                            </li>
-                                            <li className="menu-item">
-                                                <Link
-                                                    to="/AdminDashboard/ListUser"
-                                                    className="menu-link"
-                                                    target="_blank"
-                                                >
-                                                    <i className="menu-icon tf-icons bx bx-vertical-center" />
-                                                    <div data-i18n="Vertical">User List</div>
-                                                </Link>
-                                            </li>
-
-                                        </ul>
-                                    </li>                                   
-                                </ul>
-                            </div>
-                            <a href="#" className="menu-horizontal-next disabled d-none" />
-                        </div>
-                    </aside>
+                    <AdminNav2/>
                     <div className="layout-page" style={{ marginTop: "60px" }}>
                         <div className="content-wrapper">
                             <h6 className='d-flex'>
@@ -236,6 +174,7 @@ export const ListOfUser = () => {
                                                                                 <Link to={`/AdminDashboard/UpdateUser/${u.user.id}`}  title="Edit User" style={{ color: '#697a8d' }} id="myButton">
                                                                                     <i className="bx bx-edit me-0 me-sm-1"></i>
                                                                                 </Link>
+                                                                                {/* <Link to={`/AdminDashboard/UpdateUser/${u.user.id}`} style={{ color: '#697a8d' }}>Edit</Link> */}
                                                                                 <button className="btn btn-sm btn-icon delete-record">
                                                                                     <i className="bx bx-trash" onClick={() => { getUserDelete(u.user.id) }} />
                                                                                 </button>                                                                
@@ -255,39 +194,7 @@ export const ListOfUser = () => {
                                                         )
                                                     }
                                                 </tbody>
-                                            </table>
-                                            <div className="modal fade" id="basicModal" tabIndex="-1" style={{ display: "none" }} aria-hidden="true">
-                                                <div className="modal-dialog" role="document">
-                                                    <div className="modal-content">
-                                                        <div className="modal-header">
-                                                            <h5 className="modal-title" id="exampleModalLabel1">Modal title</h5>
-                                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div className="modal-body">
-                                                            <div className="row">
-                                                                <div className="col mb-3">
-                                                                    <label htmlFor="nameBasic" className="form-label">Name</label>
-                                                                    <input type="text" id="nameBasic" className="form-control" placeholder="Enter Name" />
-                                                                </div>
-                                                            </div>
-                                                            <div className="row g-2">
-                                                                <div className="col mb-0">
-                                                                    <label htmlFor="emailBasic" className="form-label">Email</label>
-                                                                    <input type="email" id="emailBasic" className="form-control" placeholder="xxxx@xxx.xx" />
-                                                                </div>
-                                                                <div className="col mb-0">
-                                                                    <label htmlFor="dobBasic" className="form-label">DOB</label>
-                                                                    <input type="date" id="dobBasic" className="form-control" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="modal-footer">
-                                                            <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="button" className="btn btn-primary">Save changes</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            </table>                                           
                                         </div>
                                     </div>
                                 </div>
