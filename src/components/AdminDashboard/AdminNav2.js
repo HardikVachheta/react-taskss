@@ -40,7 +40,10 @@ export const AdminNav2 = () => {
                 <a href="#" className="menu-horizontal-prev d-none" />
                 <div className="menu-horizontal-wrapper">
                     <ul className="menu-inner" style={{ marginLeft: 0 }}>
-                        <li className={`menu-item ${activeMenu === 'dashboards' ? 'active' : ''} ${openMenu === 'dashboards' ? 'open' : ''}`}
+                        <li className='menu-item me-4'>
+                            <Link to="/AdminDashboard" className="app-brand-text demo menu-text fw-bold" style={{ fontSize: "180%" }}>Hardik</Link>
+                        </li>
+                        {/* <li className={`menu-item ${activeMenu === 'dashboards' ? 'active' : ''} ${openMenu === 'dashboards' ? 'open' : ''}`}
                             onMouseEnter={() => handleMenuEnter('dashboards')}
                             onMouseLeave={handleMenuLeave}
                             onClick={() => handleMenuClick('dashboards')}>
@@ -48,9 +51,9 @@ export const AdminNav2 = () => {
                                 <i className="menu-icon tf-icons bx bx-home-circle" />
                                 <div data-i18n="Dashboards">Dashboards</div>
                             </Link>
-                        </li>
-                        <li className={`menu-item ${openMenu === 'layouts' ? 'open' : ''}`}
-                            onMouseEnter={() => handleMenuEnter('layouts')}
+                        </li> */}
+                        <li className={`menu-item ${openMenu === 'User' ? 'open' : ''}`}
+                            onMouseEnter={() => handleMenuEnter('User')}
                             onMouseLeave={handleMenuLeave}>
                             <Link to="" className="menu-link menu-toggle" >
                                 <i className="menu-icon tf-icons bx bx-layout" />
@@ -67,6 +70,28 @@ export const AdminNav2 = () => {
                                     <Link to="/AdminDashboard/ListUser" className="menu-link">
                                         <i className="menu-icon tf-icons bx bx-vertical-center" />
                                         <div data-i18n="Without menu">List User</div>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className={`menu-item ${openMenu === 'Group' ? 'open' : ''}`}
+                            onMouseEnter={() => handleMenuEnter('Group')}
+                            onMouseLeave={handleMenuLeave}>
+                            <Link to="" className="menu-link menu-toggle" >
+                                <i className="menu-icon tf-icons bx bx-layout" />
+                                <div data-i18n="Layouts">Group</div>
+                            </Link>
+                            <ul className="menu-sub">
+                                <li className="menu-item">
+                                    <Link to="/AdminDashboard/CreateGroup" className="menu-link">
+                                        <i className="menu-icon tf-icons bx bx-menu" />
+                                        <div data-i18n="Without menu">Group Create</div>
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/AdminDashboard/ListGroup" className="menu-link">
+                                        <i className="menu-icon tf-icons bx bx-vertical-center" />
+                                        <div data-i18n="Without menu">List Group</div>
                                     </Link>
                                 </li>
                             </ul>

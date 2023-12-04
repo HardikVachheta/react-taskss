@@ -4,10 +4,13 @@ import menuItems from '../../data/nav2.json';
 // import { Nav, NavDropdown } from 'react-bootstrap';
 import { Nav, Navbar, Dropdown } from 'react-bootstrap';
 import AdminNav from './AdminNav';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AdminNav2 } from './AdminNav2';
 
 export const AdminDashboard = () => {
+
+    var id = localStorage.getItem("userId")
+    // console.log("id", id)
 
     const [openMenu, setOpenMenu] = useState(null);
     const [activeMenu, setActiveMenu] = useState('dashboards');
@@ -50,8 +53,8 @@ export const AdminDashboard = () => {
                 <link rel="stylesheet" href="../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
                 <link rel="stylesheet" href="../assets/vendor/css/pages/app-logistics-dashboard.css" />
                 <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-                <link rel="stylesheet" href='../assets/vendor/css/rtl/core.css' className="template-customizer-core-css"/>
-                <link rel="stylesheet" href='../assets/vendor/css/rtl/theme-default.css' className="template-customizer-theme-css"/>
+                <link rel="stylesheet" href='../assets/vendor/css/rtl/core.css' className="template-customizer-core-css" />
+                <link rel="stylesheet" href='../assets/vendor/css/rtl/theme-default.css' className="template-customizer-theme-css" />
                 {/* <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/core.css" className="template-customizer-core-css" /> */}
                 {/* <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/theme-default.css" className="template-customizer-theme-css" /> */}
 
@@ -61,7 +64,7 @@ export const AdminDashboard = () => {
             <div className="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
                 <div className="layout-container">
                     {/* <AdminNav /> */}
-                    <AdminNav2/>
+                    <AdminNav2 />
 
                     <div className="layout-page" style={{ marginTop: "60px" }}>
                         <div className="content-wrapper">
@@ -81,9 +84,9 @@ export const AdminDashboard = () => {
                                                 <Link to='/AdminDashboard/ListUser' className="d-flex justify-content-start align-items-center mb-4">
                                                     <h5 className="mb-0">List Of Users</h5>
                                                 </Link>
-                                                <div className="d-flex justify-content-start align-items-center mb-4">
+                                                <Link to={`/AdminDashboard/UpdateUser/${id}`} className="d-flex justify-content-start align-items-center mb-4">
                                                     <h5 className="mb-0">My Profile</h5>
-                                                </div>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -94,12 +97,12 @@ export const AdminDashboard = () => {
                                                 <hr />
                                             </div>
                                             <div className="card-body">
-                                                <div className="d-flex justify-content-start align-items-center mb-4">
+                                                <Link to='/AdminDashboard/CreateGroup' className="d-flex justify-content-start align-items-center mb-4">
                                                     <h5 className="mb-0">Create New Group</h5>
-                                                </div>
-                                                <div className="d-flex justify-content-start align-items-center mb-4">
+                                                </Link>
+                                                <Link to='/AdminDashboard/ListGroup' className="d-flex justify-content-start align-items-center mb-4">
                                                     <h5 className="mb-3.5">List Of Group</h5>
-                                                </div>
+                                                </Link>
                                                 <div className="d-flex justify-content-start align-items-center mb-4">
                                                     {/* <h5 className="mb-0">My Profile</h5> */}
                                                 </div>

@@ -4,14 +4,14 @@ import { Helmet } from 'react-helmet'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useFormik } from 'formik'
-import { updateUserSchema } from '../../schemas'
+import { updateGroupSchema } from '../../schemas'
 import { PuffLoader } from 'react-spinners'
 import { AdminNav2 } from './AdminNav2'
 import Swal from 'sweetalert2'
 
 
 
-export const UpdateUser = () => {
+export const UpdateGroup = () => {
 
     const [openMenu, setOpenMenu] = useState(null);
     const [activeMenu, setActiveMenu] = useState('dashboards');
@@ -41,18 +41,17 @@ export const UpdateUser = () => {
 
     const initialValues = {
         id: id,
-        firstName: "",
-        lastName: "",
-        email: "",
+        name: "",
+        type: ""
     };
 
     const { values, errors, touched, handleBlur, handleChange, handleSubmit, setValues } = useFormik({
         initialValues: initialValues,
-        validationSchema: updateUserSchema,
+        validationSchema: updateGroupSchema,
         onSubmit: async (values) => {
             console.log("updated inprocess", values)
             try {
-                const response = await axios.put(`http://localhost:3000/api/user/${id}/profile`, values);
+                const response = await axios.put(`http://localhost:3000/api/groups/${id}`, values);
                 Swal.fire({
                     title: 'Update Successful',
                     icon: 'success',
@@ -74,27 +73,27 @@ export const UpdateUser = () => {
 
 
     useEffect(() => {
-        const getUserData = async () => {
+        const getGroupData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/user/alluser`);
+                const response = await axios.get(`http://localhost:3000/api/groups/alluser`);
                 console.log(response.data)
 
-                const userData = response.data; // assuming the API returns user data
+                const groupData = response.data; // assuming the API returns user data
 
-                var mainvalue = userData.filter((u) => {
-                    return u.userId === id
+                var mainvalue = groupData.filter((u) => {
+                    return u.groupId === id
                 })
 
-                console.log("username", mainvalue)
-                const userToUpdate = mainvalue[0].user;
-                setValues(userToUpdate); // set the values once the data is fetched
+                console.log("group name", mainvalue)
+                const groupToUpdate = mainvalue[0].group;
+                setValues(groupToUpdate); // set the values once the data is fetched
                 setLoading(false);
             } catch (error) {
-                console.error('Error fetching user data:', error);
+                console.error('Error fetching group data:', error);
             }
         };
 
-        getUserData();
+        getGroupData();
     }, [id, setValues]);
     var ce = {
         display: "flex",
@@ -176,11 +175,11 @@ export const UpdateUser = () => {
                                             <div className="card-body">
                                                 <form onSubmit={handleSubmit}>
                                                     <div className="row mb-3">
-                                                        <label className="col-sm-2 col-form-label" htmlFor="basic-default-name">First Name</label>
+                                                        <label className="col-sm-2 col-form-label" htmlFor="basic-default-name">Group Name</label>
                                                         <div className="col-sm-10">
                                                             <input type="text"
-                                                                name='firstName'
-                                                                value={values.firstName}
+                                                                name='name'
+                                                                value={values.name}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 className="form-control"
@@ -189,11 +188,11 @@ export const UpdateUser = () => {
                                                         </div>
                                                     </div>
                                                     <div className="row mb-3">
-                                                        <label className="col-sm-2 col-form-label" htmlFor="basic-default-name">Last Name</label>
+                                                        <label className="col-sm-2 col-form-label" htmlFor="basic-default-name">Type</label>
                                                         <div className="col-sm-10">
                                                             <input type="text"
-                                                                name='lastName'
-                                                                value={values.lastName}
+                                                                name='type'
+                                                                value={values.type}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 className="form-control"
@@ -201,24 +200,7 @@ export const UpdateUser = () => {
                                                                 placeholder="John Doe" />
                                                         </div>
                                                     </div>
-                                                    <div className="row mb-3">
-                                                        <label className="col-sm-2 col-form-label" htmlFor="basic-default-email">Email</label>
-                                                        <div className="col-sm-10">
-                                                            <div className="input-group input-group-merge">
-                                                                <input type="text"
-                                                                    name='email'
-                                                                    value={values.email}
-                                                                    onChange={handleChange}
-                                                                    onBlur={handleBlur}
-                                                                    id="basic-default-email"
-                                                                    className="form-control"
-                                                                    placeholder="john.doe" aria-label="john.doe" aria-describedby="basic-default-email2" />
-                                                                <span className="input-group-text" id="basic-default-email2">@example.com</span>
-                                                            </div>
-                                                            <div className="form-text"> You can use letters, numbers &amp; periods </div>
-                                                        </div>
-                                                    </div>
-
+                                                    
                                                     <div className="row justify-content-end">
                                                         <div className="col-sm-10">
                                                             <button type="submit" className="btn btn-primary">Send</button>

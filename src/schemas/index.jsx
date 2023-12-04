@@ -39,3 +39,16 @@ export const updateUserSchema = Yup.object ({
     lastName : Yup.string().min(2).max(25).required("Please enter your Last name"),
     email : Yup.string().email().required("Please enter your email"),
 }) 
+
+export const createGroupSchema = Yup.object ({
+    id : Yup.string().min(2).max(25).required("Please enter your group Id"),
+    name : Yup.string().min(2).max(25).required("Please enter your group name"),
+    type : Yup.string().min(2).max(25).required("Please enter your group type"),
+}) 
+
+export const updateGroupSchema = Yup.object ({
+    id : Yup.string().min(2).max(25).required("Please enter your Id"),
+    name : Yup.string().min(2).max(25).required("Please enter your First name"),
+    type : Yup.string().min(2).max(25).required("Please enter your Last name"),
+    
+})

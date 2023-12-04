@@ -25,6 +25,9 @@ import { AdminDashboard } from './components/AdminDashboard/AdminDashboard';
 import { CreateUser } from './components/AdminDashboard/CreateUser';
 import { ListOfUser } from './components/AdminDashboard/ListOfUser';
 import { UpdateUser } from './components/AdminDashboard/UpdateUser';
+import { CreateGroup } from './components/AdminDashboard/CreateGroup';
+import { ListOfGroup } from './components/AdminDashboard/ListOfGroup';
+import { UpdateGroup } from './components/AdminDashboard/UpdateGroup';
 
 function App() {
   <Helmet>
@@ -63,6 +66,10 @@ function App() {
         <Route path='/AdminDashboard/ListUser' element={<ProtectedRoutes Component={ListOfUser} />} />
         <Route path='/AdminDashboard/UpdateUser' element={<ProtectedRoutes Component={UpdateUser} />} />
         <Route path='/AdminDashboard/UpdateUser/:id' element={<ProtectedRoutes Component={UpdateUser} />} />
+
+        <Route path='/AdminDashboard/CreateGroup' element={<ProtectedRoutes Component={CreateGroup} />} />
+        <Route path='/AdminDashboard/ListGroup' element={<ProtectedRoutes Component={ListOfGroup} />} />
+        <Route path='/AdminDashboard/UpdateGroup/:id' element={<ProtectedRoutes Component={UpdateGroup} />} />
 
       </Routes>
     </div>
