@@ -336,8 +336,9 @@ export const Dashboard = () => {
                                 </Nav>
                             </Navbar.Collapse>
                         </Navbar>
+                        {/* <div className="content-wrapper"> */}
                         <div className="content-wrapper" style={{ overflow: "auto", height: `${containerHeight - 75}px` }} >
-                            <div className="flex-grow-1 container-p-y container-fluid">
+                            <div className="container-xxl flex-grow-1 container-p-y">
                                 <div className="row">
 
                                     <Link className="col-sm-6 col-lg-4 mb-4" to='/Dashboard/ProcessDefinition'>

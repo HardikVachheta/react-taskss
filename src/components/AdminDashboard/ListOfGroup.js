@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import AdminNav from './AdminNav';
 import { AdminNav2 } from './AdminNav2';
+import { AdminSideNav } from './AdminSideNav';
 
 export const ListOfGroup = () => {
 
@@ -94,10 +95,12 @@ export const ListOfGroup = () => {
             </Helmet>
 
 
-            <div className="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
+            {/* <div className="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu"> */}
+            <div className="layout-wrapper layout-content-navbar">
                 <div className="layout-container">
                     {/* <AdminNav /> */}
-                    <AdminNav2 />
+                    {/* <AdminNav2 /> */}
+                    <AdminSideNav/>
                     {/* <aside
                         id="layout-menu"
                         className="layout-menu-horizontal menu menu-horizontal container-fluid flex-grow-0 bg-menu-theme"

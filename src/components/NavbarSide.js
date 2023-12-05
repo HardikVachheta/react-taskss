@@ -91,7 +91,7 @@ export const NavbarSide = () => {
             </div>
             <div className="menu-inner-shadow"></div>
 
-            <ul className="menu-inner py-1">
+            <ul className="menu-inner py-1 overflow-auto">
                 {/* <ul className="menu-inner py-1" style={{overflowY:"scroll",overflowX:'hidden',maxHeight:" var(--bs-scroll-height, 100vh)"}}> */}
                 {
                     newnav.navItems.map((item, index) => {

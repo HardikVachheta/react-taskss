@@ -6,6 +6,7 @@ import { Nav, Navbar, Dropdown } from 'react-bootstrap';
 import AdminNav from './AdminNav';
 import { Link, useParams } from 'react-router-dom';
 import { AdminNav2 } from './AdminNav2';
+import { AdminSideNav } from './AdminSideNav';
 
 export const AdminDashboard = () => {
 
@@ -35,7 +36,7 @@ export const AdminDashboard = () => {
     // console.log("menuItems",menuItems)
 
     return (
-        <div lang="en" class="light-style layout-compact layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="horizontal-menu-template">
+        <div lang="en" class="light-style layout-compact layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/">
             <Helmet>
                 <title> Admin Dashboard </title>
                 <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
@@ -61,12 +62,13 @@ export const AdminDashboard = () => {
             </Helmet>
 
 
-            <div className="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
+            <div className="layout-wrapper layout-content-navbar">
                 <div className="layout-container">
+                    <AdminSideNav />
                     {/* <AdminNav /> */}
-                    <AdminNav2 />
+                    {/* <AdminNav2 /> */}
 
-                    <div className="layout-page" style={{ marginTop: "60px" }}>
+                    <div className="layout-page">
                         <div className="content-wrapper">
                             {/* <AdminNav/> */}
                             <div className="container-xxl flex-grow-1 container-p-y">
@@ -128,7 +130,7 @@ export const AdminDashboard = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                         </div>
                     </div>

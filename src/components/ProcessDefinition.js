@@ -62,7 +62,7 @@ export const ProcessDefinition = () => {
                     <div className="content-wrapper">
                         <div className="flex-grow-1 container-p-y container-fluid">
                             <h4 class="py-3 mb-4 d-flex justify-content-start">
-                                <span class="text-muted fw-light ">Dashboard /</span> Process Definition
+                                <Link to='/Dashboard' class="text-muted fw-light">Dashboard /</Link> Process Definition
                             </h4>
                             {/* <div class="row">
                                 <div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
