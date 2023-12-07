@@ -12,7 +12,7 @@ export const Taskbar2 = ({ sendDataToParent }) => {
 
     // Call the parent's callback function with the data
     // onData(dataToSend);
-
+    const [isLoading, setIsLoading] = useState(true);
     const [dataSource, setDataSource] = useState([])
     const [data, setData] = useState([])
     const [getId, setId] = useState([])
@@ -42,63 +42,112 @@ export const Taskbar2 = ({ sendDataToParent }) => {
         });
     }
 
-    const getTaskData = () => {
+    const getTaskData = async () => {
+        try {
+          const userId = localStorage.getItem("userId");
+          setIsLoading(true);
+      
+          const tasksResponse = await axios.get(`http://localhost:3000/api/tasks?assignee=${userId}`);
+          console.log("Task List Data:", tasksResponse.data);
+          const tasksData = tasksResponse.data;
+      
+          setId(tasksData);
+          setData(tasksData);
+          setDataSource(tasksData.slice(0, 10));
+          if (tasksData.length <= 10) {
+            setHasMore(false);
+          }
+      
+          const taskVariablePromises = tasksData.map((task) => {
+            return axios.get(`http://localhost:3000/api/task?taskInstanceId=${task.id}`);
+          });
+      
+          const responses = await Promise.all(taskVariablePromises);
+          const taskVariables = responses.map((response) => response.data);
+          console.log("Task Variables:", taskVariables);
+          setTaskVariable(taskVariables);
+      
+          setIsLoading(false);
+        } catch (error) {
+          handleRequestError(error);
+        }
+      };
+      
+      const handleRequestError = (error) => {
+        if (error.response) {
+          if (error.response.status === 404) {
+            console.log('Resource not found');
+          } else {
+            console.log('Server returned an error:', error.response.status);
+          }
+        } else if (error.request) {
+          console.log('No response received from the server');
+        } else {
+          console.log('Error:', error.message);
+        }
+        setIsLoading(false);
+      };
+      
 
-        var userId = localStorage.getItem("userId");
-        axios.get(`http://localhost:3000/api/tasks?assignee=${userId}`)
-            .then((response) => {
-                console.log("Task List Data :- ", response.data);
-                setId(response.data)
+    // const getTaskData = () => {
 
-                const tasksData = response.data;
-                setData(tasksData);
-                setDataSource(tasksData.slice(0, 10));
-                if (tasksData.length <= 10) {
-                    setHasMore(false);
-                }
+    //     var userId = localStorage.getItem("userId");
+    //     setIsLoading(true);
+    //     axios.get(`http://localhost:3000/api/tasks?assignee=${userId}`)
+    //         .then((response) => {
+    //             console.log("Task List Data :- ", response.data);
+    //             setId(response.data)
 
-                const taskVariablePromises = tasksData.map((u) => {
-                    return axios.get(`http://localhost:3000/api/task?taskInstanceId=${u.id}`);
-                });
+    //             const tasksData = response.data;
+    //             setData(tasksData);
+    //             setDataSource(tasksData.slice(0, 10));
+    //             if (tasksData.length <= 10) {
+    //                 setHasMore(false);
+    //             }
 
-                Promise.all(taskVariablePromises)
-                    .then((responses) => {
+    //             const taskVariablePromises = tasksData.map((u) => {
+    //                 return axios.get(`http://localhost:3000/api/task?taskInstanceId=${u.id}`);
+    //             });
 
-                        const taskVariables = responses.map((response) => response.data);
-                        console.log("Task Variables :- ", taskVariables);
-                        setTaskVariable(taskVariables)
+    //             Promise.all(taskVariablePromises)
+    //                 .then((responses) => {
 
-                    })
-                    .catch(error => {
-                        if (error.response) {
-                            if (error.response.status === 404) {
-                                console.log('Task Variables :- Resource not found');
-                            } else {
-                                console.log('Server returned an error:', error.response.status);
-                            }
-                        } else if (error.request) {
-                            console.log('No response received from the server');
-                        } else {
-                            console.log('Error:', error.message);
-                        }
-                    })
+    //                     const taskVariables = responses.map((response) => response.data);
+    //                     console.log("Task Variables :- ", taskVariables);
+    //                     setTaskVariable(taskVariables)
 
-            })
-            .catch(error => {
-                if (error.response) {
-                    if (error.response.status === 404) {
-                        console.log('Resource not found');
-                    } else {
-                        console.log('Server returned an error:', error.response.status);
-                    }
-                } else if (error.request) {
-                    console.log('No response received from the server');
-                } else {
-                    console.log('Error:', error.message);
-                }
-            });
+    //                 })
+    //                 .catch(error => {
+    //                     if (error.response) {
+    //                         if (error.response.status === 404) {
+    //                             console.log('Task Variables :- Resource not found');
+    //                         } else {
+    //                             console.log('Server returned an error:', error.response.status);
+    //                         }
+    //                     } else if (error.request) {
+    //                         console.log('No response received from the server');
+    //                     } else {
+    //                         console.log('Error:', error.message);
+    //                     }
+    //                 })
+    //                 setIsLoading(false);
+    //         })
+    //         .catch(error => {
+    //             if (error.response) {
+    //                 if (error.response.status === 404) {
+    //                     console.log('Resource not found');
+    //                 } else {
+    //                     console.log('Server returned an error:', error.response.status);
+    //                 }
+    //             } else if (error.request) {
+    //                 console.log('No response received from the server');
+    //             } else {
+    //                 console.log('Error:', error.message);
+    //             }
+    //             setIsLoading(false);
+    //         });
 
-    };
+    // };
 
     const fetchMoreData = () => {
         if (dataSource.length < data.length) {
@@ -174,87 +223,95 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                     </Link>
 
                 </h4>
+                {isLoading ? (
+                    <div style={{ display: 'flex', justifyContent: "center", alignItems: "center", margin: "10px" }}>
+                        <PuffLoader color="#696cff" size={30} />
+                    </div>
+                ) : (
+                    <ul className="menu-inner py-1" style={ce}>
+                        <InfiniteScroll
+                            dataLength={dataSource.length}
+                            next={fetchMoreData}
+                            hasMore={hasMore}
+                            loader={
+                                dataSource.length !== 0 ? (
+                                    <div style={{ display: 'flex', justifyContent: "center", alignItems: "center", margin: "10px" }}>
+                                        <PuffLoader color="#696cff" size={30} />
+                                    </div>) : (<></>)
+                            }
+                            endMessage={<p>You are all set!</p>}
+                            height={containerHeight - 63}
+                        >
+                            {dataSource.length !== 0 ? (
+                                dataSource?.filter((task) => task.name?.includes(query.toLowerCase()))?.map((u, index) => {
 
-                <ul className="menu-inner py-1" style={ce}>
-                    <InfiniteScroll
-                        dataLength={dataSource.length}
-                        next={fetchMoreData}
-                        hasMore={hasMore}
-                        loader={
-                            dataSource.length !== 0 ? (
-                                <div style={ce}>
-                                    <PuffLoader color="#696cff" size={30} />
-                                </div>) : (<></>)
-                        }
-                        endMessage={<p>You are all set!</p>}
-                        height={containerHeight - 63}
-                    >
-                        {dataSource.length !== 0 ? (
-                            dataSource?.filter((task) => task.name?.includes(query.toLowerCase()))?.map((u, index) => {
+                                    const { name, id, created, processDefinitionId } = data[index % data.length]; // Use data from JSON
+                                    const filteredTaskVariables = taskVariable.filter((x) => x.taskDetail.id === id);
+                                    console.log("dataSource", dataSource)
+                                    console.log("filteredTaskVariables", filteredTaskVariables)
 
-                                const { name, id, created, processDefinitionId } = data[index % data.length]; // Use data from JSON
-                                const filteredTaskVariables = taskVariable.filter((x) => x.taskDetail.id === id);
-                                console.log("dataSource", dataSource)
-                                console.log("filteredTaskVariables", filteredTaskVariables)
-
-                                return (
-                                    <li key={id} className="menu-item bs-toast toast fade show" style={{ margin: "5px", width: "300px" }}>
-                                        {/* <Link to={`/groups/${id}`} style={{ color: "#697a8d" }}> */}
-                                        <Link to={`/TaskbarPages/${id}`} onClick={() => { }} style={{ color: "#697a8d" }} >
-                                            <div className="toast-header">
-                                                <i className="bx bx-bell me-2" style={{ marginBottom: "5px" }}></i>
-                                                <div className="me-auto fw-semibold" style={{ marginBottom: "5px" }}>
-                                                    {name}
+                                    return (
+                                        <li key={id} className="menu-item bs-toast toast fade show" style={{ margin: "5px", width: "300px" }}>
+                                            {/* <Link to={`/groups/${id}`} style={{ color: "#697a8d" }}> */}
+                                            <Link to={`/TaskbarPages/${id}`} onClick={() => { }} style={{ color: "#697a8d" }} >
+                                                <div className="toast-header">
+                                                    <i className="bx bx-bell me-2" style={{ marginBottom: "5px" }}></i>
+                                                    <div className="me-auto fw-semibold" style={{ marginBottom: "5px" }}>
+                                                        {name}
+                                                    </div>
+                                                    <small>{formattedDate(created)}</small>
                                                 </div>
-                                                <small>{formattedDate(created)}</small>
-                                            </div>
+                                                {filteredTaskVariables.length > 0 ? (
+                                                    filteredTaskVariables[0].taskVariables.amount && filteredTaskVariables[0].taskVariables.invoiceNumber ? (
+                                                        <div className="toast-body" style={{ textAlign: "start" }}>
+                                                            <tr className="me-auto fw-semibold">
+                                                                <th>Invoice Amount</th>
+                                                                &nbsp;
+                                                                <th>Invoice Number</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>{filteredTaskVariables[0].taskVariables.amount ? (
+                                                                    filteredTaskVariables[0].taskVariables.amount?.value
+                                                                ) : (
+                                                                    "Nodata"
+                                                                )}</td>
+                                                                &nbsp;
+                                                                <td>{filteredTaskVariables[0].taskVariables.invoiceNumber ? (
+                                                                    filteredTaskVariables[0].taskVariables.invoiceNumber?.value
+                                                                ) : (
+                                                                    "Nodata"
+                                                                )}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Creditor</th>
+                                                                &nbsp;
+                                                                <th>Approver</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>{filteredTaskVariables[0].taskVariables.creditor ? (
+                                                                    filteredTaskVariables[0].taskVariables.creditor?.value
+                                                                ) : (
+                                                                    "Nodata"
+                                                                )}</td>
+                                                                &nbsp;
+                                                                <td>{filteredTaskVariables[0].taskVariables.approver ? (
+                                                                    filteredTaskVariables[0].taskVariables.approver?.value
+                                                                ) : (
+                                                                    "Nodata"
+                                                                )}</td>
+                                                            </tr>
+                                                        </div>) : ('')) : (
+                                                    "Nodata"
+                                                )}
+                                            </Link>
+                                        </li>
+                                    )
 
-                                            <div className="toast-body" style={{ textAlign: "start" }}>
-                                                <tr className="me-auto fw-semibold">
-                                                    <th>Invoice Amount</th>
-                                                    &nbsp;
-                                                    <th>Invoice Number</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>{filteredTaskVariables.length > 0 ? (
-                                                        filteredTaskVariables[0].taskVariables.amount?.value
-                                                    ) : (
-                                                        "Nodata"
-                                                    )}</td>
-                                                    &nbsp;
-                                                    <td>{filteredTaskVariables.length > 0 ? (
-                                                        filteredTaskVariables[0].taskVariables.invoiceNumber?.value
-                                                    ) : (
-                                                        "Nodata"
-                                                    )}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Creditor</th>
-                                                    &nbsp;
-                                                    <th>Approver</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>{filteredTaskVariables.length > 0 ? (
-                                                        filteredTaskVariables[0].taskVariables.creditor?.value
-                                                    ) : (
-                                                        "Nodata"
-                                                    )}</td>
-                                                    &nbsp;
-                                                    <td>{filteredTaskVariables.length > 0 ? (
-                                                        filteredTaskVariables[0].taskVariables.approver?.value
-                                                    ) : (
-                                                        "Nodata"
-                                                    )}</td>
-                                                </tr>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                )
-
-                            })
-                        ) : (<>Data not Found</>)}
-                    </InfiniteScroll>
-                </ul>
+                                })
+                            ) : (<>Data not Found</>)}
+                        </InfiniteScroll>
+                    </ul>
+                )}
             </aside>
             <div className="modal fade" id="basicModal" tabIndex="-1" style={{ display: "none" }} aria-hidden="true">
                 <div className="modal-dialog" role="document">

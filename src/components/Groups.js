@@ -65,36 +65,6 @@ export const Groups = () => {
         });
     }
 
-    // const getDiagramData = () => {
-
-    //     var userId = localStorage.getItem("userId");
-    //     axios.get(`http://localhost:3000/api/tasks?assignee=${userId}`)
-    //       .then((response) => {
-    //         console.log("Diagram Data :- ", response.data);
-
-    //         // var diagramvalue = response.data?.filter((u) => {
-    //         //   return u.id === id
-    //         // })
-
-    //         // console.log("Diagram value :-", diagramvalue[0].processDefinitionId)
-    //         // setDiaId(diagramvalue[0].processDefinitionId)
-    //         // setDiakey(diagramvalue[0].taskDefinitionKey)
-
-    //       }).catch(error => {
-    //         if (error.response) {
-    //           if (error.response.status === 404) {
-    //             console.log('Resource not found');
-    //           } else {
-    //             console.log('Server returned an error:', error.response.status);
-    //           }
-    //         } else if (error.request) {
-    //           console.log('No response received from the server');
-    //         } else {
-    //           console.log('Error:', error.message);
-    //         }
-    //       });
-    //   }
-
     const getFormData = () => {
         {
             id ?
@@ -169,30 +139,6 @@ export const Groups = () => {
             });
 
     }
-
-    // const getGroupTaskData = (sectionId) => {
-
-    //     axios.get(`http://localhost:3000/api/tasks/candidate-group?candidateGroup=${sectionId}`)
-    //         .then(response => {
-    //             console.log("Group Task Data :- ", response.data.responseData);
-    //             const task = response.data.responseData;
-    //             setGroupTaskData(task)
-    //         })
-    //         .catch(error => {
-    //             if (error.response) {
-    //                 if (error.response.status === 404) {
-    //                     console.log('Group Task :- Resource not found');
-    //                 } else {
-    //                     console.log('Group Task :- Server returned an error:', error.response.status);
-    //                 }
-    //             } else if (error.request) {
-    //                 console.log('No response received from the server');
-    //             } else {
-    //                 console.log('Error:', error.message);
-    //             }
-    //         })
-
-    // };
 
     const getGroupsData = () => {
         setIsLoading(true);
@@ -329,7 +275,7 @@ export const Groups = () => {
 
                     </h4>
                     {isLoading ? (
-                        <div style={ce}>
+                        <div style={{ display:'flex' , justifyContent: "center", alignItems: "center", margin: "10px" }}>
                             <PuffLoader color="#696cff" size={30} />
                         </div>
                     ) : (
@@ -340,7 +286,7 @@ export const Groups = () => {
                                 hasMore={hasMore}
                                 loader={
                                     dataSource.length !== 0 ? (
-                                        <div style={ce}>
+                                        <div style={{ display:'flex' , justifyContent: "center", alignItems: "center", margin: "10px" }}>
                                             <PuffLoader color="#696cff" size={30} />
                                         </div>) : (<></>)
                                 }
@@ -372,74 +318,6 @@ export const Groups = () => {
                             </InfiniteScroll>
                         </ul>
                     )}
-                    {/* <div className="col-md mb-4 mb-md-2" style={ce}>
-                        <div className="accordion py-1" id="accordionExample">
-                            <InfiniteScroll
-                                dataLength={dataSource.length}
-                                next={fetchMoreData}
-                                hasMore={hasMore}
-                                loader={
-                                    dataSource.length !== 0 ? (
-                                        <div style={ce}>
-                                            <PuffLoader color="#696cff" size={30} />
-                                        </div>) : (<></>)
-                                }
-                                endMessage={<p>You are all set!</p>}
-                                height={containerHeight - 83}
-                            >
-                                {dataSource.length !== 0 ? (
-                                    dataSource?.map((u, index) => {
-
-                                        const { name, id } = data[index % data.length]; // Use data from JSON
-
-                                        return (
-                                            <div
-                                                className={`card accordion-item ${activeSection === id ? 'active' : ''}`}
-                                                key={id} style={{ marginBottom: "7px" }}>
-                                                <h2 className="accordion-header" id="headingOne">
-                                                    <button
-                                                        style={{ backgroundColor: "#efefef63" }}
-                                                        // style={{backgroundColor:"#efefef"}}
-                                                        type="button"
-                                                        className={`accordion-button ${activeSection === id ? '' : 'collapsed'
-                                                            }`}
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#accordionOne"
-                                                        aria-expanded="false"
-                                                        aria-controls="accordionOne"
-                                                        onClick={() => toggleCollapse(id,name)}
-                                                    >
-                                                        {name}
-                                                    </button>
-                                                </h2>
-                                                <div
-                                                    id={id}
-                                                    className={`accordion-collapse collapse ${activeSection === id ? 'show' : ''
-                                                        }`}
-                                                    data-bs-parent="#accordionExample"
-                                                    style={{}}
-                                                >
-                                                    <div className="accordion-body">
-                                                        {groupTaskData.length ?
-                                                            groupTaskData.map((u) => {
-                                                                return (
-                                                                    <Link to={`/Groups/${u.id}`} onClick={() => setName2(u.name)} key={u.id} style={{ color: "#697a8d" }} className='d-flex justify-content-between py-2'>
-                                                                        <div>{u.name}</div><div> {formattedDate(u.created)}</div>
-                                                                    </Link>
-                                                                )
-                                                            })
-                                                            : <> . . . . . </>}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )
-
-                                    })
-                                ) : (<>Data not Found</>)}
-                            </InfiniteScroll>
-                        </div>
-                    </div> */}
-
                 </aside>
 
                 <div className="layout-page">
@@ -590,7 +468,7 @@ export const Groups = () => {
                                                     <div style={{ height: "60vh" }}>
                                                         {/* {getDiaId + "++++" + getDiakey} */}
                                                         {isLoading ? (
-                                                            <div style={ce}>
+                                                            <div style={{ display:'flex' , justifyContent: "center", alignItems: "center", margin: "10px" }}>
                                                                 <PuffLoader color="#696cff" size={30} />
                                                             </div>
                                                         ) : (
@@ -604,55 +482,7 @@ export const Groups = () => {
                                             )}
                                             {activeButton === 'Comments' && (
                                                 <>
-                                                    {
-                                                        // <>
-                                                        //     <div className="chat-history-footer">
-                                                        //         <form className="form-send-message d-flex justify-content-between align-items-center " onSubmit={handleSubmit}>
-                                                        //             <label className="col-sm-2 col-form-label" htmlFor="basic-default-name">Add Comments </label>
-                                                        //             <input className="form-control message-input border-0 me-3 shadow-none"
-                                                        //                 name='comment'
-                                                        //                 value={values.comment}
-                                                        //                 onChange={handleChange}
-                                                        //                 onBlur={handleBlur}
-                                                        //                 placeholder="Enter Your Comments here..." />
-                                                        //             <div className="message-actions d-flex align-items-center">
-                                                        //                 <button className="btn btn-primary d-flex send-msg-btn" type='submit'>
-                                                        //                     <i className="bx bx-paper-plane me-md-1 me-0"></i>
-                                                        //                     <span className="align-middle d-md-inline-block d-none">Send</span>
-                                                        //                 </button>
-                                                        //             </div>
-
-
-                                                        //         </form>
-                                                        //     </div>
-
-                                                        //     {errors.comment && touched.comment ? (
-                                                        //         <div className="form-error" style={{ color: "red" }}>{errors.comment}</div>
-                                                        //     ) : null}
-
-                                                        //     <div className="d-flex justify-content-center col w-100"
-                                                        //         style={{ height: `${containerHeight - 245}px`, overflow: 'auto' }}>
-                                                        //         <div className="toast-container position-relative w-90">
-                                                        //             {
-                                                        //                 commentData?.map((u) => {
-                                                        //                     return (
-                                                        //                         // <p className="mb-0">{u.message}</p>
-                                                        //                         <div className="bs-toast toast fade show" style={{ margin: "5px", width: "650px" }} >
-                                                        //                             <div className="toast-header">
-                                                        //                                 <i className="bx bx-bell me-2" style={{ marginBottom: "5px" }}></i>
-                                                        //                                 <div className="me-auto fw-medium" style={{ marginBottom: "5px" }} >{u.message}</div>
-                                                        //                                 <small style={{ marginBottom: "5px" }}>{formattedDate(u.time)}</small>&emsp;
-                                                        //                                 <small style={{ marginBottom: "5px" }}>{formattedTime(u.time)}</small>
-                                                        //                                 {/* <button type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> */}
-                                                        //                             </div>
-                                                        //                         </div>
-                                                        //                     )
-                                                        //                 })
-                                                        //             }
-                                                        //         </div>
-                                                        //     </div>
-                                                        // </>
-                                                    }
+                                                    Comments
                                                 </>
                                             )}
                                             {activeButton === 'Document' && (

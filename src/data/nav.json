@@ -16,6 +16,11 @@
       "icon": "bi bi-people-fill"
     },
     {
+      "name": "Completed Task",
+      "link": "/CompletedTask",
+      "icon": "bi bi-people-fill"
+    },
+    {
       "name": "Tasks",
       "link": "#",
       "icon": "bx bx-copy",

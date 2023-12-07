@@ -30,6 +30,7 @@ import { ListOfGroup } from './components/AdminDashboard/ListOfGroup';
 import { UpdateGroup } from './components/AdminDashboard/UpdateGroup';
 import { UpdateUser2 } from './components/AdminDashboard/UpdateUser2';
 import { UpdateGroup2 } from './components/AdminDashboard/UpdateGroup2';
+import { CompletedTask } from './components/CompletedTask';
 
 function App() {
   <Helmet>
@@ -53,6 +54,7 @@ function App() {
         <Route path='/taskbar' element={<ProtectedRoutes Component={Taskbar} />} />
         <Route path='/TaskbarPages/:id' element={<ProtectedRoutes Component={TaskbarPages} />} />
         <Route path='/TaskbarPages' element={<ProtectedRoutes Component={TaskbarPages} />} />
+        <Route path='/CompletedTask' element={<ProtectedRoutes Component={CompletedTask} />} />
         <Route path='/AutoPages/:id' element={<ProtectedRoutes Component={AutoPages} />} />
         <Route path='/TaskbarPages/*' element={<Error />} />
         <Route path='/Groups' element={<ProtectedRoutes Component={Groups} />} />

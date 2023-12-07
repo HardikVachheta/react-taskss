@@ -23,6 +23,7 @@ export const NavbarSide = () => {
     const isTaskbarPages = location.pathname.includes('TaskbarPages');
     const isDashboard = location.pathname.includes('Dashboard') || location.pathname.includes('ProcessDefinition')
     const isGroups = location.pathname.includes('Groups');
+    const isCompletedTask = location.pathname.includes('CompletedTask');
 
     var page
     if (isTaskbarPages === true) {
@@ -31,6 +32,8 @@ export const NavbarSide = () => {
         page = '/Dashboard'
     } else if (isGroups === true) {
         page = '/Groups'
+    } else if (isCompletedTask === true) {
+        page = '/CompletedTask'
     }
 
     const logout = () => {

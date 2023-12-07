@@ -258,241 +258,236 @@ export const TaskbarPages = () => {
   const handleResize = () => {
     setContainerHeight(window.innerHeight);
   };
-
-  var ce = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+  
+const [valuex, valueclass] = useState('')
+// var x
+const handle = () => {
+  valueclass("layout-menu-expanded")
+  // console.log(x)
 }
-  const [valuex, valueclass] = useState('')
-  // var x
-  const handle = () => {
-    valueclass("layout-menu-expanded")
-    // console.log(x)
-  }
-  return (
-    <div>
-      {/* <div lang="en"
+return (
+  <div>
+    {/* <div lang="en"
             className={`light-style layout-menu-fixed layout-compact ${valuex}`}
             dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
             data-template="vertical-menu-template-free"> */}
-      {/* <Navbar_u /> */}
+    {/* <Navbar_u /> */}
 
-      <div className="layout-wrapper layout-content-navbar" >
-        <Helmet>
-          <title>Task Lists</title>
+    <div className="layout-wrapper layout-content-navbar" >
+      <Helmet>
+        <title>Task Lists</title>
 
-          <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-            rel="stylesheet"
-          />
-          <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-          <link rel="stylesheet" href="../assets/vendor/css/core.css" className="template-customizer-core-css" />
-          <link rel="stylesheet" href="../assets_pro/vendor/css/rtl/theme-semi-dark.css" className="template-customizer-theme-css" />
-          <link rel="stylesheet" href="../assets/css/demo.css" />
-          <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-          <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+        <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet"
+        />
+        <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+        <link rel="stylesheet" href="../assets/vendor/css/core.css" className="template-customizer-core-css" />
+        <link rel="stylesheet" href="../assets_pro/vendor/css/rtl/theme-semi-dark.css" className="template-customizer-theme-css" />
+        <link rel="stylesheet" href="../assets/css/demo.css" />
+        <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+        <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
-        </Helmet>
+      </Helmet>
 
-        <div className="layout-container" >
-          <NavbarSide />
-          <Taskbar2 sendDataToParent={handleChildData} />
-          {/* <Taskbar /> */}
-          <div className="layout-page">
-            <div className="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none ">
-              <a className="d-flex nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i className="bx bx-menu bx-sm" onClick={handle} />
-              </a>
-            </div>
-            <div className="content-wrapper">
-              <div className="container-xxl flex-grow-1 container-p-y">
-                {!id ?
-                  <div style={{ outlineStyle: "solid", padding: "25px", borderRadius: "0.375rem", color: "#32333754" }} >
-                    <div className="me-3" style={{
-                      position: "relative",
-                      display: "flex",
-                      flexWrap: "wrap",
-                      alignItems: "stretch",
-                      width: "100%",
-                      color: "#697a8de0"
-                    }}>
-                      <i className='bx bxs-info-circle'></i>
-                      <div className="text-body" style={{ marginLeft: "10px" }}>
-                        Select a task in the list.
-                      </div>
+      <div className="layout-container" >
+        <NavbarSide />
+        <Taskbar2 sendDataToParent={handleChildData} />
+        {/* <Taskbar /> */}
+        <div className="layout-page">
+          <div className="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none ">
+            <a className="d-flex nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+              <i className="bx bx-menu bx-sm" onClick={handle} />
+            </a>
+          </div>
+          <div className="content-wrapper">
+            <div className="container-xxl flex-grow-1 container-p-y">
+              {!id ?
+                <div style={{ outlineStyle: "solid", padding: "25px", borderRadius: "0.375rem", color: "#32333754" }} >
+                  <div className="me-3" style={{
+                    position: "relative",
+                    display: "flex",
+                    flexWrap: "wrap",
+                    alignItems: "stretch",
+                    width: "100%",
+                    color: "#697a8de0"
+                  }}>
+                    <i className='bx bxs-info-circle'></i>
+                    <div className="text-body" style={{ marginLeft: "10px" }}>
+                      Select a task in the list.
                     </div>
                   </div>
-                  : <>
-                    <div className='py-3 mb-4 d-flex justify-content-between py-2'>
+                </div>
+                : <>
+                  <div className='py-3 mb-4 d-flex justify-content-between py-2'>
 
-                      <h4 style={{ textAlign: "start" }}>
-                        {formDetails.taskDetail?.name}
-                        {/* {console.log("new=======================", formDetails)} */}
-                      </h4>
-                      <Link className="nav-link" style={{ border: "solid", borderRadius: "5px" }} onClick={unClaimTask}>
-                        <i className="bx bx-minus me-sm-1"></i>unclaim</Link>
+                    <h4 style={{ textAlign: "start" }}>
+                      {formDetails.taskDetail?.name}
+                      {/* {console.log("new=======================", formDetails)} */}
+                    </h4>
+                    <Link className="nav-link" style={{ border: "solid", borderRadius: "5px" }} onClick={unClaimTask}>
+                      <i className="bx bx-minus me-sm-1"></i>unclaim</Link>
 
-                    </div>
+                  </div>
 
 
-                    <div className="row">
-                      <div className="col-md-12">
+                  <div className="row">
+                    <div className="col-md-12">
 
-                        <ul className="nav nav-pills flex-column flex-md-row mb-3">
-                          <li className="nav-item">
-                            <Link
-                              to="#"
-                              className={`nav-link ${activeButton === 'Form' ? 'active' : ''}`}
-                              onClick={() => handleButtonClick('Form')}
-                            >
-                              <i className="bx bx-detail me-1"></i> Form
-                            </Link>
-                          </li>
-                          <li className="nav-item">
-                            <Link
-                              to="#"
-                              className={`nav-link ${activeButton === 'History' ? 'active' : ''}`}
-                              onClick={() => handleButtonClick('History')}
-                            >
-                              <i className="bx bx-history me-0"></i> History
-                            </Link>
-                          </li>
-                          <li className="nav-item">
-                            <Link
-                              to="#"
-                              className={`nav-link ${activeButton === 'Diagram' ? 'active' : ''}`}
-                              onClick={() => handleButtonClick('Diagram')}
-                            >
-                              <i className="bx bx-id-card me-0"></i> Diagram
-                              {/* <i className="bx bx-link-alt me-1"></i> Diagram */}
-                            </Link>
-                          </li>
-                          <li className="nav-item">
-                            <Link
-                              to="#"
-                              className={`nav-link ${activeButton === 'Comments' ? 'active' : ''}`}
-                              onClick={() => handleButtonClick('Comments')}
-                            >
-                              <i className="bx bx-chat me-0"></i> Comments
-                            </Link>
-                          </li>
-                          <li className="nav-item">
-                            <Link
-                              to="#"
-                              className={`nav-link ${activeButton === 'Document' ? 'active' : ''}`}
-                              onClick={() => handleButtonClick('Document')}
-                              title='Document'
-                            >
-                              <i className="bx bx-link-alt me-0"></i> Document
-                            </Link>
-                          </li>
-                          {/* <li className="nav-item">
+                      <ul className="nav nav-pills flex-column flex-md-row mb-3">
+                        <li className="nav-item">
+                          <Link
+                            to="#"
+                            className={`nav-link ${activeButton === 'Form' ? 'active' : ''}`}
+                            onClick={() => handleButtonClick('Form')}
+                          >
+                            <i className="bx bx-detail me-1"></i> Form
+                          </Link>
+                        </li>
+                        <li className="nav-item">
+                          <Link
+                            to="#"
+                            className={`nav-link ${activeButton === 'History' ? 'active' : ''}`}
+                            onClick={() => handleButtonClick('History')}
+                          >
+                            <i className="bx bx-history me-0"></i> History
+                          </Link>
+                        </li>
+                        <li className="nav-item">
+                          <Link
+                            to="#"
+                            className={`nav-link ${activeButton === 'Diagram' ? 'active' : ''}`}
+                            onClick={() => handleButtonClick('Diagram')}
+                          >
+                            <i className="bx bx-id-card me-0"></i> Diagram
+                            {/* <i className="bx bx-link-alt me-1"></i> Diagram */}
+                          </Link>
+                        </li>
+                        <li className="nav-item">
+                          <Link
+                            to="#"
+                            className={`nav-link ${activeButton === 'Comments' ? 'active' : ''}`}
+                            onClick={() => handleButtonClick('Comments')}
+                          >
+                            <i className="bx bx-chat me-0"></i> Comments
+                          </Link>
+                        </li>
+                        <li className="nav-item">
+                          <Link
+                            to="#"
+                            className={`nav-link ${activeButton === 'Document' ? 'active' : ''}`}
+                            onClick={() => handleButtonClick('Document')}
+                            title='Document'
+                          >
+                            <i className="bx bx-link-alt me-0"></i> Document
+                          </Link>
+                        </li>
+                        {/* <li className="nav-item">
                             <Link className="nav-link" onClick={unClaimTask}><i className="bx bx-minus me-sm-1"></i>unclaim</Link>
                           </li> */}
-                          {/* <div className="custom-tooltip">
+                        {/* <div className="custom-tooltip">
                             <a href="https://www.example.com">Hover over me</a>
                             <div className="tooltip-text">Visit Example Website</div>
                           </div> */}
-                        </ul>
-                        <hr />
-                        {activeButton === 'Form' && (
-                          <div className='card' style={{ padding: "30px" }}>
-                            {/* {id ? */}
-                            {formData ?
-                              <Form key={id} placeholder="enter name" form={formData.form_def} onSubmit={handleFormSubmit} />
-                              : <>No data</>}
-                            {/* : ''} */}
-                          </div>
-                        )}
+                      </ul>
+                      <hr />
+                      {activeButton === 'Form' && (
+                        <div className='card' style={{ padding: "30px" }}>
+                          {/* {id ? */}
+                          {formData ?
+                            <Form key={id} placeholder="enter name" form={formData.form_def} onSubmit={handleFormSubmit} />
+                            : <>No data</>}
+                          {/* : ''} */}
+                        </div>
+                      )}
 
-                        {activeButton === 'History' && (
-                          historyData?.map((his) => {
-                            return (
-                              <div>Content for History Page goes here :- {his?.taskDefinitionKey}</div>
-                            )
-                          })
-                        )}
+                      {activeButton === 'History' && (
+                        historyData?.map((his) => {
+                          return (
+                            <div>Content for History Page goes here :- {his?.taskDefinitionKey}</div>
+                          )
+                        })
+                      )}
 
-                        {activeButton === 'Diagram' && (
-                          <div style={{ height: "60vh" }}>
-                            {isLoading ? (
-                              <div style={ce}>
-                                <PuffLoader color="#696cff" size={30} />
-                              </div>
-                            ) : (
-                              <MainBpmn style={{ height: "60vh" }} getDiaId={getDiaId} getDiakey={getDiakey} />
-                            )}
-                          </div>
-
-                        )}
-                        {activeButton === 'Comments' && (
-                          <>
-                            <div className="chat-history-footer">
-                              <form className="form-send-message d-flex justify-content-between align-items-center " onSubmit={handleSubmit}>
-                                <label className="col-sm-2 col-form-label" htmlFor="basic-default-name">Add Comments </label>
-                                <input className="form-control message-input border-0 me-3 shadow-none"
-                                  name='comment'
-                                  value={values.comment}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  placeholder="Enter Your Comments here..." />
-                                <div className="message-actions d-flex align-items-center">
-                                  <button className="btn btn-primary d-flex send-msg-btn" type='submit'>
-                                    <i className="bx bx-paper-plane me-md-1 me-0"></i>
-                                    <span className="align-middle d-md-inline-block d-none">Send</span>
-                                  </button>
-                                </div>
-
-
-                              </form>
+                      {activeButton === 'Diagram' && (
+                        <div style={{ height: "60vh" }}>
+                          {isLoading ? (
+                            <div style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
+                              <PuffLoader color="#696cff" size={30} />
                             </div>
+                          ) : (
+                            <MainBpmn style={{ height: "60vh" }} getDiaId={getDiaId} getDiakey={getDiakey} />
+                          )}
+                        </div>
 
-                            {errors.comment && touched.comment ? (
-                              <div className="form-error" style={{ color: "red" }}>{errors.comment}</div>
-                            ) : null}
+                      )}
+                      {activeButton === 'Comments' && (
+                        <>
+                          <div className="chat-history-footer">
+                            <form className="form-send-message d-flex justify-content-between align-items-center " onSubmit={handleSubmit}>
+                              <label className="col-sm-2 col-form-label" htmlFor="basic-default-name">Add Comments </label>
+                              <input className="form-control message-input border-0 me-3 shadow-none"
+                                name='comment'
+                                value={values.comment}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                placeholder="Enter Your Comments here..." />
+                              <div className="message-actions d-flex align-items-center">
+                                <button className="btn btn-primary d-flex send-msg-btn" type='submit'>
+                                  <i className="bx bx-paper-plane me-md-1 me-0"></i>
+                                  <span className="align-middle d-md-inline-block d-none">Send</span>
+                                </button>
+                              </div>
 
-                            <div className="d-flex justify-content-center col w-100"
-                              style={{ height: `${containerHeight - 264}px`, overflow: 'auto' }}>
-                              <div className="toast-container position-relative w-90">
-                                {
-                                  commentData?.map((u) => {
-                                    return (
-                                      // <p className="mb-0">{u.message}</p>
-                                      <div className="bs-toast toast fade show" style={{ margin: "5px", width: "650px" }} >
-                                        <div className="toast-header">
-                                          <i className="bx bx-bell me-2" style={{ marginBottom: "5px" }}></i>
-                                          <div className="me-auto fw-medium" style={{ marginBottom: "5px" }} >{u.message}</div>
-                                          <small style={{ marginBottom: "5px" }}>{formattedDate(u.time)}</small>&emsp;
-                                          <small style={{ marginBottom: "5px" }}>{formattedTime(u.time)}</small>
-                                          {/* <button type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> */}
-                                        </div>
+
+                            </form>
+                          </div>
+
+                          {errors.comment && touched.comment ? (
+                            <div className="form-error" style={{ color: "red" }}>{errors.comment}</div>
+                          ) : null}
+
+                          <div className="d-flex justify-content-center col w-100"
+                            style={{ height: `${containerHeight - 264}px`, overflow: 'auto' }}>
+                            <div className="toast-container position-relative w-90">
+                              {
+                                commentData?.map((u) => {
+                                  return (
+                                    // <p className="mb-0">{u.message}</p>
+                                    <div className="bs-toast toast fade show" style={{ margin: "5px", width: "650px" }} >
+                                      <div className="toast-header">
+                                        <i className="bx bx-bell me-2" style={{ marginBottom: "5px" }}></i>
+                                        <div className="me-auto fw-medium" style={{ marginBottom: "5px" }} >{u.message}</div>
+                                        <small style={{ marginBottom: "5px" }}>{formattedDate(u.time)}</small>&emsp;
+                                        <small style={{ marginBottom: "5px" }}>{formattedTime(u.time)}</small>
+                                        {/* <button type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> */}
                                       </div>
-                                    )
-                                  })
-                                }
-                              </div>
+                                    </div>
+                                  )
+                                })
+                              }
                             </div>
-                            {/* </div> */}
-                          </>
-                        )}
-                        {activeButton === 'Document' && (
-                          <div>
-                            Content for Document Page goes here.
                           </div>
-                        )}
-                      </div>
+                          {/* </div> */}
+                        </>
+                      )}
+                      {activeButton === 'Document' && (
+                        <div>
+                          Content for Document Page goes here.
+                        </div>
+                      )}
                     </div>
-                  </>}
-              </div>
+                  </div>
+                </>}
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-    </div >
-  )
+  </div >
+)
 }
