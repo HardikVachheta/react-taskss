@@ -28,6 +28,8 @@ import { UpdateUser } from './components/AdminDashboard/UpdateUser';
 import { CreateGroup } from './components/AdminDashboard/CreateGroup';
 import { ListOfGroup } from './components/AdminDashboard/ListOfGroup';
 import { UpdateGroup } from './components/AdminDashboard/UpdateGroup';
+import { UpdateUser2 } from './components/AdminDashboard/UpdateUser2';
+import { UpdateGroup2 } from './components/AdminDashboard/UpdateGroup2';
 
 function App() {
   <Helmet>
@@ -64,12 +66,13 @@ function App() {
         <Route path='/AdminDashboard' element={<ProtectedRoutes Component={AdminDashboard} />} />
         <Route path='/AdminDashboard/CreateUser' element={<ProtectedRoutes Component={CreateUser} />} />
         <Route path='/AdminDashboard/ListUser' element={<ProtectedRoutes Component={ListOfUser} />} />
-        <Route path='/AdminDashboard/UpdateUser' element={<ProtectedRoutes Component={UpdateUser} />} />
         <Route path='/AdminDashboard/UpdateUser/:id' element={<ProtectedRoutes Component={UpdateUser} />} />
+        <Route path='/AdminDashboard/UpdateUser2/:id' element={<ProtectedRoutes Component={UpdateUser2} />} />
 
         <Route path='/AdminDashboard/CreateGroup' element={<ProtectedRoutes Component={CreateGroup} />} />
         <Route path='/AdminDashboard/ListGroup' element={<ProtectedRoutes Component={ListOfGroup} />} />
         <Route path='/AdminDashboard/UpdateGroup/:id' element={<ProtectedRoutes Component={UpdateGroup} />} />
+        <Route path='/AdminDashboard/UpdateGroup2/:id' element={<ProtectedRoutes Component={UpdateGroup2} />} />
 
       </Routes>
     </div>

@@ -32,7 +32,7 @@ export const Taskbar2 = ({ sendDataToParent }) => {
         getTaskData()
     }, []);
 
-  
+
     const formattedDate = (dateTimeString) => {
         const dateTime = new Date(dateTimeString);
         return dateTime.toLocaleDateString('en-GB', {
@@ -174,7 +174,7 @@ export const Taskbar2 = ({ sendDataToParent }) => {
                     </Link>
 
                 </h4>
-               
+
                 <ul className="menu-inner py-1" style={ce}>
                     <InfiniteScroll
                         dataLength={dataSource.length}

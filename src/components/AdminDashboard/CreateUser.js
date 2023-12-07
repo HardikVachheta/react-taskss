@@ -7,6 +7,7 @@ import { createUserSchema } from '../../schemas';
 import axios from 'axios';
 import AdminNav from './AdminNav';
 import { AdminNav2 } from './AdminNav2';
+import { AdminSideNav } from './AdminSideNav';
 
 export const CreateUser = () => {
 
@@ -106,19 +107,16 @@ export const CreateUser = () => {
                 <link rel="stylesheet" href="../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
                 <link rel="stylesheet" href="../assets/vendor/css/pages/app-logistics-dashboard.css" />
                 <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-                <link rel="stylesheet" href='../assets/vendor/css/rtl/core.css' className="template-customizer-core-css"/>
-                <link rel="stylesheet" href='../assets/vendor/css/rtl/theme-default.css' className="template-customizer-theme-css"/>
-                {/* <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/core.css" className="template-customizer-core-css" /> */}
-                {/* <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/theme-default.css" className="template-customizer-theme-css" /> */}
+                <link rel="stylesheet" href='../assets/vendor/css/rtl/core.css' className="template-customizer-core-css" />
+                <link rel="stylesheet" href='../assets/vendor/css/rtl/theme-default.css' className="template-customizer-theme-css" />
 
             </Helmet>
-
-
-            <div className="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
+            <div className="layout-wrapper layout-content-navbar">
                 <div className="layout-container">
-                    {/* <AdminNav /> */}
-                    <AdminNav2/>
-                    <div className="layout-page" style={{ marginTop: "60px" }}>
+                    <div style={{ position: "fixed" }}>
+                        <AdminSideNav />
+                    </div>
+                    <div className="layout-page" style={{ marginTop: "30px" }}>
                         <div className="content-wrapper">
                             <h6 className='d-flex'>
                                 <span class="text-muted fw-light">&emsp;&emsp; Dashboard » Users </span>&nbsp; » Create

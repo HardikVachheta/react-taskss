@@ -10,28 +10,6 @@ import { AdminSideNav } from './AdminSideNav';
 
 export const ListOfGroup = () => {
 
-    const [openMenu, setOpenMenu] = useState(null);
-    const [activeMenu, setActiveMenu] = useState('dashboards');
-    const [activeSubmenu, setActiveSubmenu] = useState(null);
-
-    const handleMenuEnter = (menuId) => {
-        setOpenMenu(menuId);
-    };
-
-    const handleMenuLeave = () => {
-        setOpenMenu(null);
-    };
-
-    const handleMenuClick = (menuId) => {
-        setActiveMenu((prevActiveMenu) => (prevActiveMenu === menuId ? null : menuId));
-        // setActiveMenu(menuId);
-    };
-
-    const handleSubmenuClick = (submenuId) => {
-        setActiveSubmenu(submenuId);
-    };
-
-
     const [allgroup, setAllgroup] = useState([]);
 
     useEffect(() => {
@@ -98,74 +76,10 @@ export const ListOfGroup = () => {
             {/* <div className="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu"> */}
             <div className="layout-wrapper layout-content-navbar">
                 <div className="layout-container">
-                    {/* <AdminNav /> */}
-                    {/* <AdminNav2 /> */}
-                    <AdminSideNav/>
-                    {/* <aside
-                        id="layout-menu"
-                        className="layout-menu-horizontal menu menu-horizontal container-fluid flex-grow-0 bg-menu-theme"
-                        data-bg-class="bg-menu-theme"
-
-                        style={{
-                            touchAction: "none",
-                            groupSelect: "none",
-                            position: "fixed",
-                            WebkitgroupDrag: "none",
-                            WebkitTapHighlightColor: "rgba(0, 0, 0, 0)"
-                        }}
-                    >
-                        <div className="container-xxl d-flex h-100">
-                            <a href="#" className="menu-horizontal-prev d-none" />
-                            <div className="menu-horizontal-wrapper">
-                                <ul className="menu-inner" style={{ marginLeft: 0 }}>
-                                    <li className={`menu-item ${activeMenu === 'dashboards' ? 'active' : ''} ${openMenu === 'dashboards' ? 'open' : ''}`}
-                                        onMouseEnter={() => handleMenuEnter('dashboards')}
-                                        onMouseLeave={handleMenuLeave}
-                                        onClick={() => handleMenuClick('dashboards')}>
-                                        <Link
-                                            to="/AdminDashboard"
-                                            className="menu-link"
-                                        >
-                                            <i className="menu-icon tf-icons bx bx-home-circle" />
-                                            <div data-i18n="Dashboards">Dashboards</div>
-                                        </Link>
-                                    </li>
-                                    <li className={`menu-item ${openMenu === 'layouts' ? 'open' : ''}`}
-                                        onMouseEnter={() => handleMenuEnter('layouts')}
-                                        onMouseLeave={handleMenuLeave}>
-                                        <a
-                                            href="javascript:void(0)"
-                                            className="menu-link menu-toggle"
-                                        >
-                                            <i className="menu-icon tf-icons bx bx-layout" />
-                                            <div data-i18n="Layouts">group</div>
-                                        </a>
-                                        <ul className="menu-sub">
-                                            <li className="menu-item">
-                                                <Link to="/AdminDashboard/Creategroup" className="menu-link">
-                                                    <i className="menu-icon tf-icons bx bx-menu" />
-                                                    <div data-i18n="Without menu">group Create</div>
-                                                </Link>
-                                            </li>
-                                            <li className="menu-item">
-                                                <Link
-                                                    to="/AdminDashboard/Listgroup"
-                                                    className="menu-link"
-                                                    target="_blank"
-                                                >
-                                                    <i className="menu-icon tf-icons bx bx-vertical-center" />
-                                                    <div data-i18n="Vertical">group List</div>
-                                                </Link>
-                                            </li>
-
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <a href="#" className="menu-horizontal-next disabled d-none" />
-                        </div>
-                    </aside> */}
-                    <div className="layout-page" style={{ marginTop: "60px" }}>
+                    <div style={{ position: "fixed" }}>
+                        <AdminSideNav />
+                    </div>
+                    <div className="layout-page" style={{ marginTop: "30px" }}>
                         <div className="content-wrapper">
                             <h6 className='d-flex'>
                                 <span class="text-muted fw-light">&emsp;&emsp; Dashboard </span>&nbsp; » Groups
@@ -191,19 +105,19 @@ export const ListOfGroup = () => {
 
                                     <div className="card-datatable table-responsive">
                                         <div id="DataTables_Table_0_wrapper" className="dataTables_wrapper dt-bootstrap5 no-footer">
-                                            <table className="datatables-groups table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style={{ width: 1301 }}>
+                                            <table className="datatables-groups table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
                                                 <thead>
-                                                   
-                                                    <tr>
-                                                        <th className="control sorting_disabled dtr-hidden"  aria-label="" >group Id</th>
 
-                                                        <th className="sorting d-flex justify-content-start" tabIndex={0} aria-controls="DataTables_Table_0"   aria-label="Role: activate to sort column ascending" >
-                                                        &nbsp;&nbsp;&nbsp;  Name
+                                                    <tr>
+                                                        <th className="control sorting_disabled dtr-hidden" aria-label="" >group Id</th>
+
+                                                        <th className="sorting d-flex justify-content-start" tabIndex={0} aria-controls="DataTables_Table_0" aria-label="Role: activate to sort column ascending" >
+                                                            &nbsp;&nbsp;&nbsp;  Name
                                                         </th>
-                                                        <th className="sorting justify-content-start" tabIndex={0} aria-controls="DataTables_Table_0"   aria-label="Plan: activate to sort column ascending" >
+                                                        <th className="sorting justify-content-start" tabIndex={0} aria-controls="DataTables_Table_0" aria-label="Plan: activate to sort column ascending" >
                                                             Type
                                                         </th>
-                                                        <th className="sorting_disabled"   aria-label="Actions">
+                                                        <th className="sorting_disabled" aria-label="Actions">
                                                             Actions
                                                         </th>
                                                     </tr>
@@ -236,8 +150,9 @@ export const ListOfGroup = () => {
                                                                             <span className="fw-medium">{u.group.email}</span>
                                                                         </td> */}
                                                                         <td>
+                                                                            {/* <Link to={`/AdminDashboard/UpdateGroup/${u.group.id}`}>Edit</Link> */}
                                                                             <div className="d-inline-block text-nowrap">
-                                                                                <Link to={`/AdminDashboard/UpdateGroup/${u.group.id}`} title="Edit User" style={{ color: '#697a8d' }} id="myButton">
+                                                                                <Link to={`/AdminDashboard/UpdateGroup2/${u.group.id}`} title="Edit User" style={{ color: '#697a8d' }} id="myButton">
                                                                                     <i className="bx bx-edit me-0 me-sm-1"></i>
                                                                                 </Link>
                                                                                 <button className="btn btn-sm btn-icon delete-record">
@@ -251,17 +166,16 @@ export const ListOfGroup = () => {
                                                                 )
                                                             })
                                                         ) : (
-                                                        <tr className="odd">
-                                                            <td colSpan="5" className="text-center">
-                                                                <h5 className="card-title">No Data</h5>
-                                                            </td>
-                                                        </tr>
-                                                       
+                                                            <tr className="odd">
+                                                                <td colSpan="5" className="text-center">
+                                                                    <h5 className="card-title">No Data</h5>
+                                                                </td>
+                                                            </tr>
+
                                                         )
                                                     }
                                                 </tbody>
                                             </table>
-
                                         </div>
                                     </div>
                                 </div>

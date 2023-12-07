@@ -1,43 +1,17 @@
+import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
-import AdminNav from './AdminNav'
-import { Helmet } from 'react-helmet'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import axios from 'axios'
-import { useFormik } from 'formik'
-import { updateUserSchema } from '../../schemas'
+import { useNavigate, useParams } from 'react-router-dom';
+import { updateUserSchema } from '../../schemas';
+import axios from 'axios';
 import { PuffLoader } from 'react-spinners'
-import { AdminNav2 } from './AdminNav2'
-import Swal from 'sweetalert2'
-import { AdminSideNav } from './AdminSideNav'
-
-
-
+import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
+import { AdminSideNav } from './AdminSideNav';
 export const UpdateUser = () => {
 
-    const [openMenu, setOpenMenu] = useState(null);
-    const [activeMenu, setActiveMenu] = useState('dashboards');
-    const [activeSubmenu, setActiveSubmenu] = useState(null);
-
     const navigate = useNavigate();
-    const handleMenuEnter = (menuId) => {
-        setOpenMenu(menuId);
-    };
-
-    const handleMenuLeave = () => {
-        setOpenMenu(null);
-    };
-
-    const handleMenuClick = (menuId) => {
-        setActiveMenu((prevActiveMenu) => (prevActiveMenu === menuId ? null : menuId));
-        // setActiveMenu(menuId);
-    };
-
-    const handleSubmenuClick = (submenuId) => {
-        setActiveSubmenu(submenuId);
-    };
 
     var id = useParams().id
-    const [alluser, setAllUser] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const initialValues = {
@@ -107,20 +81,17 @@ export const UpdateUser = () => {
             <PuffLoader color="#696cff" size={30} />
         </div>
     }
-
     return (
-        <div lang="en" className="light-style layout-compact layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="horizontal-menu-template">
+        <div lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
             <Helmet>
-                <title> List User </title>
+                <title> Admin Dashboard </title>
                 <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
                 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
 
                 <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
                 <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome.css" />
                 <link rel="stylesheet" href="../assets/vendor/fonts/flag-icons.css" />
-                {/* <script src="../assets/vendor/js/helpers.js"></script> */}
-                {/* <script src="../assets/vendor/js/bootstrap.js" data-react-helmet="true"></script> */}
-                {/* <link rel="stylesheet" href="../assets/css/demo.css" /> */}
+                <link rel="stylesheet" href="../assets/css/demo.css" />
                 <link rel="stylesheet" href="../assets/vendor/css/core.css" className="template-customizer-core-css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/typeahead-js/typeahead.css" />
@@ -129,106 +100,71 @@ export const UpdateUser = () => {
                 <link rel="stylesheet" href="../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
                 <link rel="stylesheet" href="../assets/vendor/css/pages/app-logistics-dashboard.css" />
                 <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-                {/* <link rel="stylesheet" href='../assets/vendor/css/rtl/core.css' className="template-customizer-core-css" /> */}
-                {/* <link rel="stylesheet" href='../assets/vendor/css/rtl/theme-default.css' className="template-customizer-theme-css" /> */}
-                <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/core.css" className="template-customizer-core-css" />
-                <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/theme-default.css" className="template-customizer-theme-css" />
-
             </Helmet>
-
-            {/* <div className="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu"> */}
             <div className="layout-wrapper layout-content-navbar">
                 <div className="layout-container">
-                    {/* <AdminNav /> */}
-                    {/* <AdminNav2 /> */}
-                    <AdminSideNav/>
-                    <div className="layout-page" style={{ marginTop: "60px" }}>
+                    <AdminSideNav />
+                    <div className="layout-page">
                         <div className="content-wrapper">
-                            <h6 className='d-flex'>
-                                <span className="text-muted fw-light">&emsp;&emsp; Dashboard </span>&nbsp; » Update User
-                            </h6>
-                            <div className="container-xxl flex-grow-1">
-                                <div className='row'>
-                                    <div className="col-xl-3 col-lg-5 col-md-5 order-1 order-md-0" style={{ position: 'fixed' }}>
-                                        <div className="card mb-4">
-                                            <div className="card-body">
-                                                <h5 className="pb-2 border-bottom mb-4">Details</h5>
-                                                <div className="info-container" >
-                                                    <ul className="list-unstyled" style={{ marginBottom: "300px" }}>
-                                                        <li className="mb-3">
-                                                            <span className="fw-medium me-2">Profile</span>
-
-                                                        </li>
-                                                        <li className="mb-3">
-                                                            <span className="fw-medium me-2">Account</span>
-
-                                                        </li>
-                                                        <li className="mb-3">
-                                                            <span className="fw-medium me-2">Groups</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                            <div className="container-xxl flex-grow-1 container-p-y">
+                               
+                                <div className="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1" style={{ width: "985px" }}>
+                                    <div className="card mb-4">
+                                        <div className="card-header d-flex align-items-center justify-content-between">
+                                            <h5 className="mb-0">Basic Layout</h5> <small className="text-muted float-end">Default label</small>
                                         </div>
-                                    </div>
-                                    <div className="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1" style={{ marginLeft: "350px", width: "985px" }}>
-                                        <div className="card mb-4">
-                                            <div className="card-header d-flex align-items-center justify-content-between">
-                                                <h5 className="mb-0">Basic Layout</h5> <small className="text-muted float-end">Default label</small>
-                                            </div>
-                                            <div className="card-body">
-                                                <form onSubmit={handleSubmit}>
-                                                    <div className="row mb-3">
-                                                        <label className="col-sm-2 col-form-label" htmlFor="basic-default-name">First Name</label>
-                                                        <div className="col-sm-10">
+                                        <div className="card-body">
+                                            <form onSubmit={handleSubmit}>
+                                                <div className="row mb-3">
+                                                    <label className="col-sm-2 col-form-label" htmlFor="basic-default-name">First Name</label>
+                                                    <div className="col-sm-10">
+                                                        <input type="text"
+                                                            name='firstName'
+                                                            value={values.firstName}
+                                                            onChange={handleChange}
+                                                            onBlur={handleBlur}
+                                                            className="form-control"
+                                                            id="basic-default-firstName"
+                                                            placeholder="John Doe" />
+                                                    </div>
+                                                </div>
+                                                <div className="row mb-3">
+                                                    <label className="col-sm-2 col-form-label" htmlFor="basic-default-name">Last Name</label>
+                                                    <div className="col-sm-10">
+                                                        <input type="text"
+                                                            name='lastName'
+                                                            value={values.lastName}
+                                                            onChange={handleChange}
+                                                            onBlur={handleBlur}
+                                                            className="form-control"
+                                                            id="basic-default-lastName"
+                                                            placeholder="John Doe" />
+                                                    </div>
+                                                </div>
+                                                <div className="row mb-3">
+                                                    <label className="col-sm-2 col-form-label" htmlFor="basic-default-email">Email</label>
+                                                    <div className="col-sm-10">
+                                                        <div className="input-group input-group-merge">
                                                             <input type="text"
-                                                                name='firstName'
-                                                                value={values.firstName}
+                                                                name='email'
+                                                                value={values.email}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
+                                                                id="basic-default-email"
                                                                 className="form-control"
-                                                                id="basic-default-firstName"
-                                                                placeholder="John Doe" />
+                                                                placeholder="john.doe" aria-label="john.doe" aria-describedby="basic-default-email2" />
+                                                            <span className="input-group-text" id="basic-default-email2">@example.com</span>
                                                         </div>
+                                                        <div className="form-text"> You can use letters, numbers &amp; periods </div>
                                                     </div>
-                                                    <div className="row mb-3">
-                                                        <label className="col-sm-2 col-form-label" htmlFor="basic-default-name">Last Name</label>
-                                                        <div className="col-sm-10">
-                                                            <input type="text"
-                                                                name='lastName'
-                                                                value={values.lastName}
-                                                                onChange={handleChange}
-                                                                onBlur={handleBlur}
-                                                                className="form-control"
-                                                                id="basic-default-lastName"
-                                                                placeholder="John Doe" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="row mb-3">
-                                                        <label className="col-sm-2 col-form-label" htmlFor="basic-default-email">Email</label>
-                                                        <div className="col-sm-10">
-                                                            <div className="input-group input-group-merge">
-                                                                <input type="text"
-                                                                    name='email'
-                                                                    value={values.email}
-                                                                    onChange={handleChange}
-                                                                    onBlur={handleBlur}
-                                                                    id="basic-default-email"
-                                                                    className="form-control"
-                                                                    placeholder="john.doe" aria-label="john.doe" aria-describedby="basic-default-email2" />
-                                                                <span className="input-group-text" id="basic-default-email2">@example.com</span>
-                                                            </div>
-                                                            <div className="form-text"> You can use letters, numbers &amp; periods </div>
-                                                        </div>
-                                                    </div>
+                                                </div>
 
-                                                    <div className="row justify-content-end">
-                                                        <div className="col-sm-10">
-                                                            <button type="submit" className="btn btn-primary">Send</button>
-                                                        </div>
+                                                <div className="row justify-content-end">
+                                                    <div className="col-sm-10">
+                                                        <button type="submit" className="btn btn-primary">Send</button>
                                                     </div>
-                                                </form>
-                                            </div>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -238,5 +174,6 @@ export const UpdateUser = () => {
                 </div>
             </div>
         </div>
+
     )
 }

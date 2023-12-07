@@ -14,30 +14,10 @@ import { AdminSideNav } from './AdminSideNav'
 
 export const UpdateGroup = () => {
 
-    const [openMenu, setOpenMenu] = useState(null);
-    const [activeMenu, setActiveMenu] = useState('dashboards');
-    const [activeSubmenu, setActiveSubmenu] = useState(null);
-
+    
     const navigate = useNavigate();
-    const handleMenuEnter = (menuId) => {
-        setOpenMenu(menuId);
-    };
-
-    const handleMenuLeave = () => {
-        setOpenMenu(null);
-    };
-
-    const handleMenuClick = (menuId) => {
-        setActiveMenu((prevActiveMenu) => (prevActiveMenu === menuId ? null : menuId));
-        // setActiveMenu(menuId);
-    };
-
-    const handleSubmenuClick = (submenuId) => {
-        setActiveSubmenu(submenuId);
-    };
-
+    
     var id = useParams().id
-    const [alluser, setAllUser] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const initialValues = {
@@ -96,6 +76,7 @@ export const UpdateGroup = () => {
 
         getGroupData();
     }, [id, setValues]);
+    
     var ce = {
         display: "flex",
         justifyContent: "center",
@@ -130,8 +111,8 @@ export const UpdateGroup = () => {
                 <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
                 {/* <link rel="stylesheet" href='../assets/vendor/css/rtl/core.css' className="template-customizer-core-css" /> */}
                 {/* <link rel="stylesheet" href='../assets/vendor/css/rtl/theme-default.css' className="template-customizer-theme-css" /> */}
-                <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/core.css" className="template-customizer-core-css" />
-                <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/theme-default.css" className="template-customizer-theme-css" />
+                {/* <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/core.css" className="template-customizer-core-css" /> */}
+                {/* <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/theme-default.css" className="template-customizer-theme-css" /> */}
 
             </Helmet>
 
@@ -141,14 +122,14 @@ export const UpdateGroup = () => {
                     {/* <AdminNav /> */}
                     {/* <AdminNav2 /> */}
                     <AdminSideNav/>
-                    <div className="layout-page" style={{ marginTop: "60px" }}>
+                    <div className="layout-page" style={{ marginTop: "30px" }}>
                         <div className="content-wrapper">
                             <h6 className='d-flex'>
                                 <span className="text-muted fw-light">&emsp;&emsp; Dashboard </span>&nbsp; » Update User
                             </h6>
                             <div className="container-xxl flex-grow-1">
                                 <div className='row'>
-                                    <div className="col-xl-3 col-lg-5 col-md-5 order-1 order-md-0" style={{ position: 'fixed' }}>
+                                    {/* <div className="col-xl-3 col-lg-5 col-md-5 order-1 order-md-0" style={{ position: 'fixed' }}>
                                         <div className="card mb-4">
                                             <div className="card-body">
                                                 <h5 className="pb-2 border-bottom mb-4">Details</h5>
@@ -169,8 +150,8 @@ export const UpdateGroup = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1" style={{ marginLeft: "350px", width: "985px" }}>
+                                    </div> */}
+                                    <div className="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1" style={{ width: "985px" }}>
                                         <div className="card mb-4">
                                             <div className="card-header d-flex align-items-center justify-content-between">
                                                 <h5 className="mb-0">Basic Layout</h5> <small className="text-muted float-end">Default label</small>

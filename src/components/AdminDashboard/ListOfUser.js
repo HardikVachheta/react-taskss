@@ -4,32 +4,9 @@ import { Link } from 'react-router-dom';
 
 // import menuItems from '../data/nav2.json';
 import axios from 'axios';
-import AdminNav from './AdminNav';
-import { AdminNav2 } from './AdminNav2';
 import { AdminSideNav } from './AdminSideNav';
 
 export const ListOfUser = () => {
-
-    const [openMenu, setOpenMenu] = useState(null);
-    const [activeMenu, setActiveMenu] = useState('dashboards');
-    const [activeSubmenu, setActiveSubmenu] = useState(null);
-
-    const handleMenuEnter = (menuId) => {
-        setOpenMenu(menuId);
-    };
-
-    const handleMenuLeave = () => {
-        setOpenMenu(null);
-    };
-
-    const handleMenuClick = (menuId) => {
-        setActiveMenu((prevActiveMenu) => (prevActiveMenu === menuId ? null : menuId));
-        // setActiveMenu(menuId);
-    };
-
-    const handleSubmenuClick = (submenuId) => {
-        setActiveSubmenu(submenuId);
-    };
 
 
     const [alluser, setAllUser] = useState([]);
@@ -87,8 +64,8 @@ export const ListOfUser = () => {
                 <link rel="stylesheet" href="../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
                 <link rel="stylesheet" href="../assets/vendor/css/pages/app-logistics-dashboard.css" />
                 <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-                <link rel="stylesheet" href='../assets/vendor/css/rtl/core.css' className="template-customizer-core-css"/>
-                <link rel="stylesheet" href='../assets/vendor/css/rtl/theme-default.css' className="template-customizer-theme-css"/>
+                <link rel="stylesheet" href='../assets/vendor/css/rtl/core.css' className="template-customizer-core-css" />
+                <link rel="stylesheet" href='../assets/vendor/css/rtl/theme-default.css' className="template-customizer-theme-css" />
                 {/* <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/core.css" className="template-customizer-core-css" /> */}
                 {/* <link rel="stylesheet" type="text/css" href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/css/rtl/theme-default.css" className="template-customizer-theme-css" /> */}
 
@@ -98,10 +75,10 @@ export const ListOfUser = () => {
             {/* <div className="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu"> */}
             <div className="layout-wrapper layout-content-navbar">
                 <div className="layout-container">
-                    {/* <AdminNav /> */}
-                    {/* <AdminNav2/> */}
-                    <AdminSideNav/>
-                    <div className="layout-page" style={{ marginTop: "60px" }}>
+                    <div style={{ position: "fixed" }}>
+                        <AdminSideNav />
+                    </div>
+                    <div className="layout-page" style={{ marginTop: "30px" }}>
                         <div className="content-wrapper">
                             <h6 className='d-flex'>
                                 <span class="text-muted fw-light">&emsp;&emsp; Dashboard </span>&nbsp; » Users
@@ -127,7 +104,7 @@ export const ListOfUser = () => {
 
                                     <div className="card-datatable table-responsive">
                                         <div id="DataTables_Table_0_wrapper" className="dataTables_wrapper dt-bootstrap5 no-footer">
-                                            <table className="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style={{ width: 1301 }}>
+                                            <table className="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
                                                 <thead>
                                                     <tr>
                                                         <th className="control sorting_disabled dtr-hidden" rowSpan={1} colSpan={1} style={{ width: 50 }} aria-label="" >User id</th>
@@ -174,14 +151,14 @@ export const ListOfUser = () => {
                                                                         </td>
                                                                         <td>
                                                                             <div className="d-inline-block text-nowrap">
-                                                                                <Link to={`/AdminDashboard/UpdateUser/${u.user.id}`}  title="Edit User" style={{ color: '#697a8d' }} id="myButton">
+                                                                                <Link to={`/AdminDashboard/UpdateUser2/${u.user.id}`}  title="Edit User" style={{ color: '#697a8d' }} id="myButton">
                                                                                     <i className="bx bx-edit me-0 me-sm-1"></i>
                                                                                 </Link>
-                                                                                {/* <Link to={`/AdminDashboard/UpdateUser/${u.user.id}`} style={{ color: '#697a8d' }}>Edit</Link> */}
+                                                                                {/* <Link to={`/AdminDashboard/UpdateUser2/${u.user.id}`} style={{ color: '#697a8d' }}>Edit</Link> */}
                                                                                 <button className="btn btn-sm btn-icon delete-record">
                                                                                     <i className="bx bx-trash" onClick={() => { getUserDelete(u.user.id) }} />
                                                                                 </button>                                                                
-                                                                                
+
                                                                             </div>
                                                                         </td>
 
@@ -197,7 +174,7 @@ export const ListOfUser = () => {
                                                         )
                                                     }
                                                 </tbody>
-                                            </table>                                           
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
