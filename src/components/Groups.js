@@ -226,7 +226,6 @@ export const Groups = () => {
     const toggleCollapse = (sectionId, sectionName) => {
         getGroupsData()
         setGroupTaskid(sectionId)
-        // getGroupTaskData(sectionId)
         setName1(sectionName)
         console.log(sectionId)
         if (activeSection === sectionId) {
@@ -247,11 +246,9 @@ export const Groups = () => {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
                 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
                 <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-                {/* <script src="script.js"></script> */}
                 <link rel="stylesheet" href="../assets/vendor/css/rtl/core.css" className="template-customizer-core-css" />
                 <link rel="stylesheet" href="../assets/vendor/css/theme-dark-default.css" className="template-customizer-theme-css" />
                 <link rel="stylesheet" href="../assets/css/demo.css" />
-                {/* <script src="../assets/vendor/js/helpers.js"></script> */}
                 <script src="https://www.google.com/search?q=google+25th+birthday&sca_esv=568736477&hl=en&sxsrf=AM9HkKlPU9o2kBne2uX3Ga2OJePIn3ejQA%3A1695795130309&source=hp&ei=uscTZcXPEIzv1e8P2KS20Ak&iflsig=AO6bgOgAAAAAZRPVyuCL_BGDh-lTqSjvlV2QeG90mhPC&oq=google+25&gs_lp=Egdnd3Mtd2l6Iglnb29nbGUgMjUqAggAMgsQABiABBixAxiDATILEAAYgAQYsQMYgwEyDRAAGIoFGLEDGIMBGAoyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGAMyBBAAGANI9CpQAFj8HnABeACQAQCYAdYCoAHpD6oBBzAuNy4yLjG4AQPIAQD4AQHCAgcQIxiKBRgnwgIEECMYJ8ICDRAAGIoFGLEDGIMBGEPCAggQABiKBRiRAsICDhAAGIoFGLEDGIMBGJECwgITEC4YigUYsQMYgwEYxwEY0QMYQ8ICDRAuGIoFGMcBGNEDGEPCAgcQABiKBRhDwgIUEC4YigUYsQMYgwEYxwEY0QMYkQLCAgcQIxixAhgnwgITEC4YgAQYsQMYgwEYxwEY0QMYCsICCxAAGIoFGLEDGIMBwgINEAAYgAQYsQMYgwEYCsICChAAGIAEGLEDGAo&sclient=gws-wiz"></script>
                 <link rel="stylesheet" href="../assets/css/demo.css" />
                 <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
@@ -267,15 +264,9 @@ export const Groups = () => {
 
                     <h4 className="fc-toolbar-title" id="fc-dom-1" style={{ marginTop: "15px" }}>
                         Groups List &nbsp;
-
-                        <Link data-bs-toggle="modal" data-bs-target="#basicModal" title="Add Task" style={{ color: 'black' }}
-                            id="myButton">
-                            {/* <i className="bx bx-plus me-0 me-sm-1"></i> */}
-                        </Link>
-
                     </h4>
                     {isLoading ? (
-                        <div style={{ display:'flex' , justifyContent: "center", alignItems: "center", margin: "10px" }}>
+                        <div style={{ display: 'flex', justifyContent: "center", alignItems: "center", margin: "10px" }}>
                             <PuffLoader color="#696cff" size={30} />
                         </div>
                     ) : (
@@ -286,7 +277,7 @@ export const Groups = () => {
                                 hasMore={hasMore}
                                 loader={
                                     dataSource.length !== 0 ? (
-                                        <div style={{ display:'flex' , justifyContent: "center", alignItems: "center", margin: "10px" }}>
+                                        <div style={{ display: 'flex', justifyContent: "center", alignItems: "center", margin: "10px" }}>
                                             <PuffLoader color="#696cff" size={30} />
                                         </div>) : (<></>)
                                 }
@@ -296,7 +287,7 @@ export const Groups = () => {
                                 {dataSource.length !== 0 ? (
                                     dataSource?.map((u, index) => {
 
-                                        const { name, id, created, processDefinitionId } = data[index % data.length]; // Use data from JSON
+                                        const { name, id, created } = data[index % data.length]; 
 
                                         return (
                                             <li key={id} className="menu-item bs-toast toast fade show" style={{ margin: "5px", width: "300px" }}>
@@ -376,7 +367,6 @@ export const Groups = () => {
                                                         onClick={() => handleButtonClick('Diagram')}
                                                     >
                                                         <i className="bx bx-id-card me-1"></i> Diagram
-                                                        {/* <i className="bx bx-link-alt me-1"></i> Diagram */}
                                                     </Link>
                                                 </li>
                                                 <li className="nav-item">
@@ -397,12 +387,8 @@ export const Groups = () => {
                                                         <i className="bx bx-link-alt me-1"></i> Document
                                                     </Link>
                                                 </li>
-                                                {/* <li className="nav-item">
-                                                    
-                                                </li> */}
                                             </ul>
                                             <hr />
-
                                         </div>
                                     </div>
                                     <div className="row">
@@ -422,19 +408,16 @@ export const Groups = () => {
                                                             <div className="card mb-4">
                                                                 <div className="card-datatable table-responsive">
                                                                     <div id="DataTables_Table_0_wrapper" className="dataTables_wrapper dt-bootstrap5 no-footer">
-                                                                        <table className="datatables-order-details table dataTable no-footer dtr-column" id="DataTables_Table_0" style={{ width: "709px;" }}>
+                                                                        <table className="datatables-order-details table dataTable no-footer dtr-column" id="DataTables_Table_0" style={{ width: "709px" }}>
                                                                             <tbody>
                                                                                 {
                                                                                     groupHistoryData.map((u) => {
                                                                                         return (
                                                                                             <tr className="odd">
-                                                                                                <td className="control dtr-hidden" tabIndex="0" style={{ display: "none;" }}></td>
-                                                                                                {/* <td className="  dt-checkboxes-cell"><input type="checkbox" className="dt-checkboxes form-check-input"/></td> */}
+                                                                                                <td className="control dtr-hidden" tabIndex="0" style={{ display: "none" }}></td>
                                                                                                 <td className="sorting_1">
                                                                                                     <div className="d-flex justify-content-start align-items-center text-nowrap">
-                                                                                                        {/* <div className="avatar-wrapper">
-                                                                                            <div className="avatar me-2"><img src="../../assets/img/products/woodenchair.png" alt="product-Wooden Chair" className="rounded-2"/></div>
-                                                                                        </div> */}
+
                                                                                                         <div className="d-flex flex-column">
                                                                                                             <h6 className="text-body mb-0">{u.userId}</h6>
                                                                                                             <small className="text-muted">{formattedDate(u.timestamp)}</small>
@@ -442,7 +425,6 @@ export const Groups = () => {
                                                                                                     </div>
                                                                                                 </td>
                                                                                                 <td><span>{formattedTime(u.timestamp)}</span></td>
-                                                                                                {/* <td className="" ><span className="text-body">2</span></td> */}
                                                                                                 <td className="" >
                                                                                                     <h6 className="mb-0">{u.operationType}</h6>
                                                                                                 </td>
@@ -468,7 +450,7 @@ export const Groups = () => {
                                                     <div style={{ height: "60vh" }}>
                                                         {/* {getDiaId + "++++" + getDiakey} */}
                                                         {isLoading ? (
-                                                            <div style={{ display:'flex' , justifyContent: "center", alignItems: "center", margin: "10px" }}>
+                                                            <div style={{ display: 'flex', justifyContent: "center", alignItems: "center", margin: "10px" }}>
                                                                 <PuffLoader color="#696cff" size={30} />
                                                             </div>
                                                         ) : (
@@ -487,11 +469,7 @@ export const Groups = () => {
                                             )}
                                             {activeButton === 'Document' && (
                                                 <div>
-                                                    {/* {tname} */}
-                                                    {/* Content for Document Page goes here. */}
-                                                    {/* {tname.map((u)=>{
-                                                        return u.name
-                                                    })} */}
+
                                                 </div>
                                             )}
                                         </div>

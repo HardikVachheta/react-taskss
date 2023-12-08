@@ -52,9 +52,10 @@ function App() {
 
         <Route path='/Dashboard' element={<ProtectedRoutes Component={Dashboard} />} />
         <Route path='/taskbar' element={<ProtectedRoutes Component={Taskbar} />} />
-        <Route path='/TaskbarPages/:id' element={<ProtectedRoutes Component={TaskbarPages} />} />
         <Route path='/TaskbarPages' element={<ProtectedRoutes Component={TaskbarPages} />} />
+        <Route path='/TaskbarPages/:id' element={<ProtectedRoutes Component={TaskbarPages} />} />
         <Route path='/CompletedTask' element={<ProtectedRoutes Component={CompletedTask} />} />
+        <Route path='/CompletedTask/:id' element={<ProtectedRoutes Component={CompletedTask} />} />
         <Route path='/AutoPages/:id' element={<ProtectedRoutes Component={AutoPages} />} />
         <Route path='/TaskbarPages/*' element={<Error />} />
         <Route path='/Groups' element={<ProtectedRoutes Component={Groups} />} />

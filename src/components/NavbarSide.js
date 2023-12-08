@@ -1,30 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import newnav from '../data/nav.json'
 
 export const NavbarSide = () => {
 
-    // const [passwordType, setPasswordType] = useState("false");
-    const [selectedValue, setSelectedValue] = useState(null);
-    const [getLink, setLink] = useState(null);
+    // const [selectedValue, setSelectedValue] = useState(null);
+    // const [getLink, setLink] = useState(null);
     var navigate = useNavigate()
-    // const togglePassword = () => {
-    //     if (passwordType === "false") {
-    //         setPasswordType("true")
-    //         return;
-    //     }
-    //     setPasswordType("false")
-    // }
     // ================================================================================
     const location = useLocation();
     const pathname = location.pathname;
+    // const pathname1 = location.hash;
 
     const isTaskbarPages = location.pathname.includes('TaskbarPages');
     const isDashboard = location.pathname.includes('Dashboard') || location.pathname.includes('ProcessDefinition')
     const isGroups = location.pathname.includes('Groups');
     const isCompletedTask = location.pathname.includes('CompletedTask');
-
+    // console.log("Pages Name:", pathname1);
     var page
     if (isTaskbarPages === true) {
         page = '/TaskbarPages'
@@ -44,11 +37,11 @@ export const NavbarSide = () => {
     }
     useEffect(() => {
         const parts = pathname.split('/');
-        const taskbarpagesName = parts[parts.length - 1]; // Get the last part of the pathname
+        // const taskbarpagesName = parts[parts.length - 1]; // Get the last part of the pathname
         // console.log("Pages Name:", taskbarpagesName);
         // console.log("TaskbarPages pathname:", pathname);
-        setSelectedValue(pathname);
-        setLink(parts[parts.length - 1])
+        // setSelectedValue(pathname);
+        // setLink(parts[parts.length - 1])
     }, [pathname]);
     // ================================================================================
 
@@ -57,10 +50,7 @@ export const NavbarSide = () => {
     };
 
     return (
-        // <div className="d-flex">
         <aside id="layout-menu" className="layout-menu menu-vertical menu bg-menu-theme">
-
-            {/* data-bg-className="bg-menu-theme" style={{ height: "92vh" }}> */}
             <Helmet>
 
                 <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
@@ -80,29 +70,20 @@ export const NavbarSide = () => {
 
             </Helmet>
             <div className="app-brand demo">
-                {/* <Link href="javascript:void(0);" className="nav-item menu-link text-large"> */}
-                    {/* <i className="bx bx-menu bx-sm align-middle"></i> */}
-                {/* </Link> */}
-                {/* <Link href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
-                </Link> */}
                 <Link to="#" className="app-brand-link">
                     <span className="app-brand-text demo menu-text fw-bolder ms-2">Hardik</span>
                 </Link>
-                {/* <a href="javascript:void(0);" className="layout-menu-toggle menu-link text-large ms-auto">hardik</a> */}
-
             </div>
             <div className="menu-inner-shadow"></div>
 
             <ul className="menu-inner py-1 overflow-auto">
-                {/* <ul className="menu-inner py-1" style={{overflowY:"scroll",overflowX:'hidden',maxHeight:" var(--bs-scroll-height, 100vh)"}}> */}
                 {
                     newnav.navItems.map((item, index) => {
                         return (
                             <>
                                 <li
                                     className={`menu-item ${item.link === page ? 'active' : ''}  ${item.isOpen ? 'open' : ''} `}
-                                    key={item.link}>
+                                    key={index}>
                                     <Link to={item.link} className={`menu-link ${item.children ? "menu-toggle" : ''}`} onClick={() => toggleMenu(item)}>
                                         <i className={`menu-icon tf-icons ${item.icon}`}></i>
                                         <div data-i18n="Analytics">{item.name}</div>
