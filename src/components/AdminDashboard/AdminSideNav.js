@@ -44,7 +44,7 @@ export const AdminSideNav = () => {
             autoHideTimeout={1000}
             autoHideDuration={200}
             style={{ width: 260, height: `${containerHeight }px` }}
-            id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" data-bg-class="bg-menu-theme">
+            id="layout-menu" className="layout-menu menu-vertical menu bg-menu-theme" data-bg-className="bg-menu-theme">
             <Helmet>
                 <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -62,83 +62,83 @@ export const AdminSideNav = () => {
                 <link rel="stylesheet" href="../assets/vendor/css/rtl/core.css" className="template-customizer-core-css" />
             </Helmet>
 
-            <div class="app-brand demo ">
-                <Link to='/Dashboard' class="app-brand-link">
-                    <span class="app-brand-logo demo">
+            <div className="app-brand demo ">
+                <Link to='/Dashboard' className="app-brand-link">
+                    <span className="app-brand-logo demo">
                     </span>
-                    <span class="app-brand-text demo menu-text fw-bold ms-2">Hardik</span>
+                    <span className="app-brand-text demo menu-text fw-bold ms-2">Hardik</span>
                 </Link>
 
-                <Link href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
-                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                <Link href="javascript:void(0);" className="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
+                    <i className="bx bx-chevron-left bx-sm align-middle"></i>
                 </Link>
             </div>
 
-            <div class="menu-inner-shadow"></div>
+            <div className="menu-inner-shadow"></div>
 
 
 
-            <ul class="menu-inner py-1" style={{ height: `${containerHeight - 75}px` }}>
+            <ul className="menu-inner py-1" style={{ height: `${containerHeight - 75}px` }}>
 
-                <li class={`menu-item ${activeItem === 'dashboard' ? 'active' : ''}`}>
-                    <Link to='/AdminDashboard' class="menu-link" onClick={() => handleMenuItemClick('dashboard')}>
-                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <li className={`menu-item ${activeItem === 'dashboard' ? 'active' : ''}`}>
+                    <Link to='/AdminDashboard' className="menu-link" onClick={() => handleMenuItemClick('dashboard')}>
+                        <i className="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Dashboards">Dashboards</div>
-                        {/* <div class="badge bg-danger rounded-pill ms-auto">5</div> */}
+                        {/* <div className="badge bg-danger rounded-pill ms-auto">5</div> */}
                     </Link>
                 </li>
 
-                <li class={`menu-item ${activeItem === 'user' ? 'active' : ''} ${isOpen ? 'open' : ''} `}>
-                    <a href="javascript:void(0);" class="menu-link menu-toggle" onClick={() => handleSubMenuToggle()}>
-                        <i class="menu-icon tf-icons bx bx-layout"></i>
+                <li className={`menu-item ${activeItem === 'user' ? 'active' : ''} ${isOpen ? 'open' : ''} `}>
+                    <a href="javascript:void(0);" className="menu-link menu-toggle" onClick={() => handleSubMenuToggle()}>
+                        <i className="menu-icon tf-icons bx bx-layout"></i>
                         <div data-i18n="Layouts">User</div>
                     </a>
 
-                    <ul class="menu-sub">
-                        <li class={`menu-item ${activeSubMenu === 'createUser' ? 'active' : ''}`}>
-                            <Link to='/AdminDashboard/CreateUser' class="menu-link" onClick={() => (handleSubMenuClick('createUser') )}>
+                    <ul className="menu-sub">
+                        <li className={`menu-item ${activeSubMenu === 'createUser' ? 'active' : ''}`}>
+                            <Link to='/AdminDashboard/CreateUser' className="menu-link" onClick={() => (handleSubMenuClick('createUser') )}>
                                 <div data-i18n="Without menu">Create User</div>
                             </Link>
                         </li>
-                        <li class={`menu-item ${activeSubMenu === 'userList' ? 'active' : ''}`}>
-                            <Link to='/AdminDashboard/ListUser' class="menu-link" onClick={() => (handleSubMenuClick('userList') )}>
+                        <li className={`menu-item ${activeSubMenu === 'userList' ? 'active' : ''}`}>
+                            <Link to='/AdminDashboard/ListUser' className="menu-link" onClick={() => (handleSubMenuClick('userList') )}>
                                 <div data-i18n="Without navbar">User List</div>
                             </Link>
                         </li>
-                        <li class={`menu-item ${activeSubMenu === 'myProfile' ? 'active' : ''}`}>
-                            <Link to={`/AdminDashboard/UpdateUser2/${id}`} class="menu-link" onClick={() => (handleSubMenuClick('myProfile') )}>
+                        <li className={`menu-item ${activeSubMenu === 'myProfile' ? 'active' : ''}`}>
+                            <Link to={`/AdminDashboard/UpdateUser2/${id}`} className="menu-link" onClick={() => (handleSubMenuClick('myProfile') )}>
                                 <div data-i18n="Container">My Profile</div>
                             </Link>
                         </li>
                     </ul>
                 </li>
 
-                <li class={`menu-item ${activeItem === 'group' ? 'active' : ''} ${isOpen ? 'open' : ''} `}>
-                    <a href="javascript:void(0);" class="menu-link menu-toggle" onClick={() => handleSubMenuToggle()}>
-                        <i class="menu-icon tf-icons bx bx-layout"></i>
+                <li className={`menu-item ${activeItem === 'group' ? 'active' : ''} ${isOpen ? 'open' : ''} `}>
+                    <a href="javascript:void(0);" className="menu-link menu-toggle" onClick={() => handleSubMenuToggle()}>
+                        <i className="menu-icon tf-icons bx bx-layout"></i>
                         <div data-i18n="Layouts">Group</div>
                     </a>
 
-                    <ul class="menu-sub">
-                        <li class={`menu-item ${activeSubMenu === 'createGroup' ? 'active' : ''}`}>
-                            <Link to='/AdminDashboard/CreateGroup' class="menu-link" onClick={() => (handleSubMenuClick('createGroup') )}>
+                    <ul className="menu-sub">
+                        <li className={`menu-item ${activeSubMenu === 'createGroup' ? 'active' : ''}`}>
+                            <Link to='/AdminDashboard/CreateGroup' className="menu-link" onClick={() => (handleSubMenuClick('createGroup') )}>
                                 <div data-i18n="Without menu">Create group</div>
                             </Link>
                         </li>
-                        <li class={`menu-item ${activeSubMenu === 'groupList' ? 'active' : ''}`}>
-                            <Link to='/AdminDashboard/ListGroup' class="menu-link" onClick={() => (handleSubMenuClick('groupList') )}>
+                        <li className={`menu-item ${activeSubMenu === 'groupList' ? 'active' : ''}`}>
+                            <Link to='/AdminDashboard/ListGroup' className="menu-link" onClick={() => (handleSubMenuClick('groupList') )}>
                                 <div data-i18n="Without navbar">Group List</div>
                             </Link>
                         </li>
                     </ul>
                 </li>
 
-                {/* <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li> */}
+                {/* <li className="menu-header small text-uppercase"><span className="menu-header-text">Components</span></li> */}
 
-                <li class="menu-item">
-                    <Link href="cards-basic.html" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-collection"></i>
-                        <div data-i18n="Basic">Cards</div>
+                <li className={`menu-item ${activeItem === 'Charts' ? 'active' : ''} `}>
+                    <Link to="/AdminDashboard/Charts" className="menu-link" onClick={() => handleMenuItemClick('Charts')}>
+                        <i className="menu-icon tf-icons bx bx-chat"></i>
+                        <div data-i18n="Basic">Charts</div>
                     </Link>
                 </li>
 
