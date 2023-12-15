@@ -1,37 +1,13 @@
 import { useFormik } from 'formik';
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { createUserSchema } from '../../schemas';
 import axios from 'axios';
-import AdminNav from './AdminNav';
-import { AdminNav2 } from './AdminNav2';
 import { AdminSideNav } from './AdminSideNav';
 
 export const CreateUser = () => {
-
-
-    const [openMenu, setOpenMenu] = useState(null);
-    const [activeMenu, setActiveMenu] = useState('dashboards');
-    const [activeSubmenu, setActiveSubmenu] = useState(null);
-
-    const handleMenuEnter = (menuId) => {
-        setOpenMenu(menuId);
-    };
-
-    const handleMenuLeave = () => {
-        setOpenMenu(null);
-    };
-
-    const handleMenuClick = (menuId) => {
-        setActiveMenu((prevActiveMenu) => (prevActiveMenu === menuId ? null : menuId));
-        // setActiveMenu(menuId);
-    };
-
-    const handleSubmenuClick = (submenuId) => {
-        setActiveSubmenu(submenuId);
-    };
 
     const initialValues = {
         id: "",

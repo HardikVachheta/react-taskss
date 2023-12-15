@@ -1,14 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet'
-import menuItems from '../../data/nav2.json';
-// import { Nav, NavDropdown } from 'react-bootstrap';
-import { Nav, Navbar, Dropdown } from 'react-bootstrap';
-import AdminNav from './AdminNav';
 import { Link, useParams } from 'react-router-dom';
-import { AdminNav2 } from './AdminNav2';
 import { AdminSideNav } from './AdminSideNav';
-import TempSideNav from './TempSideNav';
-
 export const AdminDashboard = () => {
 
     var id = localStorage.getItem("userId")
