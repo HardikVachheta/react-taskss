@@ -32,6 +32,7 @@ import { UpdateUser2 } from './components/AdminDashboard/UpdateUser2';
 import { UpdateGroup2 } from './components/AdminDashboard/UpdateGroup2';
 import { CompletedTask } from './components/CompletedTask';
 import { Charts } from './components/AdminDashboard/Charts';
+import { ChartMain } from './components/AdminDashboard/ChartMain';
 
 function App() {
   <Helmet>
@@ -79,6 +80,7 @@ function App() {
         <Route path='/AdminDashboard/UpdateGroup2/:id' element={<ProtectedRoutes Component={UpdateGroup2} />} />
 
         <Route path='/AdminDashboard/Charts' element={<ProtectedRoutes Component={Charts} />} />
+        <Route path='/AdminDashboard/ChartMain' element={<ProtectedRoutes Component={ChartMain} />} />
       </Routes>
     </div>
   );

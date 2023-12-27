@@ -32,6 +32,10 @@ export const Login = () => {
                 if (res.data.authenticated === true) {
                     localStorage.setItem("userId", res.data.authenticatedUser)
                     localStorage.setItem("authenticated", res.data.authenticated)
+                    localStorage.setItem(
+                        process.env.REACT_APP_LOCALHOST_KEY,
+                        JSON.stringify(res.data)
+                      );
                     Swal.fire({
                         title: 'Login Successful',
                         icon: 'success',

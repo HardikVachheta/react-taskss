@@ -1,6 +1,6 @@
 .app-chat {
 	position: relative;
-	height: calc(100vh - 11rem)
+	height: calc(100vh - 3.5rem)
 }
 
 .layout-navbar-hidden .app-chat {
@@ -9,7 +9,7 @@
 
 @media(min-width: 1200px) {
 	.layout-horizontal .app-chat {
-		height: calc(100vh - 11rem - 2rem)
+		height: calc(100vh - 3.5rem - 2rem)
 	}
 }
 
@@ -32,7 +32,7 @@
 .app-chat .app-chat-contacts {
 	position: absolute;
 	left: calc(-21rem - 1rem);
-	height: calc(100vh - 11rem);
+	height: calc(100vh - 3.5rem);
 	width: 21rem;
 	flex-basis: 21rem;
 	transition: all .25s ease
@@ -44,7 +44,7 @@
 
 @media(min-width: 1200px) {
 	.layout-horizontal .app-chat .app-chat-contacts {
-		height: calc(100vh - 11rem - 2rem)
+		height: calc(100vh - 3.5rem - 2rem)
 	}
 }
 
@@ -59,7 +59,7 @@
 }
 
 .app-chat .app-chat-contacts .sidebar-body {
-	height: calc(calc(100vh - 11rem) - 4.49rem)
+	height: calc(calc(100vh - 3.5rem) - 10rem)
 }
 
 .layout-navbar-hidden .app-chat .app-chat-contacts .sidebar-body {
@@ -68,7 +68,7 @@
 
 @media(min-width: 1200px) {
 	.layout-horizontal .app-chat .app-chat-contacts .sidebar-body {
-		height: calc(calc(100vh - 11rem) - 4.49rem - 2rem)
+		height: calc(calc(100vh - 3.5rem) - 10rem - 2rem)
 	}
 }
 
@@ -112,7 +112,7 @@
 	top: 0;
 	left: calc(-21rem - 1rem);
 	width: 21rem;
-	height: calc(100vh - 11rem);
+	height: calc(100vh - 3.5rem);
 	opacity: 0;
 	z-index: 5;
 	transition: all .25s ease
@@ -124,7 +124,7 @@
 
 @media(min-width: 1200px) {
 	.layout-horizontal .app-chat .app-chat-sidebar-left {
-		height: calc(100vh - 11rem - 2rem)
+		height: calc(100vh - 3.5rem - 2rem)
 	}
 }
 
@@ -134,7 +134,7 @@
 }
 
 .app-chat .app-chat-sidebar-left .sidebar-body {
-	height: calc(calc(100vh - 11rem) - 11.7rem)
+	height: calc(calc(100vh - 3.5rem) - 11.7rem)
 }
 
 .layout-navbar-hidden .app-chat .app-chat-sidebar-left .sidebar-body {
@@ -143,13 +143,13 @@
 
 @media(min-width: 1200px) {
 	.layout-horizontal .app-chat .app-chat-sidebar-left .sidebar-body {
-		height: calc(calc(100vh - 11rem) - 11.7rem - 2rem)
+		height: calc(calc(100vh - 3.5rem) - 11.7rem - 2rem)
 	}
 }
 
 .app-chat .app-chat-history {
 	position: relative;
-	height: calc(100vh - 11rem);
+	height: calc(100vh - 3.5rem);
 	transition: all .25s ease
 }
 
@@ -159,7 +159,7 @@
 
 @media(min-width: 1200px) {
 	.layout-horizontal .app-chat .app-chat-history {
-		height: calc(100vh - 11rem - 2rem)
+		height: calc(100vh - 3.5rem - 2rem)
 	}
 }
 
@@ -172,7 +172,7 @@
 }
 
 .app-chat .app-chat-history .chat-history-body {
-	height: calc(100vh - 20.8rem);
+	height: calc(100vh - 13rem);
 	padding: 1.25rem 1.25rem;
 	overflow: hidden
 }
@@ -183,7 +183,7 @@
 
 @media(min-width: 1200px) {
 	.layout-horizontal .app-chat .app-chat-history .chat-history-body {
-		height: calc(100vh - 20.8rem - 2rem)
+		height: calc(100vh - 13rem - 2rem)
 	}
 }
 
@@ -233,7 +233,7 @@
 	top: 0;
 	right: calc(-21rem - 1rem);
 	width: 21rem;
-	height: calc(100vh - 11rem);
+	height: calc(100vh - 3.5rem);
 	opacity: 0;
 	z-index: 5;
 	transition: all .25s ease
@@ -245,7 +245,7 @@
 
 @media(min-width: 1200px) {
 	.layout-horizontal .app-chat .app-chat-sidebar-right {
-		height: calc(100vh - 11rem - 2rem)
+		height: calc(100vh - 3.5rem - 2rem)
 	}
 }
 
@@ -255,7 +255,7 @@
 }
 
 .app-chat .app-chat-sidebar-right .sidebar-body {
-	height: calc(calc(100vh - 11rem) - 11.5rem)
+	height: calc(calc(100vh - 3.5rem) - 11.5rem)
 }
 
 .layout-navbar-hidden .app-chat .app-chat-sidebar-right .sidebar-body {
@@ -264,7 +264,7 @@
 
 @media(min-width: 1200px) {
 	.layout-horizontal .app-chat .app-chat-sidebar-right .sidebar-body {
-		height: calc(calc(100vh - 11rem) - 11.5rem - 2rem)
+		height: calc(calc(100vh - 3.5rem) - 11.5rem - 2rem)
 	}
 }
 

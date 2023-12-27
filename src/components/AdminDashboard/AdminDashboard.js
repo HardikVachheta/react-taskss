@@ -7,7 +7,7 @@ export const AdminDashboard = () => {
     var id = localStorage.getItem("userId")
     // console.log("id", id)
     return (
-        <div lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
+        <div lang="en" className="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
             <Helmet>
                 <title> Admin Dashboard </title>
                 <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
