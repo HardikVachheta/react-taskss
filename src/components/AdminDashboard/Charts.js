@@ -8,9 +8,12 @@ import { io } from "socket.io-client";
 export const Charts = () => {
 
     var userId = localStorage.getItem("userId")
-   
-    var userId2 =  JSON.parse(localStorage.getItem("chat-app-current-user"));
-    console.log(userId2._id.$oid)
+
+    var clientId = '658c245750f0993278fc0dad'
+
+    var clientId2 = '658c0b6d50f0993278fc0da4'
+    var userId2 = JSON.parse(localStorage.getItem("chat-app-current-user"));
+    // console.log(userId2._id.$oid)
 
     const navigate = useNavigate();
     const socket = useRef();
@@ -68,48 +71,62 @@ export const Charts = () => {
     const scrollRef = useRef();
     const [arrivalMessage, setArrivalMessage] = useState(null);
 
-    // useEffect(() => {
-    //     const data = userId;
-    //     const response = axios.post('http://localhost:3000/api/getmsg', {
-    //         from: data,
-    //         to: currentChat,
-    //     });
-    //     setMessages(response.data);
-    // }, [currentChat]);
+    useEffect(async () => {
+        const data = clientId;
+        const response =await axios.post('http://localhost:3000/api/getmsg', {
+            from: "658c245750f0993278fc0dad",
+            to: "658c0b6d50f0993278fc0da4",
+        });
+        console.log("response",response.data)
+        setMessages(response);
+    }, [clientId2]);
+    console.log("messages", messages)
 
-    // useEffect(() => {
-    //     const getCurrentChat = () => {
-    //         if (currentChat) {
-    //             userId;
-    //         }
-    //     };
-    //     getCurrentChat();
-    // }, [currentChat]);
+    useEffect(() => {
+        const getCurrentChat = () => {
+            if (clientId) {
+                clientId2;
+            }
+        };
+        getCurrentChat();
+    }, [clientId]);
 
     const sendChat = (event) => {
         event.preventDefault();
         if (msg.length > 0) {
+            console.log("msg", msg)
             handleSendMsg(msg);
             setMsg("");
         }
     };
 
-    const handleSendMsg = (msg) => {
-        const data = userId2;
-        socket.current.emit("send-msg", {
-            to: currentChat._id.$oid,
-            from: data,
-            msg,
-        });
-        axios.post('http://localhost:3000/api/addmsg', {
-            from: data,
-            to: currentChat._id.$oid,
-            message: msg,
-        });
+    const handleSendMsg = async (msg) => {
+        try {
+            const data = clientId2;
+            socket.current.emit("send-msg", {
+                to: clientId,
+                from: data,
+                msg,
+            });
+            await axios.post('http://localhost:3000/api/addmsg', {
+                from: data,
+                to: clientId,
+                message: msg,
+            });
+            console.log("clientId msg", clientId)
 
-        const msgs = [...messages];
-        msgs.push({ fromSelf: true, message: msg });
-        setMessages(msgs);
+            const msgs = [...messages];
+            msgs.push({ fromSelf: true, message: msg });
+            setMessages(msgs);
+        } catch (error) {
+            // Handle AxiosError
+            if (axios.isAxiosError(error)) {
+                console.error('Axios Error:', error.response || error.message);
+            } else {
+                // Handle other errors
+                console.error('Error:', error.message);
+            }
+        }
     };
 
     // useEffect(() => {
