@@ -9,9 +9,8 @@ export const Charts = () => {
 
     var userId = localStorage.getItem("userId")
 
-    var clientId = '658c245750f0993278fc0dad'
-
-    var clientId2 = '658c0b6d50f0993278fc0da4'
+    var hardik_User = userId
+    
     var userId2 = JSON.parse(localStorage.getItem("chat-app-current-user"));
     // console.log(userId2._id.$oid)
 
@@ -22,10 +21,12 @@ export const Charts = () => {
     const [currentChat, setCurrentChat] = useState(undefined);
     const [currentUser, setCurrentUser] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
+    var demo_User = 'demo'
 
     const changeCurrentChat = (index, contact) => {
         setCurrentSelected(index);
         setCurrentChat(contact);
+        getFunction()
     };
 
     useEffect(() => {
@@ -40,7 +41,7 @@ export const Charts = () => {
     useEffect(() => {
         getAllUser()
         setCurrentUser(userId)
-    }, [])
+    }, [userId])
 
     const getAllUser = async () => {
         await axios.get("http://localhost:3000/api/user/alluser").then((response) => {
@@ -71,25 +72,56 @@ export const Charts = () => {
     const scrollRef = useRef();
     const [arrivalMessage, setArrivalMessage] = useState(null);
 
-    useEffect(async () => {
-        const data = clientId;
-        const response =await axios.post('http://localhost:3000/api/getmsg', {
-            from: "658c245750f0993278fc0dad",
-            to: "658c0b6d50f0993278fc0da4",
+    // useEffect(async () => {
+    //     const data = demo_User;
+    //     const response = await axios.post('http://localhost:3000/api/getmsg', {
+    //         from: demo_User,
+    //         to: hardik_User,
+    //     });
+    //     console.log("response", response.data)
+    //     // if (response?.data) {
+    //         setMessages(response.data);
+    //     // }
+    // }, []);
+    const getFunction = async () => {
+        console.log("getFunction")
+        const data = hardik_User;
+        const response = await axios.post('http://localhost:3000/api/getmsg', {
+            from: data,
+            to: demo_User,
         });
-        console.log("response",response.data)
-        setMessages(response);
-    }, [clientId2]);
-    console.log("messages", messages)
+        console.log("response", response.data)
+        // if (response?.data) {
+        setMessages(response.data);
+        // }
+    }
+    // useEffect(async () => {
+    //     try {
+    //         const response = await axios.post('http://localhost:3000/api/getmsg', {
+    //             from: demo_User,
+    //             to: hardik_User,
+    //         });
 
-    useEffect(() => {
-        const getCurrentChat = () => {
-            if (clientId) {
-                clientId2;
-            }
-        };
-        getCurrentChat();
-    }, [clientId]);
+    //         // Ensure that response.data is defined before setting messages
+    //         // if (response?.data) {
+    //         //     setMessages(response.data);
+    //         // }
+    //     } catch (error) {
+    //         console.error('Error fetching messages:', error.message);
+    //     }
+    // }, []);
+
+
+    // console.log("messages", messages)
+
+    // useEffect(() => {
+    //     const getCurrentChat = async () => {
+    //         if (demo_User) {
+    //             hardik_User;
+    //         }
+    //     };
+    //     getCurrentChat();
+    // }, [demo_User]);
 
     const sendChat = (event) => {
         event.preventDefault();
@@ -102,22 +134,23 @@ export const Charts = () => {
 
     const handleSendMsg = async (msg) => {
         try {
-            const data = clientId2;
+            const data = hardik_User;
             socket.current.emit("send-msg", {
-                to: clientId,
+                to: demo_User,
                 from: data,
                 msg,
             });
             await axios.post('http://localhost:3000/api/addmsg', {
                 from: data,
-                to: clientId,
+                to: demo_User,
                 message: msg,
             });
-            console.log("clientId msg", clientId)
+            console.log("demo_User msg", demo_User)
 
-            const msgs = [...messages];
-            msgs.push({ fromSelf: true, message: msg });
-            setMessages(msgs);
+
+            const updatedMessages = [...messages, { fromSelf: true, message: msg }];
+            setMessages(updatedMessages);
+
         } catch (error) {
             // Handle AxiosError
             if (axios.isAxiosError(error)) {
@@ -129,21 +162,21 @@ export const Charts = () => {
         }
     };
 
-    // useEffect(() => {
-    //     if (socket.current) {
-    //         socket.current.on("msg-recieve", (msg) => {
-    //             setArrivalMessage({ fromSelf: false, message: msg });
-    //         });
-    //     }
-    // }, []);
+    useEffect(() => {
+        if (socket.current) {
+            socket.current.on("msg-recieve", (msg) => {
+                setArrivalMessage({ fromSelf: false, message: msg });
+            });
+        }
+    }, []);
 
-    // useEffect(() => {
-    //     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
-    // }, [arrivalMessage]);
+    useEffect(() => {
+        arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
+    }, [arrivalMessage]);
 
-    // useEffect(() => {
-    //     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-    // }, [messages]);
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
 
 
     return (
@@ -207,7 +240,8 @@ export const Charts = () => {
                                                     {
                                                         alluser?.map((u, index) => {
                                                             return (
-                                                                <li className={`chat-contact-list-item ${index === currentSelected ? "active" : ""}`} key={index} onClick={() => changeCurrentChat(index, u)}>
+                                                                <li className={`chat-contact-list-item ${index === currentSelected ? "active" : ""}`} key={index}
+                                                                    onClick={() => changeCurrentChat(index, u)}>
                                                                     <a className="d-flex align-items-center">
                                                                         <div className="flex-shrink-0 avatar avatar-online">
                                                                             <img src="../../assets/img/avatars/2.png" alt="Avatar" className="rounded-circle" />
@@ -223,10 +257,10 @@ export const Charts = () => {
                                                         })
                                                     }
                                                 </ul>
-                                                <div className="ps__rail-x" style={{ left: '0px', bottom: '0px' }}><div className="ps__thumb-x" tabIndex={0} style={{ left: '0px', width: '0px' }} /></div>
-                                                <div className="ps__rail-y" style={{ top: '0px', height: '359px', right: '0px' }}>
+                                                {/* <div className="ps__rail-x" style={{ left: '0px', bottom: '0px' }}><div className="ps__thumb-x" tabIndex={0} style={{ left: '0px', width: '0px' }} /></div> */}
+                                                {/* <div className="ps__rail-y" style={{ top: '0px', height: '359px', right: '0px' }}>
                                                     <div className="ps__thumb-y" tabIndex={0} style={{ top: '0px', height: '120px' }} />
-                                                </div>
+                                                </div> */}
                                             </div>
                                             <div style={{
                                                 display: 'flex',
@@ -247,7 +281,7 @@ export const Charts = () => {
                                                                 <img src="../../assets/img/avatars/2.png" alt="Avatar" className="rounded-circle" />
                                                             </div>
                                                             <div className="chat-contact-info flex-grow-1 ms-3">
-                                                                <h6 className="chat-contact-name text-truncate m-0" style={{ textAlign: "left", color: "#fff" }}>Hardik</h6>
+                                                                <h6 className="chat-contact-name text-truncate m-0" style={{ textAlign: "left", color: "#fff" }}>{userId}</h6>
                                                             </div>
                                                         </a>
                                                     </li>
@@ -289,59 +323,65 @@ export const Charts = () => {
                                                         </div>
                                                     </div>
                                                     <div className="chat-history-body ps ps--active-y">
-                                                        {/* <ul className="list-unstyled chat-history mb-0">
-                                                        {currentChat === undefined ? (
-                                                            <div>No data </div>
-                                                        ) : (
-                                                            <>  {messages.map((message) => {
-                                                                return (
-                                                                    <>
-                                                                        {
-                                                                            message.fromSelf ? (<li className="chat-message chat-message-right" ref={scrollRef}>
-                                                                                <div className="d-flex overflow-hidden">
-                                                                                    <div className="chat-message-wrapper flex-grow-1">
-                                                                                        <div className="chat-message-text">
-                                                                                            <p className="mb-0">{message.message}</p>
-                                                                                        </div>
-                                                                                        <div className="text-end text-muted mt-1">
-                                                                                            <i className="bx bx-check-double text-success" />
-                                                                                            <small>10:00 AM</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div className="user-avatar flex-shrink-0 ms-3">
-                                                                                        <div className="avatar avatar-sm">
-                                                                                            <img src="../../assets/img/avatars/1.png" alt="Avatar" className="rounded-circle" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </li>
-                                                                            ) : (
-                                                                                <li className="chat-message" ref={scrollRef}>
+                                                        <ul className="list-unstyled chat-history mb-0">
+                                                            {currentChat === undefined ? (
+                                                                <div>No data </div>
+                                                            ) : (
+                                                                <>  {messages.map((message) => {
+                                                                    return (
+                                                                        <>
+                                                                            {
+                                                                                message.fromSelf ? (<li className="chat-message chat-message-right" ref={scrollRef}>
                                                                                     <div className="d-flex overflow-hidden">
-                                                                                        <div className="user-avatar flex-shrink-0 me-3">
-                                                                                            <div className="avatar avatar-sm">
-                                                                                                <img src="../../assets/img/avatars/2.png" alt="Avatar" className="rounded-circle" />
-                                                                                            </div>
-                                                                                        </div>
                                                                                         <div className="chat-message-wrapper flex-grow-1">
                                                                                             <div className="chat-message-text">
                                                                                                 <p className="mb-0">{message.message}</p>
                                                                                             </div>
-                                                                                            <div className="text-muted mt-1">
-                                                                                                <small>10:02 AM</small>
+                                                                                            <div className="text-end text-muted mt-1">
+                                                                                                <i className="bx bx-check-double text-success" />
+                                                                                                <small>10:00 AM</small>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div className="user-avatar flex-shrink-0 ms-3">
+                                                                                            <div className="avatar avatar-sm">
+                                                                                                <img src="../../assets/img/avatars/1.png" alt="Avatar" className="rounded-circle" />
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </li>
-                                                                            )
-                                                                        }
-                                                                    </>
-                                                                );
-                                                            })}
-                                                            </>
-                                                        )}
-                                                    </ul> */}
-                                                        <div className="ps__rail-x" style={{ left: '0px', bottom: '-672px' }}><div className="ps__thumb-x" tabIndex={0} style={{ left: '0px', width: '0px' }} /></div><div className="ps__rail-y" style={{ top: '672px', height: '426px', right: '0px' }}><div className="ps__thumb-y" tabIndex={0} style={{ top: '261px', height: '165px' }} /></div></div>
+                                                                                ) : (
+                                                                                    <li className="chat-message" ref={scrollRef}>
+                                                                                        <div className="d-flex overflow-hidden">
+                                                                                            <div className="user-avatar flex-shrink-0 me-3">
+                                                                                                <div className="avatar avatar-sm">
+                                                                                                    <img src="../../assets/img/avatars/2.png" alt="Avatar" className="rounded-circle" />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div className="chat-message-wrapper flex-grow-1">
+                                                                                                <div className="chat-message-text">
+                                                                                                    <p className="mb-0">{message.message}</p>
+                                                                                                </div>
+                                                                                                <div className="text-muted mt-1">
+                                                                                                    <small>10:02 AM</small>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                )
+                                                                            }
+                                                                        </>
+                                                                    );
+                                                                })}
+                                                                </>
+                                                            )}
+                                                        </ul>
+                                                        {/* <div className="ps__rail-x" style={{ left: '0px', bottom: '-672px' }}>
+                                                            <div className="ps__thumb-x" tabIndex={0} style={{ left: '0px', width: '0px' }} />
+                                                        </div>
+                                                        <div className="ps__rail-y" style={{ top: '672px', height: '426px', right: '0px' }}>
+                                                            <div className="ps__thumb-y" tabIndex={0} style={{ top: '261px', height: '165px' }} />
+                                                        </div> */}
+                                                    </div>
 
                                                     <div className="chat-history-footer">
                                                         <form className="form-send-message d-flex justify-content-between align-items-center "
