@@ -11,7 +11,7 @@ export const Charts = () => {
 
     var hardik_User = userId
     
-    var userId2 = JSON.parse(localStorage.getItem("chat-app-current-user"));
+    // var userId2 = JSON.parse(localStorage.getItem("chat-app-current-user"));
     // console.log(userId2._id.$oid)
 
     const navigate = useNavigate();
@@ -21,27 +21,31 @@ export const Charts = () => {
     const [currentChat, setCurrentChat] = useState(undefined);
     const [currentUser, setCurrentUser] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
-    var demo_User = 'demo'
+    var demo_User = currentChat?.userId
 
     const changeCurrentChat = (index, contact) => {
         setCurrentSelected(index);
+        console.log("changeCurrentChat",contact)
         setCurrentChat(contact);
-        getFunction()
+        getFunction(contact)
     };
+
+    
+    useEffect(() => {
+        getAllUser()
+        setCurrentUser(userId)
+    }, [userId])
 
     useEffect(() => {
         if (currentUser) {
             socket.current = io("http://localhost:3000");
             socket.current.emit("add-user", currentUser);
+            console.log("socketio add-user",currentUser)
         }
-    }, []);
+    }, [currentUser]);
 
     const [alluser, setAllUser] = useState([]);
 
-    useEffect(() => {
-        getAllUser()
-        setCurrentUser(userId)
-    }, [userId])
 
     const getAllUser = async () => {
         await axios.get("http://localhost:3000/api/user/alluser").then((response) => {
@@ -73,22 +77,23 @@ export const Charts = () => {
     const [arrivalMessage, setArrivalMessage] = useState(null);
 
     // useEffect(async () => {
-    //     const data = demo_User;
+    //     // const data = demo_User;
     //     const response = await axios.post('http://localhost:3000/api/getmsg', {
-    //         from: demo_User,
-    //         to: hardik_User,
+    //         from: hardik_User,
+    //         to: currentChat?.userId,
     //     });
     //     console.log("response", response.data)
     //     // if (response?.data) {
     //         setMessages(response.data);
     //     // }
     // }, []);
-    const getFunction = async () => {
+    const getFunction = async (contact) => {
         console.log("getFunction")
         const data = hardik_User;
+        console.log(data)
         const response = await axios.post('http://localhost:3000/api/getmsg', {
             from: data,
-            to: demo_User,
+            to: contact?.userId,
         });
         console.log("response", response.data)
         // if (response?.data) {
@@ -126,7 +131,7 @@ export const Charts = () => {
     const sendChat = (event) => {
         event.preventDefault();
         if (msg.length > 0) {
-            console.log("msg", msg)
+            // console.log("msg", msg)
             handleSendMsg(msg);
             setMsg("");
         }
@@ -136,16 +141,19 @@ export const Charts = () => {
         try {
             const data = hardik_User;
             socket.current.emit("send-msg", {
-                to: demo_User,
                 from: data,
+                to: currentChat?.userId,
                 msg,
             });
+            // console.log("socketio send-msg",msg)
+            // console.log("socketio from", data)
+            // console.log("socketio to",currentChat?.userId)
+
             await axios.post('http://localhost:3000/api/addmsg', {
                 from: data,
-                to: demo_User,
+                to: currentChat?.userId,
                 message: msg,
             });
-            console.log("demo_User msg", demo_User)
 
 
             const updatedMessages = [...messages, { fromSelf: true, message: msg }];
@@ -160,11 +168,14 @@ export const Charts = () => {
                 console.error('Error:', error.message);
             }
         }
-    };
+    }; 
 
     useEffect(() => {
-        if (socket.current) {
+        // console.log("socket msg-recieve")
+        if (socket?.current) {
+            console.log("socket msg-recieve inside")
             socket.current.on("msg-recieve", (msg) => {
+                console.log("Main socket",msg)
                 setArrivalMessage({ fromSelf: false, message: msg });
             });
         }
@@ -327,11 +338,11 @@ export const Charts = () => {
                                                             {currentChat === undefined ? (
                                                                 <div>No data </div>
                                                             ) : (
-                                                                <>  {messages.map((message) => {
+                                                                <>  {messages.map((message,index) => {
                                                                     return (
                                                                         <>
                                                                             {
-                                                                                message.fromSelf ? (<li className="chat-message chat-message-right" ref={scrollRef}>
+                                                                                message.fromSelf ? (<li className="chat-message chat-message-right" ref={scrollRef} key={index}>
                                                                                     <div className="d-flex overflow-hidden">
                                                                                         <div className="chat-message-wrapper flex-grow-1">
                                                                                             <div className="chat-message-text">
