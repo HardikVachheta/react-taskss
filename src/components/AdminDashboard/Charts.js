@@ -38,6 +38,7 @@ export const Charts = () => {
 
     useEffect(() => {
         if (currentUser) {
+            // console.log("socketio before add-user",currentUser)
             socket.current = io("http://localhost:3000");
             socket.current.emit("add-user", currentUser);
             console.log("socketio add-user",currentUser)
@@ -88,9 +89,9 @@ export const Charts = () => {
     //     // }
     // }, []);
     const getFunction = async (contact) => {
-        console.log("getFunction")
+        console.log("getFunction",contact?.userId)
         const data = hardik_User;
-        console.log(data)
+        // console.log(data)
         const response = await axios.post('http://localhost:3000/api/getmsg', {
             from: data,
             to: contact?.userId,
@@ -99,6 +100,12 @@ export const Charts = () => {
         // if (response?.data) {
         setMessages(response.data);
         // }
+        // ...................................................
+        socket.current.on("msg-recieve", (msg) => {
+            console.log("Main socket",msg)
+            setArrivalMessage({ fromSelf: false, message: msg });
+        });
+        // ...................................................
     }
     // useEffect(async () => {
     //     try {
@@ -145,7 +152,7 @@ export const Charts = () => {
                 to: currentChat?.userId,
                 msg,
             });
-            // console.log("socketio send-msg",msg)
+            // console.log("socketio send-msg",msg) 
             // console.log("socketio from", data)
             // console.log("socketio to",currentChat?.userId)
 
