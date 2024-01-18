@@ -10,9 +10,6 @@ export const Charts = () => {
     var userId = localStorage.getItem("userId")
 
     var hardik_User = userId
-    
-    // var userId2 = JSON.parse(localStorage.getItem("chat-app-current-user"));
-    // console.log(userId2._id.$oid)
 
     const navigate = useNavigate();
     const socket = useRef();
@@ -38,7 +35,6 @@ export const Charts = () => {
 
     useEffect(() => {
         if (currentUser) {
-            // console.log("socketio before add-user",currentUser)
             socket.current = io("http://localhost:3000");
             socket.current.emit("add-user", currentUser);
             console.log("socketio add-user",currentUser)
@@ -96,16 +92,16 @@ export const Charts = () => {
             from: data,
             to: contact?.userId,
         });
-        console.log("response", response.data)
-        // if (response?.data) {
-        setMessages(response.data);
-        // }
-        // ...................................................
+
         socket.current.on("msg-recieve", (msg) => {
             console.log("Main socket",msg)
             setArrivalMessage({ fromSelf: false, message: msg });
         });
-        // ...................................................
+
+        console.log("response", response.data)
+        // if (response?.data) {
+        setMessages(response.data);
+        // }
     }
     // useEffect(async () => {
     //     try {
