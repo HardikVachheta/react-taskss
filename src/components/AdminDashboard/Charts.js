@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AdminSideNav } from './AdminSideNav';
 import { Helmet } from 'react-helmet';
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { io } from "socket.io-client";
 
@@ -11,23 +10,23 @@ export const Charts = () => {
 
     var hardik_User = userId
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const socket = useRef();
     const [msg, setMsg] = useState("");
-    const [contacts, setContacts] = useState([]);
+    // const [contacts, setContacts] = useState([]);
     const [currentChat, setCurrentChat] = useState(undefined);
     const [currentUser, setCurrentUser] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
-    var demo_User = currentChat?.userId
+    // var demo_User = currentChat?.userId
 
     const changeCurrentChat = (index, contact) => {
         setCurrentSelected(index);
-        console.log("changeCurrentChat",contact)
+        console.log("changeCurrentChat", contact)
         setCurrentChat(contact);
         getFunction(contact)
     };
 
-    
+
     useEffect(() => {
         getAllUser()
         setCurrentUser(userId)
@@ -37,7 +36,7 @@ export const Charts = () => {
         if (currentUser) {
             socket.current = io("http://localhost:3000");
             socket.current.emit("add-user", currentUser);
-            console.log("socketio add-user",currentUser)
+            console.log("socketio add-user", currentUser)
         }
     }, [currentUser]);
 
@@ -85,7 +84,7 @@ export const Charts = () => {
     //     // }
     // }, []);
     const getFunction = async (contact) => {
-        console.log("getFunction",contact?.userId)
+        console.log("getFunction", contact?.userId)
         const data = hardik_User;
         // console.log(data)
         const response = await axios.post('http://localhost:3000/api/getmsg', {
@@ -94,7 +93,7 @@ export const Charts = () => {
         });
 
         socket.current.on("msg-recieve", (msg) => {
-            console.log("Main socket",msg)
+            console.log("Main socket", msg)
             setArrivalMessage({ fromSelf: false, message: msg });
         });
 
@@ -171,14 +170,14 @@ export const Charts = () => {
                 console.error('Error:', error.message);
             }
         }
-    }; 
+    };
 
     useEffect(() => {
         // console.log("socket msg-recieve")
         if (socket?.current) {
             console.log("socket msg-recieve inside")
             socket.current.on("msg-recieve", (msg) => {
-                console.log("Main socket",msg)
+                console.log("Main socket", msg)
                 setArrivalMessage({ fromSelf: false, message: msg });
             });
         }
@@ -192,7 +191,13 @@ export const Charts = () => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
+    // Assuming message.createdAt is a string representing a date, parse it into a Date object
+    // const createdAtDate = new Date(message.createdAt);
 
+    // // Format the date to display only hour and minute in IST (Indian Standard Time)
+    // const formattedTime = createdAtDate.toLocaleTimeString('en-IN', { hour: 'numeric', minute: 'numeric', timeZone: 'Asia/Kolkata' });
+
+    
     return (
         <div lang="en" className="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
             <Helmet>
@@ -285,7 +290,6 @@ export const Charts = () => {
                                                 cursor: 'pointer',
                                                 borderRadius: '.375rem',
                                                 backgroundColor: "rgb(66 69 219)"
-                                                // backgroundColor: "#696cff",
 
                                             }}>
                                                 <ul className="list-unstyled chat-contact-list pt-1" id="chat-list">
@@ -317,23 +321,6 @@ export const Charts = () => {
                                                                     <small className="user-status text-muted">NextJS developer</small>
                                                                 </div>
                                                             </div>
-                                                            {/* <div className="d-flex align-items-center">
-                                                            <i className="bx bx-phone-call cursor-pointer d-sm-block d-none me-3 fs-4" />
-                                                            <i className="bx bx-video cursor-pointer d-sm-block d-none me-3 fs-4" />
-                                                            <i className="bx bx-search cursor-pointer d-sm-block d-none me-3 fs-4" />
-                                                            <div className="dropdown">
-                                                                <button className="btn p-0" type="button" id="chat-header-actions" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    <i className="bx bx-dots-vertical-rounded fs-4" />
-                                                                </button>
-                                                                <div className="dropdown-menu dropdown-menu-end" aria-labelledby="chat-header-actions">
-                                                                    <a className="dropdown-item" href="javascript:void(0);">View Contact</a>
-                                                                    <a className="dropdown-item" href="javascript:void(0);">Mute Notifications</a>
-                                                                    <a className="dropdown-item" href="javascript:void(0);">Block Contact</a>
-                                                                    <a className="dropdown-item" href="javascript:void(0);">Clear Chat</a>
-                                                                    <a className="dropdown-item" href="javascript:void(0);">Report</a>
-                                                                </div>
-                                                            </div>
-                                                        </div> */}
                                                         </div>
                                                     </div>
                                                     <div className="chat-history-body ps ps--active-y">
@@ -341,20 +328,27 @@ export const Charts = () => {
                                                             {currentChat === undefined ? (
                                                                 <div>No data </div>
                                                             ) : (
-                                                                <>  {messages.map((message,index) => {
+                                                                <>  {messages.map((message, index) => {
+                                                                    const formattedTime = new Date(message.createdAt).toLocaleTimeString('en-IN', { hour: 'numeric', minute: 'numeric', timeZone: 'Asia/Kolkata' });
+
                                                                     return (
                                                                         <>
                                                                             {
                                                                                 message.fromSelf ? (<li className="chat-message chat-message-right" ref={scrollRef} key={index}>
-                                                                                    <div className="d-flex overflow-hidden">
+                                                                                    <div className="d-flex overflow-hidden" style={{ maxWidth: 'calc(100% - 15%)' }}>
                                                                                         <div className="chat-message-wrapper flex-grow-1">
-                                                                                            <div className="chat-message-text">
-                                                                                                <p className="mb-0">{message.message}</p>
+                                                                                            <div className="chat-message-text" style={{ textAlign: "justify" }}>
+                                                                                                <p className="mb-0 mb-0 text-break">{message.message}
+                                                                                                    <p className="mb-0 mb-0" style={{ textAlign: "right" }}>
+                                                                                                        {/* <small>10:00 AM &nbsp; */}
+                                                                                                        {/* <small>{formattedTime}&nbsp; */}
+                                                                                                        <small>{message?.createdAt}&nbsp;
+                                                                                                            <i className="bx bx-check-double text-success" />
+                                                                                                        </small>
+                                                                                                    </p>
+                                                                                                </p>
                                                                                             </div>
-                                                                                            <div className="text-end text-muted mt-1">
-                                                                                                <i className="bx bx-check-double text-success" />
-                                                                                                <small>10:00 AM</small>
-                                                                                            </div>
+
                                                                                         </div>
                                                                                         <div className="user-avatar flex-shrink-0 ms-3">
                                                                                             <div className="avatar avatar-sm">
@@ -365,18 +359,19 @@ export const Charts = () => {
                                                                                 </li>
                                                                                 ) : (
                                                                                     <li className="chat-message" ref={scrollRef}>
-                                                                                        <div className="d-flex overflow-hidden">
+                                                                                        <div className="d-flex overflow-hidden" style={{ maxWidth: 'calc(100% - 15%)' }}>
                                                                                             <div className="user-avatar flex-shrink-0 me-3">
                                                                                                 <div className="avatar avatar-sm">
                                                                                                     <img src="../../assets/img/avatars/2.png" alt="Avatar" className="rounded-circle" />
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div className="chat-message-wrapper flex-grow-1">
-                                                                                                <div className="chat-message-text">
-                                                                                                    <p className="mb-0">{message.message}</p>
-                                                                                                </div>
-                                                                                                <div className="text-muted mt-1">
-                                                                                                    <small>10:02 AM</small>
+                                                                                                <div className="chat-message-text" style={{ textAlign: "justify" }}>
+                                                                                                    <p className="mb-0 mb-0 text-break">{message.message}
+                                                                                                        <p className="mb-0 mb-0" style={{ textAlign: "right" }}>
+                                                                                                            <small>10:00 AM</small>
+                                                                                                        </p>
+                                                                                                    </p>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -428,42 +423,6 @@ export const Charts = () => {
 
                             <div className="content-backdrop fade" />
                         </div>
-
-                        {/* <div class="content-wrapper">
-                            <div className="container-xxl flex-grow-1 container-p-y">
-                                <div className='row'>
-                                    <textarea
-                                        value={message}
-                                        onChange={(e) => setMessage(e.target.value)}
-                                        placeholder="Type your message..."
-                                    />
-                                    <button onClick={sendMessage}>Send</button>
-
-                                    {/* Display chat messages */}
-                        {/* <ul>
-                                        {messages.map((msg, index) => (
-                                            <li key={index}>{msg}</li>
-                                        ))}
-                                    </ul> */}
-                        {/* <input
-                                        placeholder="Room Number..."
-                                        onChange={(event) => {
-                                            setRoom(event.target.value);
-                                        }}
-                                    />
-                                    <button onClick={joinRoom}> Join Room</button>
-                                    <input
-                                        placeholder="Message..."
-                                        onChange={(event) => {
-                                            setMessage(event.target.value);
-                                        }}
-                                    />
-                                    <button onClick={sendMessage}> Send Message</button>
-                                    <h1> Message:</h1>
-                                    {messageReceived} */}
-                        {/* </div>
-                            </div>
-                        </div> */}
                     </div>
                 </div>
             </div>

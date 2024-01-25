@@ -142,6 +142,13 @@ export const AdminSideNav = () => {
                     </Link>
                 </li>
 
+                <li className={`menu-item ${activeItem === 'TestCode' ? 'active' : ''} `}>
+                    <Link to="/AdminDashboard/FindDuplicatesAndMissing" className="menu-link" onClick={() => handleMenuItemClick('TestCode')}>
+                        <i className="menu-icon tf-icons bx bx-chat"></i>
+                        <div data-i18n="Basic">Test Code</div>
+                    </Link>
+                </li>
+
             </ul>
 
         </Scrollbars>

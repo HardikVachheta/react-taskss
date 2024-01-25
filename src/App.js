@@ -33,6 +33,7 @@ import { UpdateGroup2 } from './components/AdminDashboard/UpdateGroup2';
 import { CompletedTask } from './components/CompletedTask';
 import { Charts } from './components/AdminDashboard/Charts';
 import { ChartMain } from './components/AdminDashboard/ChartMain';
+import FindDuplicatesAndMissing from './components/Testing/FindDuplicatesAndMissing';
 
 function App() {
   <Helmet>
@@ -81,6 +82,7 @@ function App() {
 
         <Route path='/AdminDashboard/Charts' element={<ProtectedRoutes Component={Charts} />} />
         <Route path='/AdminDashboard/ChartMain' element={<ProtectedRoutes Component={ChartMain} />} />
+        <Route path='/AdminDashboard/FindDuplicatesAndMissing' element={<ProtectedRoutes Component={FindDuplicatesAndMissing} />} />
       </Routes>
     </div>
   );
