@@ -27,6 +27,7 @@
     "formik": "^2.4.4",
     "formiojs": "^4.17.2",
     "js-confetti": "^0.11.0",
+    "perfect-scrollbar": "^1.5.5",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-bpmn": "^0.2.0",
@@ -48,6 +49,7 @@
     "sweetalert": "^2.1.2",
     "sweetalert-react": "^0.4.11",
     "sweetalert2": "^11.7.27",
+    "uuid": "^9.0.1",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"
   },

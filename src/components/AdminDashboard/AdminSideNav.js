@@ -136,9 +136,9 @@ export const AdminSideNav = () => {
                 {/* <li className="menu-header small text-uppercase"><span className="menu-header-text">Components</span></li> */}
 
                 <li className={`menu-item ${activeItem === 'Charts' ? 'active' : ''} `}>
-                    <Link to="/AdminDashboard/Charts" className="menu-link" onClick={() => handleMenuItemClick('Charts')}>
+                    <Link to="/AdminDashboard/Chats" className="menu-link" onClick={() => handleMenuItemClick('Charts')}>
                         <i className="menu-icon tf-icons bx bx-chat"></i>
-                        <div data-i18n="Basic">Charts</div>
+                        <div data-i18n="Basic">Chats</div>
                     </Link>
                 </li>
 

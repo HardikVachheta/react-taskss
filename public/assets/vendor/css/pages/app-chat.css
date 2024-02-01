@@ -174,7 +174,7 @@
 .app-chat .app-chat-history .chat-history-body {
 	height: calc(100vh - 13rem);
 	padding: 1.25rem 1.25rem;
-	overflow: hidden
+	overflow: auto
 }
 
 .layout-navbar-hidden .app-chat .app-chat-history .chat-history-body {

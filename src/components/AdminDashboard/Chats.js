@@ -1,10 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+// import PerfectScrollbar from 'perfect-scrollbar';
+// import 'perfect-scrollbar/css/perfect-scrollbar.css';
 import { AdminSideNav } from './AdminSideNav';
 import { Helmet } from 'react-helmet';
 import axios from "axios";
 import { io } from "socket.io-client";
+import { v4 as uuidv4 } from "uuid";
 
-export const Charts = () => {
+
+export const Chats = () => {
 
     var userId = localStorage.getItem("userId")
 
@@ -72,17 +76,6 @@ export const Charts = () => {
     const scrollRef = useRef();
     const [arrivalMessage, setArrivalMessage] = useState(null);
 
-    // useEffect(async () => {
-    //     // const data = demo_User;
-    //     const response = await axios.post('http://localhost:3000/api/getmsg', {
-    //         from: hardik_User,
-    //         to: currentChat?.userId,
-    //     });
-    //     console.log("response", response.data)
-    //     // if (response?.data) {
-    //         setMessages(response.data);
-    //     // }
-    // }, []);
     const getFunction = async (contact) => {
         console.log("getFunction", contact?.userId)
         const data = hardik_User;
@@ -93,47 +86,21 @@ export const Charts = () => {
         });
 
         socket.current.on("msg-recieve", (msg) => {
+            const timestamp = new Date();
             console.log("Main socket", msg)
-            setArrivalMessage({ fromSelf: false, message: msg });
+            setArrivalMessage({ fromSelf: false, message: msg, createdAt: timestamp });
+            console.log("arrivalMessage", arrivalMessage)
         });
 
         console.log("response", response.data)
-        // if (response?.data) {
+
         setMessages(response.data);
-        // }
+
     }
-    // useEffect(async () => {
-    //     try {
-    //         const response = await axios.post('http://localhost:3000/api/getmsg', {
-    //             from: demo_User,
-    //             to: hardik_User,
-    //         });
-
-    //         // Ensure that response.data is defined before setting messages
-    //         // if (response?.data) {
-    //         //     setMessages(response.data);
-    //         // }
-    //     } catch (error) {
-    //         console.error('Error fetching messages:', error.message);
-    //     }
-    // }, []);
-
-
-    // console.log("messages", messages)
-
-    // useEffect(() => {
-    //     const getCurrentChat = async () => {
-    //         if (demo_User) {
-    //             hardik_User;
-    //         }
-    //     };
-    //     getCurrentChat();
-    // }, [demo_User]);
 
     const sendChat = (event) => {
         event.preventDefault();
         if (msg.length > 0) {
-            // console.log("msg", msg)
             handleSendMsg(msg);
             setMsg("");
         }
@@ -142,14 +109,15 @@ export const Charts = () => {
     const handleSendMsg = async (msg) => {
         try {
             const data = hardik_User;
-            socket.current.emit("send-msg", {
+            const timestamp = new Date(); // Get the current timestamp
+            const messageObject = {
                 from: data,
                 to: currentChat?.userId,
                 msg,
-            });
-            // console.log("socketio send-msg",msg) 
-            // console.log("socketio from", data)
-            // console.log("socketio to",currentChat?.userId)
+                createdAt: timestamp.toISOString(), // Convert timestamp to a string
+            };
+
+            socket.current.emit("send-msg", messageObject);
 
             await axios.post('http://localhost:3000/api/addmsg', {
                 from: data,
@@ -158,7 +126,7 @@ export const Charts = () => {
             });
 
 
-            const updatedMessages = [...messages, { fromSelf: true, message: msg }];
+            const updatedMessages = [...messages, { fromSelf: true, message: msg, createdAt: timestamp }];
             setMessages(updatedMessages);
 
         } catch (error) {
@@ -173,15 +141,24 @@ export const Charts = () => {
     };
 
     useEffect(() => {
-        // console.log("socket msg-recieve")
+
         if (socket?.current) {
             console.log("socket msg-recieve inside")
+
             socket.current.on("msg-recieve", (msg) => {
+                const timestamp = new Date();
                 console.log("Main socket", msg)
-                setArrivalMessage({ fromSelf: false, message: msg });
+                setArrivalMessage({ fromSelf: false, message: msg, createdAt: timestamp });
+                console.log("arrivalMessage", arrivalMessage)
+                // scrollToBottom();
             });
         }
-    }, []);
+    }, [arrivalMessage]);
+
+    //   useEffect(() => {
+    //     // Scroll to the bottom when messages change
+    //     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    //   }, [messages]);
 
     useEffect(() => {
         arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
@@ -189,15 +166,18 @@ export const Charts = () => {
 
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages]);
+      }, [messages]);
 
-    // Assuming message.createdAt is a string representing a date, parse it into a Date object
-    // const createdAtDate = new Date(message.createdAt);
+    // useEffect(() => {
+    //     scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    // }, [messages]);
 
-    // // Format the date to display only hour and minute in IST (Indian Standard Time)
-    // const formattedTime = createdAtDate.toLocaleTimeString('en-IN', { hour: 'numeric', minute: 'numeric', timeZone: 'Asia/Kolkata' });
 
-    
+    const formatTimestamp = (timestamp) => {
+        const options = { hour: '2-digit', minute: '2-digit' };
+        return new Date(timestamp).toLocaleTimeString('en-IN', options);
+    };
+
     return (
         <div lang="en" className="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
             <Helmet>
@@ -323,18 +303,18 @@ export const Charts = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="chat-history-body ps ps--active-y">
-                                                        <ul className="list-unstyled chat-history mb-0">
+                                                    <div className="chat-history-body">
+                                                        <ul className="list-unstyled chat-history mb-0" >
+                                                            
                                                             {currentChat === undefined ? (
                                                                 <div>No data </div>
                                                             ) : (
                                                                 <>  {messages.map((message, index) => {
-                                                                    const formattedTime = new Date(message.createdAt).toLocaleTimeString('en-IN', { hour: 'numeric', minute: 'numeric', timeZone: 'Asia/Kolkata' });
-
                                                                     return (
                                                                         <>
                                                                             {
-                                                                                message.fromSelf ? (<li className="chat-message chat-message-right" ref={scrollRef} key={index}>
+                                                                                message.fromSelf ? (<li className="chat-message chat-message-right" key={index}>
+                                                                                    {/* //  message.fromSelf ? (<li className="chat-message chat-message-right" ref={scrollRef} key={index}> */}
                                                                                     <div className="d-flex overflow-hidden" style={{ maxWidth: 'calc(100% - 15%)' }}>
                                                                                         <div className="chat-message-wrapper flex-grow-1">
                                                                                             <div className="chat-message-text" style={{ textAlign: "justify" }}>
@@ -342,9 +322,10 @@ export const Charts = () => {
                                                                                                     <p className="mb-0 mb-0" style={{ textAlign: "right" }}>
                                                                                                         {/* <small>10:00 AM &nbsp; */}
                                                                                                         {/* <small>{formattedTime}&nbsp; */}
-                                                                                                        <small>{message?.createdAt}&nbsp;
+                                                                                                        <small>{formatTimestamp(message.createdAt)}&nbsp;
                                                                                                             <i className="bx bx-check-double text-success" />
                                                                                                         </small>
+                                                                                                        {/* <small>{formatTimestamp(message.createdAt)}</small> */}
                                                                                                     </p>
                                                                                                 </p>
                                                                                             </div>
@@ -358,7 +339,8 @@ export const Charts = () => {
                                                                                     </div>
                                                                                 </li>
                                                                                 ) : (
-                                                                                    <li className="chat-message" ref={scrollRef}>
+                                                                                    <li className="chat-message">
+                                                                                        {/* // <li className="chat-message" ref={scrollRef}> */}
                                                                                         <div className="d-flex overflow-hidden" style={{ maxWidth: 'calc(100% - 15%)' }}>
                                                                                             <div className="user-avatar flex-shrink-0 me-3">
                                                                                                 <div className="avatar avatar-sm">
@@ -369,7 +351,9 @@ export const Charts = () => {
                                                                                                 <div className="chat-message-text" style={{ textAlign: "justify" }}>
                                                                                                     <p className="mb-0 mb-0 text-break">{message.message}
                                                                                                         <p className="mb-0 mb-0" style={{ textAlign: "right" }}>
-                                                                                                            <small>10:00 AM</small>
+                                                                                                            {message.fromSelf === false && (
+                                                                                                                <small>{formatTimestamp(message.createdAt)}</small>
+                                                                                                            )}
                                                                                                         </p>
                                                                                                     </p>
                                                                                                 </div>
@@ -384,6 +368,7 @@ export const Charts = () => {
                                                                 </>
                                                             )}
                                                         </ul>
+                                                        <div ref={scrollRef} />
                                                         {/* <div className="ps__rail-x" style={{ left: '0px', bottom: '-672px' }}>
                                                             <div className="ps__thumb-x" tabIndex={0} style={{ left: '0px', width: '0px' }} />
                                                         </div>
