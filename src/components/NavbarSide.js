@@ -5,6 +5,8 @@ import newnav from '../data/nav.json'
 
 export const NavbarSide = () => {
 
+    var username = localStorage.getItem("userId");
+    // console.log("username",username)
     // const [selectedValue, setSelectedValue] = useState(null);
     // const [getLink, setLink] = useState(null);
     var navigate = useNavigate()
@@ -71,7 +73,7 @@ export const NavbarSide = () => {
             </Helmet>
             <div className="app-brand demo">
                 <Link to="#" className="app-brand-link">
-                    <span className="app-brand-text demo menu-text fw-bolder ms-2">Hardik</span>
+                    <span className="app-brand-text demo menu-text fw-bolder ms-2" style={{textTransform:"capitalize"}}>{username}</span>
                 </Link>
             </div>
             <div className="menu-inner-shadow"></div>
