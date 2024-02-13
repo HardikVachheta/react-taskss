@@ -17,6 +17,7 @@ const PieChart = ({ data, options }) => (
 
 export const Dashboard = () => {
 
+    var username = localStorage.getItem("userId")
     console.log("---------Dashboard Pages---------")
     const [isLoading, setIsLoading] = useState(true);
     const [assginuser, setAssginuser] = useState('');
@@ -234,7 +235,7 @@ export const Dashboard = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="flex-grow-1">
-                                                                <span className="fw-medium d-block">John Doe</span>
+                                                                <span className="fw-medium d-block">{username}</span>
                                                                 <small className="text-muted">Admin</small>
                                                             </div>
                                                         </div>

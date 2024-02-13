@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import newnav from '../data/nav.json'
+import axios from 'axios'
 
 export const NavbarSide = () => {
 
@@ -31,8 +32,12 @@ export const NavbarSide = () => {
         page = '/CompletedTask'
     }
 
-    const logout = () => {
+    const logout = (values) => {
 
+        console.log("logout name", values)
+        axios.post('http://localhost:3000/api/logout', values).then((res) => {
+            console.log(res)
+        })
         localStorage.removeItem("userId")
         localStorage.removeItem("authenticated")
         { navigate("/login") }
@@ -73,7 +78,7 @@ export const NavbarSide = () => {
             </Helmet>
             <div className="app-brand demo">
                 <Link to="#" className="app-brand-link">
-                    <span className="app-brand-text demo menu-text fw-bolder ms-2" style={{textTransform:"capitalize"}}>{username}</span>
+                    <span className="app-brand-text demo menu-text fw-bolder ms-2" style={{ textTransform: "capitalize" }}>{username}</span>
                 </Link>
             </div>
             <div className="menu-inner-shadow"></div>
@@ -109,7 +114,7 @@ export const NavbarSide = () => {
                 }
                 {/* {console.log("values2 : ",location.pathname)} */}
                 <li className='menu-item' style={{ marginBlockStart: "auto" }}>
-                    <Link className="menu-link btn btn-danger" to="/login" onClick={() => { logout() }} style={{ backgroundColor: "red" }} >
+                    <Link className="menu-link btn btn-danger" to="/login" onClick={() => { logout({"username":username}) }} style={{ backgroundColor: "red" }} >
                         <i className="menu-icon tf-icons bx bx-log-out"></i>
                         logout
                     </Link>

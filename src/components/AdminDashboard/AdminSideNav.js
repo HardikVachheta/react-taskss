@@ -66,7 +66,7 @@ export const AdminSideNav = () => {
                 <Link to='/Dashboard' className="app-brand-link">
                     <span className="app-brand-logo demo">
                     </span>
-                    <span className="app-brand-text demo menu-text fw-bold ms-2">Hardik</span>
+                    <span className="app-brand-text demo menu-text fw-bold ms-2" style={{textTransform:"capitalize"}}>{id}</span>
                 </Link>
 
                 <Link href="javascript:void(0);" className="layout-menu-toggle menu-link text-large ms-auto d-xl-none">

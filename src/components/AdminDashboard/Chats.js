@@ -21,6 +21,7 @@ export const Chats = () => {
     const [currentChat, setCurrentChat] = useState(undefined);
     const [currentUser, setCurrentUser] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
+    // const [onlineUsers, setOnlineUsers] = useState([]);
     // var demo_User = currentChat?.userId
 
     const changeCurrentChat = (index, contact) => {
@@ -32,19 +33,68 @@ export const Chats = () => {
 
 
     useEffect(() => {
-        getAllUser()
         setCurrentUser(userId)
+        
     }, [userId])
 
+    
+ const [onlineUsers, setOnlineUsers] = useState([]);
     useEffect(() => {
         if (currentUser) {
             socket.current = io("http://localhost:3000");
             socket.current.emit("add-user", currentUser);
+            getAllUser()
             console.log("socketio add-user", currentUser)
+            socket.current.on("online-users", (users) => {
+                console.log("online user",users)
+                setOnlineUsers(users);
+            });
+            // return () => {
+            //     // Cleanup Socket.io connection on component unmount
+            //     socket.current.disconnect();
+            // };
         }
     }, [currentUser]);
 
+    // const [onlineUsers, setOnlineUsers] = useState([]);
+
+    // useEffect(() => {
+    //   // Listen for "online-users" event emitted from the server
+    //   socket.on("online-users", (data) => {
+    //     setOnlineUsers(data);
+    //     console.log("online-users",data)
+    //   });
+  
+    //   return () => {
+    //     socket.off("online-users"); // Clean up event listener
+    //   };
+    // }, []);
+
+    const [onlinedata, setonlineData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/getMongoUser'); // Replace with your actual backend route
+        const onuser = response.data
+            const filtername = onuser.filter((u) => {
+                return u.userId !== userId
+            })
+            setonlineData(filtername);
+            console.log("online",filtername)
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [currentUser]);
+
+
+
+    // console.log("onlineUsers", onlineUsers)
     const [alluser, setAllUser] = useState([]);
+    // console.log("alluser", alluser)
 
 
     const getAllUser = async () => {
@@ -79,7 +129,7 @@ export const Chats = () => {
     const getFunction = async (contact) => {
         console.log("getFunction", contact?.userId)
         const data = hardik_User;
-        // console.log(data)
+        
         const response = await axios.post('http://localhost:3000/api/getmsg', {
             from: data,
             to: contact?.userId,
@@ -166,7 +216,7 @@ export const Chats = () => {
 
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-      }, [messages]);
+    }, [messages]);
 
     // useEffect(() => {
     //     scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
@@ -237,12 +287,15 @@ export const Chats = () => {
                                                         <h6 className="text-muted mb-0">No Chats Found</h6>
                                                     </li>
                                                     {
+
                                                         alluser?.map((u, index) => {
+                                                            const isOnline = onlinedata.some((onlineUser) => onlineUser.username === u.userId && onlineUser.status === "online");
+                                                            // console.log("inside map",isOnline)
                                                             return (
                                                                 <li className={`chat-contact-list-item ${index === currentSelected ? "active" : ""}`} key={index}
                                                                     onClick={() => changeCurrentChat(index, u)}>
                                                                     <a className="d-flex align-items-center">
-                                                                        <div className="flex-shrink-0 avatar avatar-online">
+                                                                        <div className={`flex-shrink-0 avatar ${isOnline  ? "avatar-online" : "avatar-offline"}`}>
                                                                             <img src="../../assets/img/avatars/2.png" alt="Avatar" className="rounded-circle" />
                                                                         </div>
                                                                         <div className="chat-contact-info flex-grow-1 ms-3">
@@ -305,7 +358,7 @@ export const Chats = () => {
                                                     </div>
                                                     <div className="chat-history-body">
                                                         <ul className="list-unstyled chat-history mb-0" >
-                                                            
+
                                                             {currentChat === undefined ? (
                                                                 <div>No data </div>
                                                             ) : (
@@ -399,7 +452,14 @@ export const Chats = () => {
                                                     </div>
                                                 </div>
                                             ) : (
-                                                <div>nodata</div>)}
+                                                <div>
+                                                    <img src="../assets/img/backgrounds/robot.gif" alt="image is missing"  style={{ justifyContent: "center", alignItems: "center" }}/>
+                                                    <h1>
+                                                        Welcome, <span>{userId}!</span>
+                                                    </h1>
+                                                    <h3>Please select a chat to Start messaging.</h3>
+                                                </div>
+                                            )}
                                         </div>
                                         <div className="app-overlay" />
                                     </div>
