@@ -149,6 +149,13 @@ export const AdminSideNav = () => {
                     </Link>
                 </li>
 
+                <li className={`menu-item ${activeItem === 'NewForm' ? 'active' : ''} `}>
+                    <Link to="/AdminDashboard/NewForm" className="menu-link" onClick={() => handleMenuItemClick('NewForm')}>
+                        <i className="menu-icon tf-icons bx bx-detail"></i>
+                        <div data-i18n="Basic">New Form</div>
+                    </Link>
+                </li>
+
             </ul>
 
         </Scrollbars>

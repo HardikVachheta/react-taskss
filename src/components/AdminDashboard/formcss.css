@@ -1,0 +1,61 @@
+/* Styling Text Input */
+.formio-textfield {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+/* Styling Select Input */
+.formio-select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+/* Styling Textarea Input */
+.formio-textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+/* Styling Label */
+.formio-label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Styling Button */
+.formio-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.formio-button:hover {
+  background-color: #0056b3;
+}
+
+/* Styling Form Container */
+.formio-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Styling Error Message */
+.formio-error {
+  color: red;
+  font-size: 0.8rem;
+}

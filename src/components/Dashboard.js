@@ -7,6 +7,7 @@ import axios from 'axios';
 import '../data/chart.css'
 import { Link } from 'react-router-dom';
 import { PuffLoader } from 'react-spinners';
+import { Alert } from 'react-bootstrap';
 
 const PieChart = ({ data, options }) => (
     <div>
@@ -19,6 +20,7 @@ export const Dashboard = () => {
 
     var username = localStorage.getItem("userId")
     console.log("---------Dashboard Pages---------")
+    const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [assginuser, setAssginuser] = useState('');
     const [unassginuser, setUnAssginuser] = useState('');
@@ -76,9 +78,21 @@ export const Dashboard = () => {
 
                 setIsLoading(false);
             } catch (error) {
+                if (error.response) {
+                    if (error.response.status === 500) {
+                        setError('Internal Server Error');
+                    } else if (error.response.status === 404) {
+                        setError('Resource not found');
+                    } else {
+                        setError('Server returned an error: ' + error.response.status);
+                    }
+                } else if (error.request) {
+                    setError('No response received from the server');
+                } else {
+                    setError('Error: ' + error.message);
+                }
                 console.error('Error fetching dashboard data:', error);
                 setIsLoading(false);
-                // Handle error state if necessary
             }
         };
 
@@ -298,27 +312,35 @@ export const Dashboard = () => {
                                         </div>
                                     </div>
                                 </div>
-                                {isLoading ? (
-                                    <div style={{ display: 'flex', justifyContent: "center", alignItems: "center", margin: "10px" }}>
-                                        <PuffLoader color="#696cff" size={30} />
-                                    </div>
-                                ) : (
-                                    <div className="row">
-                                        <div style={{ display: "flex" }}>
-                                            <div style={{ flex: 1 }}>
-                                                <PieChart data={data1} options={{ ...options1 }} />
+                                {
+                                    error ? (
+                                        <Alert variant="danger">
+                                            {error}
+                                        </Alert>
+                                    ) : (
+                                        isLoading ? (
+                                            <div style={{ display: 'flex', justifyContent: "center", alignItems: "center", margin: "10px" }}>
+                                                <PuffLoader color="#696cff" size={30} />
                                             </div>
-                                            <div style={{ flex: 1 }}>
-                                                <PieChart data={data3} options={{ ...options3 }} />
-                                            </div>
-                                        </div>
-                                        {/* <div style={{ display: "flex" }}>
+                                        ) : (
+                                            <div className="row">
+                                                <div style={{ display: "flex" }}>
+                                                    <div style={{ flex: 1 }}>
+                                                        <PieChart data={data1} options={{ ...options1 }} />
+                                                    </div>
+                                                    <div style={{ flex: 1 }}>
+                                                        <PieChart data={data3} options={{ ...options3 }} />
+                                                    </div>
+                                                </div>
+                                                {/* <div style={{ display: "flex" }}>
                                         <div style={{ flex: 1 }}>
                                             <PieChart data={data2} options={{ ...options2 }} />
                                         </div>
                                     </div> */}
-                                    </div>
-                                )}
+                                            </div>
+                                        )
+                                    )
+                                }
                             </div>
                         </div>
                     </div>

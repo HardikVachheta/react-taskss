@@ -6,12 +6,17 @@ import { Helmet } from 'react-helmet';
 import axios from "axios";
 import { io } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
+import { PuffLoader } from 'react-spinners';
+import { Alert } from 'react-bootstrap';
 
 
 export const Chats = () => {
 
     var userId = localStorage.getItem("userId")
-
+    let prevDatestamp = null;
+    let countNumber = null;
+    let mostRecentTimestamp = null;
+    let showAvatar = true;
     var hardik_User = userId
 
     // const navigate = useNavigate();
@@ -21,6 +26,7 @@ export const Chats = () => {
     const [currentChat, setCurrentChat] = useState(undefined);
     const [currentUser, setCurrentUser] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
+    const [messageCounts, setMessageCounts] = useState([]);
     // const [onlineUsers, setOnlineUsers] = useState([]);
     // var demo_User = currentChat?.userId
 
@@ -29,73 +35,58 @@ export const Chats = () => {
         console.log("changeCurrentChat", contact)
         setCurrentChat(contact);
         getFunction(contact)
+
     };
 
 
     useEffect(() => {
+        getAllUser()
         setCurrentUser(userId)
-        
     }, [userId])
 
-    
- const [onlineUsers, setOnlineUsers] = useState([]);
+
+    const [onlineUsers, setOnlineUsers] = useState([]);
     useEffect(() => {
         if (currentUser) {
             socket.current = io("http://localhost:3000");
             socket.current.emit("add-user", currentUser);
-            getAllUser()
+
             console.log("socketio add-user", currentUser)
             socket.current.on("online-users", (users) => {
-                console.log("online user",users)
+                console.log("online user", users)
                 setOnlineUsers(users);
             });
-            // return () => {
-            //     // Cleanup Socket.io connection on component unmount
-            //     socket.current.disconnect();
-            // };
+            return () => {
+                // Cleanup Socket.io connection on component unmount
+                socket.current.disconnect();
+            };
         }
     }, [currentUser]);
 
-    // const [onlineUsers, setOnlineUsers] = useState([]);
-
-    // useEffect(() => {
-    //   // Listen for "online-users" event emitted from the server
-    //   socket.on("online-users", (data) => {
-    //     setOnlineUsers(data);
-    //     console.log("online-users",data)
-    //   });
-  
-    //   return () => {
-    //     socket.off("online-users"); // Clean up event listener
-    //   };
-    // }, []);
-
     const [onlinedata, setonlineData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/api/getMongoUser'); // Replace with your actual backend route
-        const onuser = response.data
-            const filtername = onuser.filter((u) => {
-                return u.userId !== userId
-            })
-            setonlineData(filtername);
-            console.log("online",filtername)
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/api/getMongoUser'); // Replace with your actual backend route
+                const onuser = response.data
+                const filtername = onuser.filter((u) => {
+                    return u.userId !== userId
+                })
+                setonlineData(filtername);
+                console.log("online", filtername)
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
 
-    fetchData();
-  }, [currentUser]);
+        fetchData();
+    }, [currentUser]);
 
 
-
-    // console.log("onlineUsers", onlineUsers)
     const [alluser, setAllUser] = useState([]);
-    // console.log("alluser", alluser)
-
+    const [loading, setLoading] = useState(true); // Track loading state
+    const [error, setError] = useState(null);
 
     const getAllUser = async () => {
         await axios.get("http://localhost:3000/api/user/alluser").then((response) => {
@@ -107,18 +98,23 @@ export const Chats = () => {
             // console.log("filtername",filtername)
             console.log("All User", filtername)
             setAllUser(filtername)
+            setLoading(false); // Set loading to false after data is fetched
+
         }).catch(error => {
             if (error.response) {
-                if (error.response.status === 404) {
-                    console.log('List of User :- Resource not found');
+                if (error.response.status === 500) {
+                    setError('Internal Server Error');
+                } else if (error.response.status === 404) {
+                    setError('Resource not found');
                 } else {
-                    console.log('Server returned an error:', error.response.status);
+                    setError('Server returned an error: ' + error.response.status);
                 }
             } else if (error.request) {
-                console.log('No response received from the server');
+                setError('No response received from the server');
             } else {
-                console.log('Error:', error.message);
+                setError('Error: ' + error.message);
             }
+            setLoading(false); // Set loading to false if there's an error
         });
     }
 
@@ -128,8 +124,9 @@ export const Chats = () => {
 
     const getFunction = async (contact) => {
         console.log("getFunction", contact?.userId)
+
         const data = hardik_User;
-        
+
         const response = await axios.post('http://localhost:3000/api/getmsg', {
             from: data,
             to: contact?.userId,
@@ -138,7 +135,8 @@ export const Chats = () => {
         socket.current.on("msg-recieve", (msg) => {
             const timestamp = new Date();
             console.log("Main socket", msg)
-            setArrivalMessage({ fromSelf: false, message: msg, createdAt: timestamp });
+            setMessageCounts(msg)
+            setArrivalMessage({ fromSelf: false, message: msg.msg, createdAt: timestamp });
             console.log("arrivalMessage", arrivalMessage)
         });
 
@@ -169,6 +167,7 @@ export const Chats = () => {
 
             socket.current.emit("send-msg", messageObject);
 
+
             await axios.post('http://localhost:3000/api/addmsg', {
                 from: data,
                 to: currentChat?.userId,
@@ -189,7 +188,6 @@ export const Chats = () => {
             }
         }
     };
-
     useEffect(() => {
 
         if (socket?.current) {
@@ -198,17 +196,12 @@ export const Chats = () => {
             socket.current.on("msg-recieve", (msg) => {
                 const timestamp = new Date();
                 console.log("Main socket", msg)
-                setArrivalMessage({ fromSelf: false, message: msg, createdAt: timestamp });
+                setArrivalMessage({ fromSelf: false, message: msg.msg, createdAt: timestamp });
                 console.log("arrivalMessage", arrivalMessage)
                 // scrollToBottom();
             });
         }
     }, [arrivalMessage]);
-
-    //   useEffect(() => {
-    //     // Scroll to the bottom when messages change
-    //     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-    //   }, [messages]);
 
     useEffect(() => {
         arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
@@ -218,15 +211,17 @@ export const Chats = () => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
-    // useEffect(() => {
-    //     scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
-    // }, [messages]);
-
-
     const formatTimestamp = (timestamp) => {
         const options = { hour: '2-digit', minute: '2-digit' };
         return new Date(timestamp).toLocaleTimeString('en-IN', options);
     };
+
+    const formatDaystamp = (createdAt) => {
+        const date = new Date(createdAt);
+        const options = { day: '2-digit', month: 'short', year: 'numeric' };
+        return date.toLocaleDateString('en-GB', options);
+    };
+
 
     return (
         <div lang="en" className="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
@@ -287,26 +282,44 @@ export const Chats = () => {
                                                         <h6 className="text-muted mb-0">No Chats Found</h6>
                                                     </li>
                                                     {
-
-                                                        alluser?.map((u, index) => {
-                                                            const isOnline = onlinedata.some((onlineUser) => onlineUser.username === u.userId && onlineUser.status === "online");
-                                                            // console.log("inside map",isOnline)
-                                                            return (
-                                                                <li className={`chat-contact-list-item ${index === currentSelected ? "active" : ""}`} key={index}
-                                                                    onClick={() => changeCurrentChat(index, u)}>
-                                                                    <a className="d-flex align-items-center">
-                                                                        <div className={`flex-shrink-0 avatar ${isOnline  ? "avatar-online" : "avatar-offline"}`}>
-                                                                            <img src="../../assets/img/avatars/2.png" alt="Avatar" className="rounded-circle" />
-                                                                        </div>
-                                                                        <div className="chat-contact-info flex-grow-1 ms-3">
-                                                                            <h6 className="chat-contact-name text-truncate m-0" style={{ textAlign: "left" }}>{u?.userId}</h6>
-                                                                            {/* <p className="chat-contact-status text-truncate mb-0 text-muted">I will purchase it for sure. 👍</p> */}
-                                                                        </div>
-                                                                        {/* <small className="text-muted mb-auto">30 Minutes</small> */}
-                                                                    </a>
-                                                                </li>
+                                                        error ? (
+                                                            <Alert variant="danger">
+                                                                {error}
+                                                            </Alert>
+                                                        ) : (
+                                                            loading ? (
+                                                                <div style={{ display: 'flex', justifyContent: "center", alignItems: "center", margin: "10px" }}>
+                                                                    <PuffLoader color="#696cff" size={30} />
+                                                                </div>
+                                                            ) : (
+                                                                alluser?.map((u, index) => {
+                                                                    const isOnline = onlineUsers.some((onlineUser) => onlineUser.userId === u.userId);
+                                                                    // const messageCount = messageCounts.get(u.userId) || 0; // Get message count for the user
+                                                                    console.log("selected user",currentChat?.userId)
+                                                                    console.log("check user is ", messageCounts?.from)
+                                                                    countNumber = messageCounts?.from === currentChat?.userId ? countNumber + 1 : ''
+                                                                    console.log("countNumber",countNumber)
+                                                                    // const isOnline = onlinedata.some((onlineUser) => onlineUser.username === u.userId && onlineUser.status === "online");
+                                                                    // const isNumber = messageCounts.filter((num) => num.key === u.userId)
+                                                                    return (
+                                                                        <li className={`chat-contact-list-item ${index === currentSelected ? "active" : ""}`} key={index}
+                                                                            onClick={() => changeCurrentChat(index, u)}>
+                                                                            <a className="d-flex align-items-center">
+                                                                                <div className={`flex-shrink-0 avatar ${isOnline ? "avatar-online" : "avatar-offline"}`}>
+                                                                                    <img src="../../assets/img/avatars/2.png" alt="Avatar" className="rounded-circle" />
+                                                                                </div>
+                                                                                <div className="chat-contact-info flex-grow-1 ms-3">
+                                                                                    <h6 className="chat-contact-name text-truncate m-0" style={{ textAlign: "left" }}>{u?.userId}</h6>
+                                                                                    {/* <p className="chat-contact-status text-truncate mb-0 text-muted">I will purchase it for sure. 👍</p> */}
+                                                                                </div>
+                                                                                {/* <span class="badge badge-center rounded-pill bg-danger ms-auto">{messageCount > 0 ? messageCount : ''}</span> */}
+                                                                                {/* <small className="text-muted mb-auto">30 Minutes</small> */}
+                                                                            </a>
+                                                                        </li>
+                                                                    )
+                                                                })
                                                             )
-                                                        })
+                                                        )
                                                     }
                                                 </ul>
                                                 {/* <div className="ps__rail-x" style={{ left: '0px', bottom: '0px' }}><div className="ps__thumb-x" tabIndex={0} style={{ left: '0px', width: '0px' }} /></div> */}
@@ -342,16 +355,17 @@ export const Chats = () => {
                                         <div className="col app-chat-history">
                                             {currentChat ? (
                                                 <div className="chat-history-wrapper">
+
                                                     <div className="chat-history-header border-bottom">
                                                         <div className="d-flex justify-content-between align-items-center">
                                                             <div className="d-flex overflow-hidden align-items-center">
                                                                 <i className="bx bx-menu bx-sm cursor-pointer d-lg-none d-block me-2" data-bs-toggle="sidebar" data-overlay data-target="#app-chat-contacts" />
-                                                                <div className="flex-shrink-0 avatar">
+                                                                <div className={`flex-shrink-0 avatar ${onlineUsers.some((onlineUser) => onlineUser.userId === currentChat.userId) ? "avatar-online" : "avatar-offline"}`}>
                                                                     <img src="../../assets/img/avatars/2.png" alt="Avatar" className="rounded-circle" data-bs-toggle="sidebar" data-overlay data-target="#app-chat-sidebar-right" />
                                                                 </div>
                                                                 <div className="chat-contact-info flex-grow-1 ms-3">
                                                                     <h6 className="m-0">{currentChat ? currentChat.userId : ''}</h6>
-                                                                    <small className="user-status text-muted">NextJS developer</small>
+                                                                    <small className="user-status text-muted">{(onlineUsers.some((onlineUser) => onlineUser.userId === currentChat.userId)) ? 'Online' : 'Offline'}</small>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -363,41 +377,123 @@ export const Chats = () => {
                                                                 <div>No data </div>
                                                             ) : (
                                                                 <>  {messages.map((message, index) => {
-                                                                    return (
-                                                                        <>
-                                                                            {
-                                                                                message.fromSelf ? (<li className="chat-message chat-message-right" key={index}>
-                                                                                    {/* //  message.fromSelf ? (<li className="chat-message chat-message-right" ref={scrollRef} key={index}> */}
-                                                                                    <div className="d-flex overflow-hidden" style={{ maxWidth: 'calc(100% - 15%)' }}>
-                                                                                        <div className="chat-message-wrapper flex-grow-1">
-                                                                                            <div className="chat-message-text" style={{ textAlign: "justify" }}>
-                                                                                                <p className="mb-0 mb-0 text-break">{message.message}
-                                                                                                    <p className="mb-0 mb-0" style={{ textAlign: "right" }}>
-                                                                                                        {/* <small>10:00 AM &nbsp; */}
-                                                                                                        {/* <small>{formattedTime}&nbsp; */}
-                                                                                                        <small>{formatTimestamp(message.createdAt)}&nbsp;
-                                                                                                            <i className="bx bx-check-double text-success" />
-                                                                                                        </small>
-                                                                                                        {/* <small>{formatTimestamp(message.createdAt)}</small> */}
-                                                                                                    </p>
-                                                                                                </p>
-                                                                                            </div>
+                                                                    const currentTimestamp = formatTimestamp(message.createdAt);
 
-                                                                                        </div>
-                                                                                        <div className="user-avatar flex-shrink-0 ms-3">
-                                                                                            <div className="avatar avatar-sm">
-                                                                                                <img src="../../assets/img/avatars/1.png" alt="Avatar" className="rounded-circle" />
+                                                                    // Check if the current message has the same timestamp as the most recent one
+                                                                    if (currentTimestamp === mostRecentTimestamp) {
+                                                                        // If it does, don't show the avatar for this message
+                                                                        showAvatar = false;
+                                                                    } else {
+                                                                        // If it doesn't, update the most recent timestamp and show the avatar
+                                                                        mostRecentTimestamp = currentTimestamp;
+                                                                        showAvatar = true;
+                                                                    }
+                                                                    // const currentTimestamp = formatTimestamp(message.createdAt);
+                                                                    // const showAvatar = currentTimestamp !== prevTimestamp;
+
+                                                                    // // Update the previous timestamp for the next iteration
+                                                                    // prevTimestamp = currentTimestamp;
+
+                                                                    // -----------------------------------------------------------
+                                                                    // const currentDaystamp = formatDaystamp(message.createdAt);
+                                                                    // const showDaystamp = prevDatestamp !== currentDaystamp;
+                                                                    // const nextMessage = messages[index + 1];
+
+                                                                    // // Check if next message exists and if its timestamp is different from the current message
+                                                                    // const differentTimestampFromNext = nextMessage && formatTimestamp(nextMessage.createdAt) !== formatTimestamp(message.createdAt);
+
+                                                                    // prevDatestamp = currentDaystamp;
+                                                                    // -----------------------------------------------------------
+                                                                    const currentDaystamp = formatDaystamp(message.createdAt);
+                                                                    const showDaystamp = prevDatestamp !== currentDaystamp;
+                                                                    const prevMessage = messages[index - 1];
+
+                                                                    // Check if previous message exists and if its timestamp is the same as the current message
+                                                                    const sameTimestampAsPrevious = prevMessage && formatTimestamp(prevMessage.createdAt) === formatTimestamp(message.createdAt);
+
+                                                                    prevDatestamp = currentDaystamp;
+
+                                                                    return (
+
+                                                                        <React.Fragment key={index}>
+                                                                            {showDaystamp && (
+                                                                                <tag
+                                                                                    title="Premium"
+                                                                                    contenteditable="false"
+                                                                                    spellcheck="false"
+                                                                                    tabIndex="-1"
+                                                                                    className="tagify__tag tagify--noAnim"
+                                                                                    value="Premium"
+                                                                                >
+                                                                                    <x
+                                                                                        title=""
+                                                                                        className="tagify__tag__removeBtn"
+                                                                                        role="button"
+                                                                                        aria-label="remove tag"
+                                                                                    ></x>
+                                                                                    <div style={{ padding: "15px" }}>
+                                                                                        <span className="tagify__tag-text">
+                                                                                            {formatDaystamp(message.createdAt)}
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </tag>
+                                                                            )}
+                                                                            {
+                                                                                message.fromSelf ? (
+                                                                                    <li className="chat-message chat-message-right" key={index}>
+                                                                                        {/* //  message.fromSelf ? (<li className="chat-message chat-message-right" ref={scrollRef} key={index}> */}
+                                                                                        <div className="d-flex overflow-hidden" style={{ maxWidth: 'calc(100% - 15%)' }}>
+                                                                                            <div className="chat-message-wrapper flex-grow-1">
+                                                                                                <div className="chat-message-text" style={{ textAlign: "justify" }}>
+                                                                                                    <p className="mb-0 text-break">{message.message}
+
+                                                                                                        {/* <small className="" style={{ marginTop: "3.6px",marginLeft: "10px", fontVariantCaps: "small-caps", float: "inline-end" }}>{formatTimestamp(message.createdAt)}&nbsp;
+                                                                                                        <i className="bx bx-check-double text-success" />
+                                                                                                    </small> */}
+                                                                                                        {/* <p className="mb-0 text-break" style={{ position: 'relative' }}>
+                                                                                                        {message.message}
+                                                                                                        <small style={{ position: 'absolute', right: 0, bottom: 0 }}>
+                                                                                                            {formatTimestamp(message.createdAt)}
+                                                                                                            &nbsp;<i className="bx bx-check-double text-success" />
+                                                                                                        </small>
+                                                                                                    </p> */}
+                                                                                                        <p className="mb-0 mb-0" style={{ textAlign: "right" }}>
+                                                                                                            <small style={{ fontVariantCaps: "small-caps" }}>{formatTimestamp(message.createdAt)}&nbsp;
+                                                                                                                <i className="bx bx-check-double text-success" />
+                                                                                                            </small>
+                                                                                                        </p>
+
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                                {/* {differentTimestampFromNext && (
+                                                                                                <div className="textend text-muted mt-1">
+                                                                                                    <i class="bx bx-check-double text-success"></i>&nbsp;
+                                                                                                    <small>{formatTimestamp(message.createdAt)}</small>
+                                                                                                </div>
+                                                                                            )} */}
+                                                                                                {/* <div class="text-end text-muted mt-1">
+                                                                                                <i class="bx bx-check-double text-success"></i>
+                                                                                                <small>{formatTimestamp(message.createdAt)}</small>
+                                                                                            </div> */}
+                                                                                            </div>
+                                                                                            <div className="user-avatar flex-shrink-0 ms-3">
+                                                                                                <div className="avatar avatar-sm">
+                                                                                                    {showAvatar && (
+                                                                                                        <img src="../../assets/img/avatars/1.png" alt="Avatar" className="rounded-circle" />
+                                                                                                    )}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                </li>
+                                                                                    </li>
                                                                                 ) : (
                                                                                     <li className="chat-message">
                                                                                         {/* // <li className="chat-message" ref={scrollRef}> */}
                                                                                         <div className="d-flex overflow-hidden" style={{ maxWidth: 'calc(100% - 15%)' }}>
                                                                                             <div className="user-avatar flex-shrink-0 me-3">
                                                                                                 <div className="avatar avatar-sm">
-                                                                                                    <img src="../../assets/img/avatars/2.png" alt="Avatar" className="rounded-circle" />
+                                                                                                    {showAvatar && (
+                                                                                                        <img src="../../assets/img/avatars/2.png" alt="Avatar" className="rounded-circle" />
+                                                                                                    )}
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div className="chat-message-wrapper flex-grow-1">
@@ -405,7 +501,7 @@ export const Chats = () => {
                                                                                                     <p className="mb-0 mb-0 text-break">{message.message}
                                                                                                         <p className="mb-0 mb-0" style={{ textAlign: "right" }}>
                                                                                                             {message.fromSelf === false && (
-                                                                                                                <small>{formatTimestamp(message.createdAt)}</small>
+                                                                                                                <small style={{ fontVariantCaps: "small-caps" }}>{formatTimestamp(message.createdAt)}</small>
                                                                                                             )}
                                                                                                         </p>
                                                                                                     </p>
@@ -415,7 +511,7 @@ export const Chats = () => {
                                                                                     </li>
                                                                                 )
                                                                             }
-                                                                        </>
+                                                                        </React.Fragment>
                                                                     );
                                                                 })}
                                                                 </>
@@ -452,12 +548,12 @@ export const Chats = () => {
                                                     </div>
                                                 </div>
                                             ) : (
-                                                <div>
-                                                    <img src="../assets/img/backgrounds/robot.gif" alt="image is missing"  style={{ justifyContent: "center", alignItems: "center" }}/>
-                                                    <h1>
-                                                        Welcome, <span>{userId}!</span>
-                                                    </h1>
-                                                    <h3>Please select a chat to Start messaging.</h3>
+                                                <div className="text-center">
+                                                    <img src="../assets/img/backgrounds/robot.gif" alt="Robot Image" className="robot-image" style={{ height: "70vh" }} />
+                                                    <div>
+                                                        <h1>Welcome, <span>{userId}!</span></h1>
+                                                        <h3>Please select a chat to start messaging.</h3>
+                                                    </div>
                                                 </div>
                                             )}
                                         </div>

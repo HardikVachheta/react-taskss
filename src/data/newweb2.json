@@ -1,0 +1,14 @@
+
+ { "cat" :[  {
+        "id": "65e01eb0599c5879de9e0176",
+        "name": "Hardware",
+        "active": true,
+        "subCategories": []
+    },
+    {
+        "id": "65e01eb0599c5879de9e0177",
+        "name": "Software",
+        "active": true,
+        "subCategories": []
+    }
+]}

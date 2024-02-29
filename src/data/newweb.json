@@ -1,0 +1,245 @@
+{
+    "display": "form",
+    "components": [
+        {
+            "label": "Number",
+            "placeholder": "Enter number",
+            "applyMaskOn": "change",
+            "mask": false,
+            "tableView": false,
+            "delimiter": false,
+            "requireDecimal": false,
+            "inputFormat": "plain",
+            "truncateMultipleSpaces": false,
+            "key": "number1",
+            "type": "number",
+            "input": true
+        },
+        {
+            "label": "Category",
+            "widget": "html5",
+            "placeholder": "Select any one",
+            "tableView": true,
+            "data": {
+                "values": [
+                    {
+                        "label": "Clothing",
+                        "value": "clothing"
+                    },
+                    {
+                        "label": "Electronics",
+                        "value": "electronics"
+                    },
+                    {
+                        "label": "Books",
+                        "value": "books"
+                    },
+                    {
+                        "label": "Home Decor",
+                        "value": "homeDecor"
+                    }
+                ]
+            },
+            "dataType": "auto",
+            "key": "category",
+            "type": "select",
+            "input": true
+        },
+        {
+            "label": "Sub category",
+            "widget": "html5",
+            "placeholder": "Select sub category",
+            "tableView": true,
+            "data": {
+                "values": [
+                    {
+                        "label": "Smartphones",
+                        "value": "smartphones"
+                    },
+                    {
+                        "label": "Laptops",
+                        "value": "laptops"
+                    },
+                    {
+                        "label": "Cameras",
+                        "value": "cameras"
+                    },
+                    {
+                        "label": "T-shirts",
+                        "value": "tShirts"
+                    },
+                    {
+                        "label": "Jeans",
+                        "value": "jeans"
+                    },
+                    {
+                        "label": "Dresses",
+                        "value": "dresses"
+                    }
+                ]
+            },
+            "key": "subCategory",
+            "type": "select",
+            "input": true
+        },
+        {
+            "label": "Contact",
+            "placeholder": "Enter your contact number",
+            "applyMaskOn": "change",
+            "mask": false,
+            "tableView": false,
+            "delimiter": false,
+            "requireDecimal": false,
+            "inputFormat": "plain",
+            "truncateMultipleSpaces": false,
+            "key": "contact",
+            "type": "number",
+            "input": true
+        },
+        {
+            "label": "Contact type",
+            "widget": "html5",
+            "placeholder": "Select the type of contact you have provided",
+            "tableView": true,
+            "data": {
+                "values": [
+                    {
+                        "label": "Home",
+                        "value": "home"
+                    },
+                    {
+                        "label": "Office",
+                        "value": "office"
+                    }
+                ]
+            },
+            "key": "contactType",
+            "type": "select",
+            "input": true
+        },
+        {
+            "label": "Stutas",
+            "widget": "html5",
+            "placeholder": "Select one",
+            "tableView": true,
+            "data": {
+                "values": [
+                    {
+                        "label": "Online",
+                        "value": "online"
+                    },
+                    {
+                        "label": "offline",
+                        "value": "offline"
+                    }
+                ]
+            },
+            "key": "stutas",
+            "type": "select",
+            "input": true
+        },
+        {
+            "label": "Subject",
+            "placeholder": "Enter subject",
+            "applyMaskOn": "change",
+            "tableView": true,
+            "key": "subject",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "Priority",
+            "widget": "html5",
+            "placeholder": "Select level",
+            "tableView": true,
+            "data": {
+                "values": [
+                    {
+                        "label": "High",
+                        "value": "high"
+                    },
+                    {
+                        "label": "Low",
+                        "value": "low"
+                    },
+                    {
+                        "label": "Medium",
+                        "value": "medium"
+                    }
+                ]
+            },
+            "key": "priority",
+            "type": "select",
+            "input": true
+        },
+        {
+            "label": "Impact",
+            "applyMaskOn": "change",
+            "tableView": true,
+            "key": "impact",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "Impact Area",
+            "applyMaskOn": "change",
+            "tableView": true,
+            "key": "impactArea",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "Urgency",
+            "applyMaskOn": "change",
+            "tableView": true,
+            "key": "urgency",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "Status reasion",
+            "applyMaskOn": "change",
+            "tableView": true,
+            "key": "statusReasion",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "Location",
+            "applyMaskOn": "change",
+            "tableView": true,
+            "key": "location",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "Description",
+            "applyMaskOn": "change",
+            "autoExpand": false,
+            "tableView": true,
+            "key": "description",
+            "type": "textarea",
+            "input": true
+        },
+        {
+            "label": "Register",
+            "showValidations": false,
+            "tableView": false,
+            "key": "submit1",
+            "type": "button",
+            "input": true,
+            "saveOnEnter": false
+          },
+          {
+            "label": "Cancel",
+            "showValidations": false,
+            "theme": "danger",
+            "leftIcon": "fa fa-remove",
+            "tableView": false,
+            "key": "cancel",
+            "type": "button",
+            "input": true,
+            "saveOnEnter": false
+          }
+    ]
+}

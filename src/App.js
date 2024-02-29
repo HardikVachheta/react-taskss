@@ -34,6 +34,7 @@ import { CompletedTask } from './components/CompletedTask';
 import { Chats } from './components/AdminDashboard/Chats';
 import { ChartMain } from './components/AdminDashboard/ChartMain';
 import FindDuplicatesAndMissing from './components/Testing/FindDuplicatesAndMissing';
+import { NewForm } from './components/AdminDashboard/NewForm';
 
 function App() {
   <Helmet>
@@ -83,6 +84,7 @@ function App() {
         <Route path='/AdminDashboard/Chats' element={<ProtectedRoutes Component={Chats} />} />
         <Route path='/AdminDashboard/ChartMain' element={<ProtectedRoutes Component={ChartMain} />} />
         <Route path='/AdminDashboard/FindDuplicatesAndMissing' element={<ProtectedRoutes Component={FindDuplicatesAndMissing} />} />
+        <Route path='/AdminDashboard/NewForm' element={<ProtectedRoutes Component={NewForm} />} />
       </Routes>
     </div>
   );
