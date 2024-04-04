@@ -3,58 +3,109 @@ import React, { useEffect, useState } from 'react'
 import { AdminSideNav } from './AdminSideNav'
 import "./formcss2.css"
 import axios from 'axios'
+import { Helmet } from 'react-helmet'
 export const NewForm = () => {
 
-    const formConfig = {
-        "display": "form",
-        "components": [
-            {
-                "label": "Select",
-                "widget": "html5",
-                "tableView": true,
-                "dataSrc": "url",
-                "data": {
-                    "url": "http://localhost:8090/categories",
-                    "headers": [
-                        {
-                            "key": "cate    gory",
-                            "value": "category"
-                        }
-                    ]
-                },
-                "key": "select",
-                "type": "select",
-                "input": true,
-                "disableLimit": false,
-                "noRefreshOnScroll": false
+    const [subCategories, setSubCategories] = useState([]);
+    // const [selectedCategory, setSelectedCategory] = useState('');
+    const [debouncedCategory, setDebouncedCategory] = useState('');
+
+    // const handleCategoryChange = (event) => {
+    //     const categoryId = event?.data?.category;
+    //     // console.log("categoryId", categoryId)
+    //     setDebouncedCategory(categoryId);
+    // };
+    // console.log("categoryId", debouncedCategory)
+
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //         // Handle category change after debounce time
+    //         console.log("Debounced categoryId:", debouncedCategory);
+
+    //         // Fetch subcategories based on the selected category ID
+    //         const response = axios.get(`http://192.168.1.4:8087/subcategories/category/${setDebouncedCategory}/sub-categories`);
+    //         const categoryData = response?.data;
+    //         console.log("subcategory", categoryData)
+    //         // Update the subCategories state with the fetched subcategories
+    //         setSubCategories(categoryData || []);
+    //         // setSelectedCategory(categoryId); // Update the selected category
+
+    //     }, 3000); // Adjust debounce time as needed
+
+    //     return () => {
+    //         clearTimeout(timer); // Clear previous timer on component unmount or category change
+    //     };
+    // }, [debouncedCategory]);
+    const handleCategoryChange = async (event) => {
+        const categoryId = event.data?.category; // Extract category ID from event
+        console.log("categoryId", categoryId)
+
+        try {
+            if (categoryId) {
+                // Fetch subcategories based on the selected category ID
+                const response = await axios.get(`http://192.168.1.4:8087/subcategories/category/${categoryId}/sub-categories`);
+                const categoryData = response?.data;
+                console.log("subcategory", categoryData)
+                // Update the subCategories state with the fetched subcategories
+                setSubCategories(categoryData || []);
+                // setSelectedCategory(categoryId); // Update the selected category
             }
-        ]
+        } catch (error) {
+            console.error('Error fetching subcategory data:', error);
+        }
+
     };
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+
+
+    // Function to handle form submission
+    const handleFormSubmit = (submission) => {
+        // setFormData(submission.data);
+        console.log("Submitted Data:", submission);
+    };
+
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [subcategories, setSubcategories] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8090')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch users');
-                }
-                return response.json();
-            })
-            .then(data => {
-                setUsers(data);
-                console.log(data);
-                setLoading(false);
-            })
-            .catch(error => {
-                setError(error.message);
-                setLoading(false);
-            });
+        fetchCategories();
     }, []);
+
+    const fetchCategories = async () => {
+        try {
+            const response = await fetch('http://192.168.1.4:8087/categories');
+            const data = await response.json();
+            setCategories(data);
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+        }
+    };
+
+    const handleCategoryChange3 = async (event) => {
+        const selectedValue = event.target.value;
+        setSelectedCategory(selectedValue);
+
+        try {
+            const response = await fetch(`http://192.168.1.4:8087/subcategories/category/${selectedValue}/sub-categories`);
+            const data = await response.json();
+            setSubcategories(data);
+        } catch (error) {
+            console.error('Error fetching subcategories:', error);
+        }
+    };
 
     return (
         <div lang="en" className="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
+            <Helmet>
+                {/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+                <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' />
+                <link rel='stylesheet' href='https://cdn.form.io/formiojs/formio.full.min.css' />
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/formiojs@4.18.2/dist/formio.full.min.css" />
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" />
+                <script src="https://cdn.form.io/formiojs/formio.embed.min.js?src=https://examples.form.io/example"></script>
+                <script src="https://cdn.form.io/js/formio.embed.js"></script>
+                <script src='https://cdn.form.io/formiojs/formio.full.min.js'></script> */}
+            </Helmet>
             <div className="layout-wrapper layout-content-navbar">
                 <div className="layout-container">
                     <div style={{ position: 'fixed' }}>
@@ -67,9 +118,8 @@ export const NewForm = () => {
                                     <div class="row">
                                         <div class="col-xl" >
                                             <div class="card mb-4">
-
-
-                                                {/* <h1>Users</h1>
+                                                <>
+                                                    {/* <h1>Users</h1>
                                 {loading ? (
                                     <p>Loading...</p>
                                 ) : error ? (
@@ -77,16 +127,21 @@ export const NewForm = () => {
                                 ) : (
                                     <Form form={users.components} />
                                 )} */}
+                                                </>
                                                 <div class="card-header d-flex justify-content-center align-items-center">
                                                     <h3 class="mb-0">Basic Form</h3>
                                                 </div>
-                                                {/* <h1>My Form</h1> */}
+
+                                                
                                                 <div className='card-body'>
                                                     <Form
+                                                       
+                                                        onSubmit={handleFormSubmit}
                                                         className="form-container"
                                                         form={{
                                                             display: 'form',
                                                             components: [
+                                                               
                                                                 {
                                                                     "label": "Number",
                                                                     "placeholder": "Enter number",
@@ -97,351 +152,22 @@ export const NewForm = () => {
                                                                     "requireDecimal": false,
                                                                     "inputFormat": "plain",
                                                                     "truncateMultipleSpaces": false,
-                                                                    "key": "number1",
+                                                                    "key": "number",
                                                                     "type": "number",
                                                                     "input": true
                                                                 },
                                                                 {
-                                                                    "label": "Category",
-                                                                    "widget": "html5",
-                                                                    "placeholder": "Select any one",
-                                                                    "tableView": true,
-                                                                    "data": {
-                                                                        "values": [
-                                                                            {
-                                                                                "label": "Clothing",
-                                                                                "value": "clothing"
-                                                                            },
-                                                                            {
-                                                                                "label": "Electronics",
-                                                                                "value": "electronics"
-                                                                            },
-                                                                            {
-                                                                                "label": "Books",
-                                                                                "value": "books"
-                                                                            },
-                                                                            {
-                                                                                "label": "Home Decor",
-                                                                                "value": "homeDecor"
-                                                                            }
-                                                                        ]
-                                                                    },
-                                                                    "dataType": "auto",
-                                                                    "key": "category",
-                                                                    "type": "select",
-                                                                    "input": true
-                                                                },
-                                                                {
-                                                                    "label": "Sub category",
-                                                                    "widget": "html5",
-                                                                    "placeholder": "Select sub category",
-                                                                    "tableView": true,
-                                                                    "data": {
-                                                                        "values": [
-                                                                            {
-                                                                                "label": "Smartphones",
-                                                                                "value": "smartphones"
-                                                                            },
-                                                                            {
-                                                                                "label": "Laptops",
-                                                                                "value": "laptops"
-                                                                            },
-                                                                            {
-                                                                                "label": "Cameras",
-                                                                                "value": "cameras"
-                                                                            },
-                                                                            {
-                                                                                "label": "T-shirts",
-                                                                                "value": "tShirts"
-                                                                            },
-                                                                            {
-                                                                                "label": "Jeans",
-                                                                                "value": "jeans"
-                                                                            },
-                                                                            {
-                                                                                "label": "Dresses",
-                                                                                "value": "dresses"
-                                                                            }
-                                                                        ]
-                                                                    },
-                                                                    "key": "subCategory",
-                                                                    "type": "select",
-                                                                    "input": true
-                                                                },
-                                                                {
-                                                                    "label": "Contact",
-                                                                    "placeholder": "Enter your contact number",
-                                                                    "applyMaskOn": "change",
-                                                                    "mask": false,
-                                                                    "tableView": false,
-                                                                    "delimiter": false,
-                                                                    "requireDecimal": false,
-                                                                    "inputFormat": "plain",
-                                                                    "truncateMultipleSpaces": false,
-                                                                    "key": "contact",
-                                                                    "type": "number",
-                                                                    "input": true
-                                                                },
-                                                                {
-                                                                    "label": "Contact type",
-                                                                    "widget": "html5",
-                                                                    "placeholder": "Select the type of contact you have provided",
-                                                                    "tableView": true,
-                                                                    "data": {
-                                                                        "values": [
-                                                                            {
-                                                                                "label": "Home",
-                                                                                "value": "home"
-                                                                            },
-                                                                            {
-                                                                                "label": "Office",
-                                                                                "value": "office"
-                                                                            }
-                                                                        ]
-                                                                    },
-                                                                    "key": "contactType",
-                                                                    "type": "select",
-                                                                    "input": true
-                                                                },
-                                                                {
-                                                                    "label": "Stutas",
-                                                                    "widget": "html5",
-                                                                    "placeholder": "Select one",
-                                                                    "tableView": true,
-                                                                    "data": {
-                                                                        "values": [
-                                                                            {
-                                                                                "label": "Online",
-                                                                                "value": "online"
-                                                                            },
-                                                                            {
-                                                                                "label": "offline",
-                                                                                "value": "offline"
-                                                                            }
-                                                                        ]
-                                                                    },
-                                                                    "key": "stutas",
-                                                                    "type": "select",
-                                                                    "input": true
-                                                                },
-                                                                {
-                                                                    "label": "Subject",
-                                                                    "placeholder": "Enter subject",
-                                                                    "applyMaskOn": "change",
-                                                                    "tableView": true,
-                                                                    "key": "subject",
-                                                                    "type": "textfield",
-                                                                    "input": true
-                                                                },
-                                                                {
-                                                                    "label": "Priority",
-                                                                    "widget": "html5",
-                                                                    "placeholder": "Select level",
-                                                                    "tableView": true,
-                                                                    "data": {
-                                                                        "values": [
-                                                                            {
-                                                                                "label": "High",
-                                                                                "value": "high"
-                                                                            },
-                                                                            {
-                                                                                "label": "Low",
-                                                                                "value": "low"
-                                                                            },
-                                                                            {
-                                                                                "label": "Medium",
-                                                                                "value": "medium"
-                                                                            }
-                                                                        ]
-                                                                    },
-                                                                    "key": "priority",
-                                                                    "type": "select",
-                                                                    "input": true
-                                                                },
-                                                                {
-                                                                    "label": "Impact",
-                                                                    "applyMaskOn": "change",
-                                                                    "tableView": true,
-                                                                    "key": "impact",
-                                                                    "type": "textfield",
-                                                                    "input": true
-                                                                },
-                                                                {
-                                                                    "label": "Impact Area",
-                                                                    "applyMaskOn": "change",
-                                                                    "tableView": true,
-                                                                    "key": "impactArea",
-                                                                    "type": "textfield",
-                                                                    "input": true
-                                                                },
-                                                                {
-                                                                    "label": "Urgency",
-                                                                    "applyMaskOn": "change",
-                                                                    "tableView": true,
-                                                                    "key": "urgency",
-                                                                    "type": "textfield",
-                                                                    "input": true
-                                                                },
-                                                                {
-                                                                    "label": "Status reasion",
-                                                                    "applyMaskOn": "change",
-                                                                    "tableView": true,
-                                                                    "key": "statusReasion",
-                                                                    "type": "textfield",
-                                                                    "input": true
-                                                                },
-                                                                {
-                                                                    "label": "Location",
-                                                                    "applyMaskOn": "change",
-                                                                    "tableView": true,
-                                                                    "key": "location",
-                                                                    "type": "textfield",
-                                                                    "input": true
-                                                                },
-                                                                {
-                                                                    "label": "Description",
-                                                                    "applyMaskOn": "change",
-                                                                    "autoExpand": false,
-                                                                    "tableView": true,
-                                                                    "key": "description",
-                                                                    "type": "textarea",
-                                                                    "input": true
-                                                                },
-                                                                {
-                                                                    "label": "Register",
+                                                                    "label": "Submit",
                                                                     "showValidations": false,
                                                                     "tableView": false,
-                                                                    "key": "submit1",
-                                                                    "type": "button",
-                                                                    "input": true,
-                                                                    "saveOnEnter": false
-                                                                },
-                                                                {
-                                                                    "label": "Cancel",
-                                                                    "showValidations": false,
-                                                                    "theme": "danger",
-                                                                    "leftIcon": "fa fa-remove",
-                                                                    "tableView": false,
-                                                                    "key": "cancel",
+                                                                    "key": "submit",
                                                                     "type": "button",
                                                                     "input": true,
                                                                     "saveOnEnter": false
                                                                 }
                                                             ]
-                                                        }} />
-                                                    {/* <Form form={{
-                                    display: 'form',
-                                    components: [
-                                        {
-                                            "label": "Category",
-                                            "widget": "html5",
-                                            "tableView": true,
-                                            "dataSrc": "url",
-                                            "data": {
-                                              "url": "http://localhost:8090",
-                                              "headers": [
-                                                {
-                                                  "key": "category",
-                                                  "value": "category"
-                                                }
-                                              ]
-                                            },
-                                            "key": "cat",
-                                            "type": "select",
-                                            "input": true,
-                                            "disableLimit": false,
-                                            "noRefreshOnScroll": false
-                                          }
-                                        ,
-                                    ]
-                                }} /> */}
-                                                    {/* <Form form={{
-                                    display: 'form',
-                                    components: [
-                                        {
-                                            "type": "number",
-                                            "key": "number",
-                                            "label": "Number",
-                                            "required": true
-                                        },
-                                        {
-                                            "type": "select",
-                                            "key": "category",
-                                            "label": "Category",
-                                            "placeholder": "Select your Category",
-                                            "required": true,
-                                            "options": [
-                                                { "label": "Sales", "value": "sales" },
-                                                { "label": "Support", "value": "support" },
-                                                { "label": "Marketing", "value": "marketing" }
-                                            ]
-                                        },
-                                        {
-                                            "type": "select",
-                                            "key": "subcategory",
-                                            "label": "Sub category",
-                                            "placeholder": "Select your Sub category",
-                                            "required": true,
-                                            "options": [
-                                                { "label": "Sales", "value": "sales" },
-                                                { "label": "Support", "value": "support" },
-                                                { "label": "Marketing", "value": "marketing" }
-                                            ]
-                                        },
-                                        {
-                                            "label": "Priority",
-                                            "widget": "html5",
-                                            "tableView": true,
-                                            "data": {
-                                                "values": [
-                                                    {
-                                                        "label": "High",
-                                                        "value": "high"
-                                                    },
-                                                    {
-                                                        "label": "Medium",
-                                                        "value": "medium"
-                                                    },
-                                                    {
-                                                        "label": "Low",
-                                                        "value": "low"
-                                                    }
-                                                ]
-                                            },
-                                            "key": "priority",
-                                            "type": "select",
-                                            "input": true
-                                        },
-                                        {
-                                            "type": "number",
-                                            "key": "contact",
-                                            "label": "Contact",
-                                            "required": true
-                                        },
-                                        {
-                                            "type": "textfield",
-                                            "key": "firstName",
-                                            "label": "First Name",
-                                            "placeholder": "Enter your first name",
-                                            "required": true
-                                        },
-                                        {
-                                            "label": "Email",
-                                            "tableView": true,
-                                            "key": "email",
-                                            "type": "email",
-                                            "input": true
-                                        },
-                                        {
-                                            "label": "Password",
-                                            "tableView": false,
-                                            "key": "password",
-                                            "type": "password",
-                                            "input": true,
-                                            "protected": true
-                                        },
-                                    ]
-                                }} /> */}
+                                                        }}
+                                                    />
                                                 </div>
                                             </div>
                                         </div>

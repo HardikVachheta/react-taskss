@@ -156,6 +156,13 @@ export const AdminSideNav = () => {
                     </Link>
                 </li>
 
+                <li className={`menu-item ${activeItem === 'CategoryList' ? 'active' : ''} `}>
+                    <Link to="/AdminDashboard/CategoryList" className="menu-link" onClick={() => handleMenuItemClick('CategoryList')}>
+                        <i className="menu-icon tf-icons bx bx-detail"></i>
+                        <div data-i18n="Basic">Category List</div>
+                    </Link>
+                </li>
+
             </ul>
 
         </Scrollbars>
